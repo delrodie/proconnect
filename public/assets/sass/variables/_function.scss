@@ -1,0 +1,17 @@
+// Définir la taille de la police de base
+$base-font-size: 18px;
+
+// Convertir les pixels en rem
+@function px-to-rem($pixels, $base: $base-font-size) {
+  @return $pixels / $base * 1rem;
+}
+
+// Utiliser la fonction dans les styles
+//.example {
+//  width: px-to-rem(600px);
+//}
+
+
+@function fz-to-rem($px) {
+  @return ($px / 18) + rem;
+}

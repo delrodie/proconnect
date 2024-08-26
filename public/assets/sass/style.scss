@@ -1,0 +1,36 @@
+@charset "UTF-8";
+/*****
+  Template Name: ProConnect
+  Description: Html 5 - Css 3 - Bootstrap 5 - Scss template
+  Author: Delrodie AMOIKON
+  Support: delrodieamoikon@gmail.com
+  Version: 1.0.0
+*****/
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200");
+
+
+/************************************
+        01. Reset 	 
+        02. Declarations 	 
+        03. Variables
+        04. Gloabl
+        05. Home Page
+        06. Others Pages
+        07. Footer
+************************************/
+
+@import './variables/reset';
+@import './variables/function';
+@import './mixins/mixin';
+@import './variables/declaration';
+@import './variables/variables';
+@import './variables/animation';
+@import './variables/btngotop';
+@import './components/global';
+@import './components/home';
+@import './components/page';
+@import './components/footer';
+

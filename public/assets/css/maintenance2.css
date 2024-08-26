@@ -1,0 +1,75 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css");
+:root {
+  --color-main: #1567b7;
+  --color-secondary: #6caff3;
+  --color-blue-very-light: #d4e4f8;
+  --backdrop-filter-blur: blur(5px); }
+
+body {
+  background-image: linear-gradient(to bottom right, var(--color-main), var(--color-secondary), var(--color-blue-very-light));
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; }
+
+.wrapper {
+  border: solid 1px red;
+  width: 80%;
+  height: 80%; }
+  @media (max-width: 800px) {
+    .wrapper {
+      width: 100%;
+      height: 100%; } }
+
+.maintenance {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center; }
+  .maintenance img {
+    width: 400px; }
+  .maintenance h1 {
+    font-size: 4rem;
+    display: flex;
+    align-items: center; }
+    .maintenance h1 .point1,
+    .maintenance h1 .point2,
+    .maintenance h1 .point3 {
+      font-size: 4.5rem;
+      margin: 0 5px; }
+    .maintenance h1 .point1 {
+      margin-left: 10px;
+      animation: sauter 2s linear infinite 1s forwards; }
+    .maintenance h1 .point2 {
+      animation: sauter 2s linear infinite 1.5s forwards; }
+    .maintenance h1 .point3 {
+      animation: sauter 2s linear infinite 2s forwards; }
+  @media (max-width: 525px) {
+    .maintenance img {
+      width: 250px; }
+    .maintenance h1 {
+      font-size: 2rem; } }
+  .maintenance p {
+    font-size: 1.5rem; }
+
+.illustration img {
+  position: absolute; }
+
+@keyframes sauter {
+  0% {
+    transform: translateY(0); }
+  50% {
+    transform: translateY(-10px);
+    color: var(--color-main); }
+  100% {
+    transform: translateY(0);
+    color: var(--color-blue-very-light); } }
+
+/*# sourceMappingURL=maintenance2.css.map */
