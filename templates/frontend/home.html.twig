@@ -3,5 +3,556 @@
 {% block title %}{{ parent() }} : Plateforme de mise en relation des professionnels {% endblock %}
 
 {% block body %}
-    Page d'accueil
+    <main>
+        <section class="action" id="actionCall">
+            <div class="container">
+                <div class="row g-0">
+                    <div class="col-lg-6 action-inner animation-hover py-20" data-aos="fade-up" data-aos-duration="2000">
+                        <div class="row">
+                            <div class="col-lg-8 action-inner__content pr-5">
+                                <h5 class="h5 action-inner__content-title py-10">Pour les demandeurs</h5>
+                                <div class="action-inner__content-text pb-10">
+                                    <p>
+                                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla, cupiditate est ducimus, quo aliquid nihil vitae laborum ipsum similique amet fuga, quisquam neque sint. Ullam asperiores ut autem dolorum ipsam.
+                                    </p>
+                                </div>
+                                <div class="d-grid gap-2">
+                                    <a href="#" class="btn btn-main btn-rounded py-5">Publiez des offres gratuitement</a>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-4 action-inner__illustration">
+                                <img src="{{ absolute_url(asset('img/all/employeur.png')) }}" alt="" class="img-fluid">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 action-inner animation-hover py-20 pl-5" data-aos="fade-up" data-aos-duration="3000">
+                        <div class="row">
+                            <div class="col-lg-8 action-inner__content">
+                                <h5 class="h5 action-inner__content-title py-10">Pour les prestataires</h5>
+                                <div class="action-inner__content-text pb-10">
+                                    <p>
+                                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Enim culpa repudiandae minima alias itaque nobis consectetur quasi cum neque quo nam consequuntur repellendus libero velit, adipisci in, aliquid, impedit.
+                                    </p>
+                                </div>
+                                <div class="d-grid gap-2">
+                                    <a href="#" class="btn btn-main btn-rounded py-5">Postulez aux offres</a>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-4 action-inner__illustration">
+                                <img src="{{ absolute_url(asset('img/all/3d-worker.png')) }}" alt="" class="img-fluid">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="categories" id="categories">
+            <div class="container my-50" data-aos="fade-up">
+                <div class="row categories-head">
+                    <div class="col-md-6 col-xl-7 categories-head__title">
+                        <h4 class="h4 ls-minus-1">Parcourir les prestataires par catégorie</h4>
+                    </div>
+                    <div class="col-md-6 col-xl-5 categories-head__all-link">
+                        <a href="#" class="h6">Toutes les categories</a>
+                    </div>
+                </div>
+                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-0 my-5 categories-items">
+
+                    <div class="col categories-items__content">
+                        <a href="#">
+                            <div class="card h-100 animation-hover">
+                                <div class="card-head">
+                                    <i class="bi bi-boxes"></i>
+                                </div>
+                                <div class="card-body">
+                                    <h6 class="card-title h6">Immobiler</h6>
+                                </div>
+                                <div class="card-label fz-20">
+                                    8 prestataires
+                                </div>
+                                <div class="card-text">
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam repellendus aut, voluptatum, vel deleniti aliquam illum laboriosam a nobis maiores placeat fugiat maxime atque iusto officia et ullam officiis illo?
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Category item-->
+
+                    <!-- Category item-->
+                    <div class="col categories-items__content">
+                        <a href="#">
+                            <div class="card h-100 animation-hover">
+                                <div class="card-head">
+                                    <i class="bi bi-boxes"></i>
+                                </div>
+                                <div class="card-body">
+                                    <h6 class="card-title h6">Comptabilité</h6>
+                                </div>
+                                <div class="card-label fz-20">
+                                    2 prestataires
+                                </div>
+                                <div class="card-text">
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam repellendus aut, voluptatum, vel deleniti aliquam illum laboriosam a nobis maiores placeat fugiat maxime atque iusto officia et ullam officiis illo?
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Category item-->
+
+                    <!-- Category item-->
+                    <div class="col categories-items__content">
+                        <a href="#">
+                            <div class="card h-100 animation-hover">
+                                <div class="card-head">
+                                    <i class="bi bi-boxes"></i>
+                                </div>
+                                <div class="card-body">
+                                    <h6 class="card-title h6">Marketing digital</h6>
+                                </div>
+                                <div class="card-label fz-20">
+                                    15 prestataires
+                                </div>
+                                <div class="card-text">
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam repellendus aut, voluptatum, vel deleniti aliquam illum laboriosam a nobis maiores placeat fugiat maxime atque iusto officia et ullam officiis illo?
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Category item-->
+
+                    <!-- Category item-->
+                    <div class="col categories-items__content">
+                        <a href="#">
+                            <div class="card h-100 animation-hover">
+                                <div class="card-head">
+                                    <i class="bi bi-boxes"></i>
+                                </div>
+                                <div class="card-body">
+                                    <h6 class="card-title h6">Design graphique</h6>
+                                </div>
+                                <div class="card-label fz-20">
+                                    25 prestataires
+                                </div>
+                                <div class="card-text">
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam repellendus aut, voluptatum, vel deleniti aliquam illum laboriosam a nobis maiores placeat fugiat maxime atque iusto officia et ullam officiis illo?
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Category item-->
+
+                    <!-- Category item-->
+                    <div class="col categories-items__content">
+                        <a href="#">
+                            <div class="card h-100 animation-hover">
+                                <div class="card-head">
+                                    <i class="bi bi-boxes"></i>
+                                </div>
+                                <div class="card-body">
+                                    <h6 class="card-title h6">Photographie et vidéographie</h6>
+                                </div>
+                                <div class="card-label fz-20">
+                                    7 prestataires
+                                </div>
+                                <div class="card-text">
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam repellendus aut, voluptatum, vel deleniti aliquam illum laboriosam a nobis maiores placeat fugiat maxime atque iusto officia et ullam officiis illo?
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Category item-->
+
+                    <!-- Category item-->
+                    <div class="col categories-items__content">
+                        <a href="#">
+                            <div class="card h-100 animation-hover">
+                                <div class="card-head">
+                                    <i class="bi bi-boxes"></i>
+                                </div>
+                                <div class="card-body">
+                                    <h6 class="card-title h6">Musique</h6>
+                                </div>
+                                <div class="card-label fz-20">
+                                    5 prestataires
+                                </div>
+                                <div class="card-text">
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam repellendus aut, voluptatum, vel deleniti aliquam illum laboriosam a nobis maiores placeat fugiat maxime atque iusto officia et ullam officiis illo?
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Category item-->
+
+                    <!-- Category item-->
+                    <div class="col categories-items__content">
+                        <a href="#">
+                            <div class="card h-100 animation-hover">
+                                <div class="card-head">
+                                    <i class="bi bi-boxes"></i>
+                                </div>
+                                <div class="card-body">
+                                    <h6 class="card-title h6">Décoration intérieure</h6>
+                                </div>
+                                <div class="card-label fz-20">
+                                    1 prestataires
+                                </div>
+                                <div class="card-text">
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam repellendus aut, voluptatum, vel deleniti aliquam illum laboriosam a nobis maiores placeat fugiat maxime atque iusto officia et ullam officiis illo?
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Category item-->
+
+                    <!-- Category item-->
+                    <div class="col categories-items__content">
+                        <a href="#">
+                            <div class="card h-100 animation-hover">
+                                <div class="card-head">
+                                    <i class="bi bi-boxes"></i>
+                                </div>
+                                <div class="card-body">
+                                    <h6 class="card-title h6">Plomberie</h6>
+                                </div>
+                                <div class="card-label fz-20">
+                                    8 prestataires
+                                </div>
+                                <div class="card-text">
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam repellendus aut, voluptatum, vel deleniti aliquam illum laboriosam a nobis maiores placeat fugiat maxime atque iusto officia et ullam officiis illo?
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Category item-->
+
+                </div>
+            </div>
+        </section>
+
+        <section class="mobile-app" id="mobileApp">
+            <div class="container py-15">
+                <div class="row mobile-app-inner">
+                    <div class="col-md-4 col-lg-5 mobile-app-inner__illustration">
+                        <img src="{{ absolute_url(asset('img/all/mobile.png')) }}" alt="" class="img-fluid animation-scrollTop">
+                    </div>
+                    <div class="col-md-8 col-lg-7 mobile-app-inner__content">
+                        <h4 class="h4 title ls-minus-1 pb-10">Téléchargez notre application mobile</h4>
+                        <div class="text">
+                            <p>
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sit minus reprehenderit debitis enim, totam quod ad ducimus. Debitis fuga quo perspiciatis vitae aspernatur! Iusto voluptatibus, fuga quis suscipit blanditiis delectus?
+                            </p>
+                        </div>
+                        <div class="btn-download-group pt-20">
+                            <a href="#" class="btn btn-black btn-download px-7">
+                                <div class="btn-download__icon fz-36 pr-3"><i class="bi bi-apple"></i></div>
+                                <div class="btn-download__content">
+                                    <div class="btn-download__content-text fw-500 fz-12">Téléchargez sur</div>
+                                    <div class="btn-download__content-store fw-600 fz-16">Apple Store</div>
+                                </div>
+                            </a>
+                            <a href="#" class="btn btn-black btn-download px-7">
+                                <div class="btn-download__icon fz-36 pr-3"><i class="bi bi-google-play"></i></div>
+                                <div class="btn-download__content">
+                                    <div class="btn-download__content-text fw-500 fz-12">Télécharger sur </div>
+                                    <div class="btn-download__content-store fw-600 fz-16">Google Play</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /Section Download mobile Application -->
+        <!-- Section latest projects -->
+        <section class="projects" id="projects">
+            <div class="container my-50">
+                <div class="row projects-head">
+                    <div class="col-md-6 col-xl-7 projects-head__title">
+                        <h4 class="h4 ls-minus-1">Projets ouverts aux appels d'offre</h4>
+                    </div>
+                    <div class="col-md-6 col-xl-5 projects-head__all-link">
+                        <a href="#" class="h6">Tous les project</a>
+                    </div>
+                </div>
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 my-5 projects-items">
+
+                    <!-- Projet -->
+                    <div class="col projects-items__content">
+                        <a href="#">
+                            <div class="card h-100">
+                                <div class="card-body">
+
+                                    <div class="projects-items__content-author">
+                                        <div class="projects-items__content-avatar bg-main-gradient">
+                                            <img src="{{ absolute_url(asset('img/all/3d-worker.png')) }}" alt="" class="img-fluid">
+                                        </div>
+                                        <div class="projects-items__content-infos pl-3">
+                                            <span class="badge bg-main">Catégorie</span>
+                                            <h6 class="h6">Menuisier</h6>
+                                            <div class="reference fz-16">
+                                                Par <span class="author fw-500">Delrodie</span> le2024/07/31 à 13:04:00
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="projects-items__content-details mt-2">
+                                        <div class="location"> <i class="bi bi-geo-alt"></i> Abidjan Riviera III </div>
+                                    </div>
+                                    <div class="projects-items__content-countdown py-5">
+                                        <span class="fz-22 fw-500 px-2">2</span> jours restants pour postuler.
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Projet-->
+
+                    <!-- Projet -->
+                    <div class="col projects-items__content">
+                        <a href="#">
+                            <div class="card h-100">
+                                <div class="card-body">
+
+                                    <div class="projects-items__content-author">
+                                        <div class="projects-items__content-avatar bg-main-gradient">
+                                            <img src="./assets/img/all/3d-render-african-american-worker-woman-with-helmet.png" alt="" class="img-fluid">
+                                        </div>
+                                        <div class="projects-items__content-infos pl-3">
+                                            <span class="badge bg-main">Catégorie</span>
+                                            <h6 class="h6">Menuisier</h6>
+                                            <div class="reference fz-16">
+                                                Par <span class="author fw-500">Delrodie</span> le2024/07/31 à 13:04:00
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="projects-items__content-details mt-2">
+                                        <div class="location"> <i class="bi bi-geo-alt"></i> Abidjan Riviera III </div>
+                                    </div>
+                                    <div class="projects-items__content-countdown py-5">
+                                        <span class="fz-22 fw-500 px-2">2</span> jours restants pour postuler.
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Projet-->
+
+                    <!-- Projet -->
+                    <div class="col projects-items__content">
+                        <a href="_connexion_projectdetails.html">
+                            <div class="card h-100">
+                                <div class="card-body">
+
+                                    <div class="projects-items__content-author">
+                                        <div class="projects-items__content-avatar bg-main-gradient">
+                                            <img src="./assets/img/all/3d-render-african-american-worker-woman-with-helmet.png" alt="" class="img-fluid">
+                                        </div>
+                                        <div class="projects-items__content-infos pl-3">
+                                            <span class="badge bg-main">Catégorie</span>
+                                            <h6 class="h6">Menuisier</h6>
+                                            <div class="reference fz-16">
+                                                Par <span class="author fw-500">Delrodie</span> le2024/07/31 à 13:04:00
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="projects-items__content-details mt-2">
+                                        <div class="location"> <i class="bi bi-geo-alt"></i> Abidjan Riviera III </div>
+                                    </div>
+                                    <div class="projects-items__content-countdown py-5">
+                                        <span class="fz-22 fw-500 px-2">2</span> jours restants pour postuler.
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Projet-->
+
+                    <!-- Projet -->
+                    <div class="col projects-items__content">
+                        <a href="_connexion_projectdetails.html">
+                            <div class="card h-100">
+                                <div class="card-body">
+
+                                    <div class="projects-items__content-author">
+                                        <div class="projects-items__content-avatar bg-main-gradient">
+                                            <img src="./assets/img/all/3d-render-african-american-worker-woman-with-helmet.png" alt="" class="img-fluid">
+                                        </div>
+                                        <div class="projects-items__content-infos pl-3">
+                                            <span class="badge bg-main">Catégorie</span>
+                                            <h6 class="h6">Menuisier</h6>
+                                            <div class="reference fz-16">
+                                                Par <span class="author fw-500">Delrodie</span> le2024/07/31 à 13:04:00
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="projects-items__content-details mt-2">
+                                        <div class="location"> <i class="bi bi-geo-alt"></i> Abidjan Riviera III </div>
+                                    </div>
+                                    <div class="projects-items__content-countdown py-5">
+                                        <span class="fz-22 fw-500 px-2">2</span> jours restants pour postuler.
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Projet-->
+
+                    <!-- Projet -->
+                    <div class="col projects-items__content">
+                        <a href="_connexion_projectdetails.html">
+                            <div class="card h-100">
+                                <div class="card-body">
+
+                                    <div class="projects-items__content-author">
+                                        <div class="projects-items__content-avatar bg-main-gradient">
+                                            <img src="./assets/img/all/3d-render-african-american-worker-woman-with-helmet.png" alt="" class="img-fluid">
+                                        </div>
+                                        <div class="projects-items__content-infos pl-3">
+                                            <span class="badge bg-main">Catégorie</span>
+                                            <h6 class="h6">Menuisier</h6>
+                                            <div class="reference fz-16">
+                                                Par <span class="author fw-500">Delrodie</span> le2024/07/31 à 13:04:00
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="projects-items__content-details mt-2">
+                                        <div class="location"> <i class="bi bi-geo-alt"></i> Abidjan Riviera III </div>
+                                    </div>
+                                    <div class="projects-items__content-countdown py-5">
+                                        <span class="fz-22 fw-500 px-2">2</span> jours restants pour postuler.
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Projet-->
+
+                    <!-- Projet -->
+                    <div class="col projects-items__content">
+                        <a href="_connexion_projectdetails.html">
+                            <div class="card h-100">
+                                <div class="card-body">
+
+                                    <div class="projects-items__content-author">
+                                        <div class="projects-items__content-avatar bg-main-gradient">
+                                            <img src="./assets/img/all/3d-render-african-american-worker-woman-with-helmet.png" alt="" class="img-fluid">
+                                        </div>
+                                        <div class="projects-items__content-infos pl-3">
+                                            <span class="badge bg-main">Catégorie</span>
+                                            <h6 class="h6">Menuisier</h6>
+                                            <div class="reference fz-16">
+                                                Par <span class="author fw-500">Delrodie</span> le2024/07/31 à 13:04:00
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="projects-items__content-details mt-2">
+                                        <div class="location"> <i class="bi bi-geo-alt"></i> Abidjan Riviera III </div>
+                                    </div>
+                                    <div class="projects-items__content-countdown py-5">
+                                        <span class="fz-22 fw-500 px-2">2</span> jours restants pour postuler.
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Projet-->
+
+
+                </div>
+            </div>
+        </section>
+        <!-- /Section latest projects -->
+    </main>
+{% endblock %}
+
+{% block breadcrumb %}
+    <section class="slide" id="slide">
+        <div class="container slide-inner">
+            <div class="row">
+                <div class="col-lg-7 col-xl-6 slide-inner__content py-10" data-aos="fade-up">
+                    <h1 class="h1 fw-600">Vous avez du talent? Rencontrez l'opportunité.</h1>
+                    <div class="slide-inner__content-text fz-20 py-10">
+                        <p>
+                            Curabitur fringilla maximus ex in laoreet. Praesent cursus semper nunc eu condimentum.
+                            Suspendisse at dui eget turpis pulvinar sodales fermentum pharetra dolor. Mauris molestie neque vel massa laoreet dictum.
+                            Ut id ex non nisi tincidunt convallis eget id nibh. Mauris non luctus velit. Sed accumsan, libero sed convallis porta,
+                            turpis magna ultricies enim, ut rhoncus risus arcu a velit
+                        </p>
+                    </div>
+
+                    <div class="input-group slide-inner__content-input py-20">
+                        <input type="text" class="form-control form-control-lg input-rounded" placeholder="Qui cherchez-vous?">
+                        <input type="text" class="form-control form-control-lg" placeholder="Quelle est votre localité?">
+                        <button class="btn btn-main btn-rounded px-10"><i class="bi bi-search"></i> Recherche</button>
+                    </div>
+
+                    <div class="slide-inner__content-partners my-10">
+                        <h5 class="h5">Ils nous font confiance:</h5>
+                        <div class="row row-cols-5 my-3 list" data-cues="bounceInLeft">
+                            <div class="col"><img src="{{ absolute_url(asset('assets/img/partner/01.png')) }}" alt="" class="img-fluid" loading="lazy"></div>
+                            <div class="col"><img src="{{ absolute_url(asset('assets/img/partner/02.png')) }}" alt="" class="img-fluid" loading="lazy"></div>
+                            <div class="col"><img src="{{ absolute_url(asset('assets/img/partner/03.png')) }}" alt="" class="img-fluid" loading="lazy"></div>
+                            <div class="col"><img src="{{ absolute_url(asset('assets/img/partner/04.png')) }}" alt="" class="img-fluid" loading="lazy"></div>
+                            <div class="col"><img src="{{ absolute_url(asset('assets/img/partner/05.png')) }}" alt="" class="img-fluid" loading="lazy"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-xl-6 slide-inner__illustration" data-aos="zoom-in">
+
+                    <div class="atropos my-atropos">
+                        <div class="atropos-scale">
+                            <div class="atropos-rotate">
+                                <div class="atropos-inner">
+                                    <img src="{{ absolute_url(asset('img/all/Firefly_Under_a_transparent_background__generate_an_image_of_a_black_construction_worker_looking_at.png')) }}" alt="" class="img-fluid" loading="lazy">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="statistiques">
+
+                        <div class="statistiques-item animation-hover animation-scrollTop py-5">
+                            <div class="col-2 statistiques-item__icon fz-34"><i class="bi bi-tools"></i></div>
+                            <div class="col-8 statistiques-item__value">
+                                <div class="row">
+                                    <div class="col-12 number fz-24 fw-600">+1.3K</div>
+                                    <div class="col-12 label fz-20">Prestataires</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="statistiques-item animation-hover animation-scrollBottom py-5">
+                            <div class="col-2 statistiques-item__icon fz-34"><i class="bi bi-suitcase-lg"></i></div>
+                            <div class="col-8 statistiques-item__value">
+                                <div class="row">
+                                    <div class="col-12 number fz-24 fw-600">+175 K</div>
+                                    <div class="col-12 label fz-20">Projets postés</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="statistiques-item animation-hover animation-scrollLeft py-5">
+                            <div class="col-2 statistiques-item__icon fz-34"><i class="bi bi-tools"></i></div>
+                            <div class="col-8 statistiques-item__value">
+                                <div class="row">
+                                    <div class="col-12 number fz-24 fw-600">+2.7 K</div>
+                                    <div class="col-12 label fz-20">Clients statisfaits</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}

@@ -1,0 +1,40 @@
+.btn-gotop{
+    display: none;
+    position: fixed;
+    width: 50px;
+    height: 50px;
+    background: var(--color-main);
+    bottom: 50px;
+    right: 50px;
+    text-align: center;
+    line-height: 50px;
+    color: var(--color-blue-very-light);
+    border-radius: 50px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    //transition: .6s ease-out;
+    @include prefix(transition, opacity .6s ease, webkit o);
+    @include prefix(animation, beating 2s ease-in-out infinite, webkit o);
+
+    .bi{
+        font-weight: bold;
+    }
+
+    &:hover{
+        background: var(--color-main-gradient);
+    }
+
+    @media (max-width:425px) {
+        bottom: 20px;
+        right: 20px;
+    }
+
+    
+}
+
+@keyframes beating {
+    0%{ transform: scale(1);}
+    50% {transform: scale(1.1);}
+    100% {transform: scale(1);}
+}

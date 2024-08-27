@@ -16,4 +16,10 @@ class MaintenanceController extends AbstractController
     {
         return $this->render('frontend/maintenance.html.twig');
     }
+
+    #[Route('/home', name: 'app_maintenance_home')]
+    public function home(): Response
+    {
+        return $this->render('frontend/home.html.twig');
+    }
 }

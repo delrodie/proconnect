@@ -21,8 +21,13 @@
 
 ###> symfony/asset-mapper ###
 # /public/assets/
-/assets/vendor/
+/assets/vendor/@hotwired
+/assets/vendor/@popperjs
+/assets/vendor/bootstrap
+/assets/vendor/installed.php
+#/assets/vendor/scrollcue
 ###< symfony/asset-mapper ###
 
 .idea
-Proconnect225
+/assets/.sass-cache
+#Proconnect225

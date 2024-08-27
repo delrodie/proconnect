@@ -29,13 +29,164 @@
         {% endblock %}
 
         {% block stylesheets %}
-        {% endblock %}
-
-        {% block javascripts %}
-{#            {% block importmap %}{{ importmap('app') }}{% endblock %}#}
+{#            <link rel="stylesheet" href="{{ absolute_url(asset('vendor/scrollcue/scrollCue.css')) }}">#}
+            <link rel="stylesheet" href="{{ absolute_url(asset('styles/style.css')) }}">
         {% endblock %}
     </head>
     <body>
+
+    <div class="wrapper">
+        <header>
+            <nav class="navbar navbar-expand-lg sticky-top">
+                <div class="container">
+                    <a class="navbar-brand" href="{{ absolute_url(path('app_home_index')) }}">
+                        <img src="{{ absolute_url(asset('img/logo-white.png')) }}" alt="Logo" class="img-fluid">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                        <div class="offcanvas-header">
+                            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+                                <img src="{{ absolute_url(asset('img/logo-white.png')) }}" alt="Logo" class="img-fluid">
+                            </h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        </div>
+                        <div class="offcanvas-body">
+                            <ul class="navbar-nav">
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="{{ absolute_url(path('app_home_index')) }}">Accueil</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Projets</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="p#">Prestataires</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Contact</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link"><i class="bi bi-search"></i></a>
+                                </li>
+                            </ul>
+                            <div class="navbar-account">
+                                <a href="#" class="px-3"><i class="bi bi-person-fill-lock"></i> Inscription</a>
+                                <a href="{{ absolute_url(path('app_home_index')) }}" class="connexion px-3"><i class="bi bi-lock-fill"></i> Connexion</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            {% block breadcrumb %}{% endblock %}
+        </header>
         {% block body %}{% endblock %}
+        <footer>
+            <div class="container pt-80">
+                <div class="row">
+                    <div class="col-lg-7">
+                        <h4 class="h4">Abonnez-vous à notre newsletter</h4>
+                        <p>
+                            Nous vous tiendrons au courant des meilleures nouvelles offres d’emploi.
+                        </p>
+                        <div class="input-group">
+                            <input type="text" class="form-control form-control-lg btn-rounded" placeholder="Entrez votre adresse email">
+                            <button class="btn btn-main btn-rounded fw-500 fz-24">S'inscrire</button>
+                        </div>
+
+                        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-2 mt-5">
+                            <div class="col">
+                                <h6 class="h6">Presentation</h6>
+                                <nav class="nav flex-column">
+                                    <a class="nav-link" href="#">Qui sommes-nous?</a>
+                                    <a class="nav-link" href="#">Devenir Demandeur</a>
+                                    <a class="nav-link" href="#">Devenir prestataire</a>
+                                    <a class="nav-link" href="#">Budgetisation</a>
+                                    <a class="nav-link" href="#">Services</a>
+                                </nav>
+                            </div>
+                            <div class="col">
+                                <h6 class="h6">Domaine</h6>
+                                <nav class="nav flex-column">
+                                    <a class="nav-link" href="#">Domaine 1</a>
+                                    <a class="nav-link" href="#">Domaine 2</a>
+                                    <a class="nav-link" href="#">Domaine 3</a>
+                                    <a class="nav-link" href="#">Domaine 4</a>
+                                    <a class="nav-link" href="#">Domaine 5</a>
+                                </nav>
+                            </div>
+                            <div class="col">
+                                <h6 class="h6">Support</h6>
+                                <nav class="nav flex-column">
+                                    <a class="nav-link" href="#">Centre d'aide</a>
+                                    <a class="nav-link" href="#">FAQ</a>
+                                    <a class="nav-link" href="#">Condition d'utilisation</a>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5 px-lg-5">
+                        <img src="{{ absolute_url(asset('img/logo-white.png')) }}" alt="" class="img-fluid">
+
+                        <div class="row row-cols-1 row-cols-md-2 g-4">
+                            <div class="col support">
+                                <div class="label">Service client</div>
+                                <h6 class="h6"><a href="tel:+1 00 00 00 00 00">+1 00 00 00 00 00</a></h5>
+                            </div>
+                            <div class="col help">
+                                <div class="label">Bésoin d'aide</div>
+                                <h6 class="h6"><a href="mailto:help@linkingpro.com">aide@proconnect.com</a></h5>
+                            </div>
+                        </div>
+
+                        <h6 class="h6 mt-3">Resté connecté</h6>
+                        <div class="btn-download-group">
+                            <a href="#" class="btn btn-black btn-download px-7">
+                                <div class="btn-download__icon fz-36 pr-3"><i class="bi bi-apple"></i></div>
+                                <div class="btn-download__content">
+                                    <div class="btn-download__content-text fw-500 fz-12">Téléchargez sur</div>
+                                    <div class="btn-download__content-store fw-600 fz-16">Apple Store</div>
+                                </div>
+                            </a>
+                            <a href="#" class="btn btn-black btn-download px-7">
+                                <div class="btn-download__icon fz-36 pr-3"><i class="bi bi-google-play"></i></div>
+                                <div class="btn-download__content">
+                                    <div class="btn-download__content-text fw-500 fz-12">Téléchargez sur</div>
+                                    <div class="btn-download__content-store fw-600 fz-16">Google Play</div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <h6 class="h6 mt-5">Follow Us</h6>
+                        <div class="social-icons">
+                            <a href="https://facebook.com/" target="_blank"><i class="bi bi-facebook"></i></a>
+                            <a href="https://twitter.com/" target="_blank"><i class="bi bi-twitter-x"></i></a>
+                            <a href="https://instagram.com/" target="_blank"><i class="bi bi-instagram"></i></a>
+                            <a href="https://www.linkedin.com/" target="_blank"><i class="bi bi-linkedin"></i></a>
+                            <a href="https://www.tiktok.com/" target="_blank"><i class="bi bi-whatsapp"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="copyright text-center fz-16">
+                    &COPY; Copyright 2024 <a href="{{ absolute_url(path('app_home_index')) }}" target="_blank" rel="author">Pro Connect</a> | Tous droits réservés.
+                </div>
+            </div>
+        </footer>
+        <div class="btn-gotop">
+            <i class="bi bi-arrow-up"></i>
+        </div>
+    </div>
+
+
+
+        {% block javascripts %}
+            {#            {% block importmap %}{{ importmap('app') }}{% endblock %}#}
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+            <script src="{{ absolute_url(asset('vendor/atropos/atropos.min.js')) }}"></script>
+            <script src="{{ absolute_url(asset('vendor/scrollcue/scrollCue.min.js')) }}"></script>
+            <script src="{{ absolute_url(asset('js/app.js')) }}"></script>
+        {% endblock %}
     </body>
 </html>
