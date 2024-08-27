@@ -35,4 +35,7 @@ return [
         'version' => '5.3.3',
         'type' => 'css',
     ],
+    'aos' => [
+        'version' => '2.3.4',
+    ],
 ];

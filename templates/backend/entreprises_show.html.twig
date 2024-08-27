@@ -1,0 +1,148 @@
+{% extends 'backend_layout.html.twig' %}
+
+{% block title %}{{ parent() }} Entreprise, {{ entreprise.raisonSociale }}{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid">
+        <div class="card bg-light-info shadow-none position-relative overflow-hidden">
+            <div class="card-body px-4 py-3">
+                <div class="row align-items-center">
+                    <div class="col-9">
+                        <h4 class="fw-semibold mb-8">Gestion des entreprises</h4>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a class="text-muted" href="#">Modules</a></li>
+                                <li class="breadcrumb-item"><a class="text-muted" href="#">Pages</a></li>
+                                <li class="breadcrumb-item" aria-current="page">Adhesion</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="col-3">
+                        <div class="text-center mb-n5">
+                            <span class="head-icon"><i class="ti-package"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section id="details">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col"><h5 class="mb-2 fw-semibold fs-4">Détails de l'entreprise {{ entreprise.raisonSociale }}</h5></div>
+
+                            </div>
+
+                        </div>
+                        <div class="card-body">
+                            <div class="row mt-5">
+                                <div class="col-md-8">
+                                    <div class="row mb-3">
+                                        <div class="col-md-3">Type</div>
+                                        <div class="col-md-9">: <strong>{{ entreprise.type }}</strong></div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-3">Raison sociale</div>
+                                        <div class="col-md-9">: <strong>{{ entreprise.raisonSociale }}</strong></div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-md-3">Siège</div>
+                                        <div class="col-md-9">: <strong>{{ entreprise.siege }}</strong></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <img src="{{ absolute_url(asset('/upload/entreprise/' ~ entreprise.logo)) }}" alt="{{ entreprise.raisonSociale }}" class="img-fluid">
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-2">Adresse</div>
+                                <div class="col-md-10">: <strong>{{ entreprise.adresse }}</strong></div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-2">Email</div>
+                                <div class="col-md-10">: <strong>{{ entreprise.email }}</strong></div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-2">Telephone</div>
+                                <div class="col-md-10">: <strong>{{ entreprise.telephone }}</strong></div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-2">Année</div>
+                                <div class="col-md-10">: <strong>{{ entreprise.annee }}</strong></div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-2">Domaine</div>
+                                <div class="col-md-10">: <strong>{{ entreprise.domaine }}</strong></div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-2">RC</div>
+                                <div class="col-md-10">: <strong>{{ entreprise.rc }}</strong></div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-md-2">CC</div>
+                                <div class="col-md-10">: <strong>{{ entreprise.cc }}</strong></div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="text-end">
+{#                                <a href="#" id="print-details-btn" class="btn btn-primary">Imprimer la section détails</a>#}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        /* Styles pour la mise en page lors de l'impression */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #details, #details * {
+                visibility: visible;
+            }
+            #details {
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+        }
+    </style>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        document.getElementById('print-details-btn').addEventListener('click', function() {
+            // Sélectionnez la section details à imprimer
+            var detailsSection = document.getElementById('details');
+
+            // Créez un clone de la section à imprimer
+            var clone = detailsSection.cloneNode(true);
+
+            // Créez un élément div temporaire pour contenir le clone
+            var tempDiv = document.createElement('div');
+            tempDiv.appendChild(clone);
+
+            // Créez une nouvelle fenêtre pour l'impression
+            var printWindow = window.open('', '_blank');
+
+            // Ajoutez le contenu cloné à la nouvelle fenêtre
+            printWindow.document.body.innerHTML = tempDiv.innerHTML;
+
+            // Imprimez la fenêtre
+            printWindow.print();
+
+            // Fermez la fenêtre d'impression
+            printWindow.close();
+        });
+    </script>
+{% endblock %}
