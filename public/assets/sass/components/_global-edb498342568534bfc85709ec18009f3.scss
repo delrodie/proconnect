@@ -1,0 +1,254 @@
+
+/************************************/
+/**** 	   04. Global   		 ****/
+/************************************/
+
+
+body{
+    font-size: var(--font-size);
+    font-family: var(--font-family-main);
+    background: var(--color-blue-very-light);
+    color: var(--color-dark-gray);
+    line-height: px-to-rem(40px);
+
+    @media (max-width: 991px) {
+        font-size: 16px ;
+    }
+}
+
+a{
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+.navbar{
+    background-color: var(--color-main);
+    color: var(--color-white);
+
+    a{
+        color: var(--color-blue-very-light);
+        font-weight: 500;
+        white-space: nowrap;
+
+        &.nav-link{
+            &:hover{
+                color: var(--color-light-gray);
+            }
+
+            &.active{
+                color: var(--color-light-gray);
+            }
+        }
+    }
+
+    img{
+        max-width: 150px;
+    }
+
+    &-nav{
+        @include display-flex(center, justify-content);
+        width: 80%;
+    }
+
+    &-account{
+        @include display-flex(center, justify-content, align-items);
+
+        a{
+            text-decoration: none;
+
+            &:hover{
+                color: var(--color-light-gray);
+            }
+                
+            &:first-child{
+                border-right: solid 2px var(--color-blue-very-light);
+            }
+            
+            
+        }
+
+        @media (max-width: 991px) {
+            @include display-flex (start, justify-content, align-content);
+            margin-top: 30px;
+        }
+    }
+    
+
+    li{
+        padding-left: 10px;
+        padding-right: 10px;
+
+        @media (max-width: 991px) {
+            padding-top: 3px;
+            padding-bottom: 3px;
+        }
+    }
+
+    .dropdown{
+        &:hover{
+            .dropdown-menu{
+                display: block;
+                background: var(--color-main);
+                border-radius: 0;
+                border: 0;
+
+                li{
+                    padding-top: 3px;
+                    padding-bottom: 3px;
+                }
+            }
+        }
+    }
+
+    .offcanvas{
+        background: var(--color-main);
+    }
+}
+
+.btn{
+    @include prefix(transition, all 500ms ease-in-out, webkit o);
+    position: relative;
+    overflow: hidden;
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      //background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.3));
+      background: var(--color-main-gradient);
+      //transform: translateX(-100%);
+      @include prefix(transform, translateX(-100%), webkit ms);
+      //transition: transform 1s ease-in-out;
+      @include prefix (transition, transform 1s ease-in-out, webkit o);
+    }
+
+    &:hover:after {
+      //transform: translateX(100%);
+      @include prefix(transform, translateX(100%), webkit ms);
+    }
+
+    /* Main button */
+    &-main{
+        background: var(--color-main);
+        color: var(--color-blue-very-light);
+
+        &:hover{
+            background: var(--color-dark-gray);
+            color: var(--color-blue-very-light);
+        }
+    }
+
+    /* Rounded button */
+    &-rounded{
+        border-radius: 50px;
+    }
+
+    &-black{
+        background: var(--color-black);
+        color: var(--color-blue-very-light);
+    }
+
+    /* Border 0 */
+    &-no-rounded{
+        border-radius: 0;
+    }
+
+    &-outline-main{
+        background: transparent;
+        border-color: var(--color-main);
+    }
+}
+
+.input{
+    &-rounded{
+        border-radius: 50px;
+    }
+}
+
+
+.btn-download{
+    &-group{
+        @include display-flex(center, align-items);
+
+        a{
+            &:first-child{
+                margin-right: 15px;
+            }
+
+            &:hover{
+                border: solid 1px var(--color-black);
+            }
+        }
+        
+    }
+
+    @include display-flex(center, align-items);
+
+}
+
+.bg-main{
+    background: var(--color-main);
+}
+
+.bg-main-gradient{
+    background: var(--color-main-gradient);
+}
+
+.bg-light-gray{
+    background: var(--color-light-gray);
+    //color: var(--color-black);
+}
+
+.marketplace{
+    margin: 50px auto;
+    @include display-flex(center, align-content, justify-content);
+
+    .pagination{
+
+        .page-link{
+            border: solid 1px var(--color-light-gray);
+            border-radius: 50px;
+            width: 50px;
+            height: 50px;
+            @include display-flex(center, align-items, justify-content, align-content);
+            margin: 0 5px;
+            color: var(--color-main);
+
+            &.active{
+                background: var(--color-main);
+                color: var(--color-blue-very-light);
+                border: solid 1px var(--color-main);
+                transform: scale(1.2);
+
+                &:hover{
+                    @include prefix(transform, scale(1.2), webkit ms);
+                    background-color: var(--color-main);
+                }
+            }
+
+            &:hover{
+                @include prefix(transform, scale(1.2), webkit ms);
+                @include prefix (animation, transform 1s ease-in-out, webkit o);
+                background-color: var(--color-light-gray);
+            }
+        }
+    }
+
+}
+
+
+
+.toggleUpDown{
+    @include prefix (animation, toggleUpDown, webkit o);
+}
+
+
+@keyframes toggleUpDown {
+    0%{ transform: translateX(0);}
+    50%{ transform: translateX(150px);}
+    100%{ transform: translateX(0);}
+}

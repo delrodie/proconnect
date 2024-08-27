@@ -1,0 +1,20 @@
+@mixin heading-size($offset-size, $vw-size) {
+    font-size: calc(calc(var(--font-size) + #{$offset-size}rem) + #{$vw-size}vw) !important;
+  }
+
+@mixin font-size($size){
+  font-size: clamp(
+        #{$size * 0.01}vw, 
+        fz-to-rem($size * 1), 
+        fz-to-rem($size * 1.5)
+      );
+  
+      // Declaration responsive
+      // @media (min-width: 768px) {
+      //  font-size: clamp(
+      //    #{$size * 0.12}vw, // Augmente le facteur en vw sur écrans moyens
+      //    1.2rem,
+      //    2.4rem
+      //  );
+      // }
+}

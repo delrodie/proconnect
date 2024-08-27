@@ -1,0 +1,81 @@
+// Align items
+@mixin align-items ($position){
+    @if $position == 'flex-start' or $position == 'start'
+    {
+        -webkit-box-align: start;
+        -ms-flex-align: start;
+    } @else if $position == 'flex-end' or $position == 'end'
+    {
+        -webkit-box-align: end;
+        -ms-flex-align: end;
+    } @else{
+        -webkit-box-align: $position;
+        -ms-flex-align: $position;
+    }
+    align-items: $position;
+}
+
+// Align content
+@mixin align-content ($position){
+    @if $position == 'space-between'
+    {
+        -ms-flex-line-pack: justify;
+    } @else if $position == 'space-around'
+    {
+        -ms-flex-line-pack: distribute;
+    } @else{
+        -ms-flex-line-pack: $position;
+    }
+    align-content: $position;
+}
+
+// Justify content
+@mixin justify-content($position){
+    @if $position == 'flex-start' or $position == 'start'
+    {
+        -webkit-box-pack: start;
+        -ms-flex-pack: start;
+    } @else if $position == 'flex-end' or $position == 'end'
+    {
+        -webkit-box-pack: end;
+        -ms-flex-pack: end;
+    } @else if $position == 'space-between'
+    {
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+    }  @else if $position == 'space-around'
+    {
+        -ms-flex-pack: distribute;
+    } @else{
+        -webkit-box-pack: $position;
+        -ms-flex-pack: $position;
+    }
+    justify-content: $position;
+}
+
+
+@mixin display-flex($position, $args...){
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+
+    @each $arg in $args{
+        @if $arg == 'align-items'
+        {
+            @include align-items($position);
+        }
+        @else if $arg == 'align-content'
+        {
+            @include align-content($position);
+        }
+        @else if $arg == 'justify-content'
+        {
+            @include justify-content($position);
+        }
+        @else if $arg == 'justify-item'
+        {
+            justify-items: $position;
+        }
+        
+    }
+}

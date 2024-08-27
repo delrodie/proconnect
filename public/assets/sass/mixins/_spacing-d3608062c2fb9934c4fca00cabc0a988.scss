@@ -1,0 +1,11 @@
+$base-spacing: 3px;
+
+@function calculate-spacing($value, $base: $base-spacing) {
+    @return $value * $base-spacing;
+  }
+  
+  @mixin spacing($property, $direction, $value) {
+    #{$property}-#{$direction}-#{$value} {
+      #{$property}: calculate-spacing($value);
+    }
+  }

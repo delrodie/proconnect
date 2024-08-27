@@ -1,0 +1,59 @@
+/************************************/
+/**** 	   07. Footer   		 ****/
+/************************************/
+
+footer{
+    background: var(--color-main-gradient-inverse);
+
+    .nav{
+        a{
+            color: var(--color-dark-gray);
+            padding: 1px;
+            
+            
+            &:hover{
+                color: var(--color-main);
+            }
+        }
+    }
+
+    .support,
+    .help{
+        a{
+            color: var(--color-dark-gray);
+
+            &:hover{
+                color: var(--color-main);
+            }
+        }
+    }
+
+    .social-icons{
+        a{
+            font-size: 1.5rem;
+            color: var(--color-black);
+            padding-right: 10px;
+            @include prefix(transition, all 500ms linear, webkit o);
+
+            &:hover{
+                color: var(--color-main);
+            }
+        }
+    }
+
+    hr{
+        width: 80%;
+        margin: 50px auto 0;
+        padding: 0;
+    }
+
+    .copyright{
+        a{
+            color: var(--color-black);
+
+            &:hover{
+                color: var(--color-main);
+            }
+        }
+    }
+}

@@ -1,0 +1,10 @@
+.atropos{
+    &-shadow{
+      background-color: transparent !important;
+      filter: inherit;
+    }
+  
+    &-highlight{
+      background-image: inherit !important;
+    }
+  }
