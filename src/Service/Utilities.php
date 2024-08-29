@@ -39,4 +39,13 @@ class Utilities
 
         return $users;
     }
+
+    public function getUserRole($statut): string
+    {
+        return match ($statut){
+            'DEMANDEUR' => 'ROLE_DEMANDEUR',
+            'PRESTATAIRE' => 'ROLE_PRESTATAIRE',
+            default => 'ROLE_USER'
+        };
+    }
 }
