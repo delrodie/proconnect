@@ -1,10 +1,10 @@
 {{ form_start(form) }}
     <div class="row">
         <div class="col text-end">
-            {{ form_row(form.statut) }}
+            {{ form_row(form.active) }}
         </div>
         <div class="col text-start"><button class="btn btn-primary btn-sm">
-                {{ button_label|default(maintenance.statut ? 'Désactiver' : 'Activer') }}
+                {{ button_label|default(maintenance.active ? 'Désactiver' : 'Activer') }}
             </button></div>
     </div>
 
