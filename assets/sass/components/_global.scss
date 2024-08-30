@@ -73,6 +73,23 @@ a{
             margin-top: 30px;
         }
     }
+
+    &-connected{
+        @include display-flex(center, align-items);
+        align-content: end;
+        justify-content: end;
+        width: 20%;
+
+        i{
+            padding-right: 10px; 
+        }
+
+        @media (max-width: 991px) {
+            width: 100%;
+            margin-top: 30px;
+            @include display-flex(start, justify-content, align-content);
+        }
+    }
     
 
     li{
