@@ -4,12 +4,22 @@ namespace App\Service;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
 class Utilities
 {
+    use TargetPathTrait;
+//    use Securi
+
     public function __construct(
         private EntityManagerInterface $entityManager,
         private UserRepository $userRepository,
+        private RouterInterface $router,
+        private RequestStack $requestStack,
     )
     {
     }
@@ -48,4 +58,13 @@ class Utilities
             default => 'ROLE_USER'
         };
     }
+
+    /**
+     * URL de redirection de l'utilisateur après inscription
+     * Selon son profile
+     *
+     * @param string $statut
+     */
+
+
 }
