@@ -71,10 +71,26 @@
                                     <a href="#" class="nav-link"><i class="bi bi-search"></i></a>
                                 </li>
                             </ul>
-                            <div class="navbar-account">
-                                <a href="{{ absolute_url(path('app_register')) }}" class="px-3"><i class="bi bi-person-fill-lock"></i> Inscription</a>
-                                <a href="{{ absolute_url(path('app_login')) }}" class="connexion px-3"><i class="bi bi-lock-fill"></i> Connexion</a>
-                            </div>
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                <div class="navbar-connected">
+                                    <div class="dropdown">
+                                        <a href="#" role="button" class="dropdown-toggle" data-bs-toggle="dropdown"
+                                           aria-expanded="false">
+                                            <i class="bi bi-person-circle"></i> {{ app.user.userIdentifier }}
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#">Mon compte</a></li>
+                                            <li><a class="dropdown-item" href="{{ absolute_url(path('app_logout')) }}">Deconnexion</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="navbar-account">
+                                    <a href="{{ absolute_url(path('app_register')) }}" class="px-3"><i class="bi bi-person-fill-lock"></i> Inscription</a>
+                                    <a href="{{ absolute_url(path('app_login')) }}" class="connexion px-3"><i class="bi bi-lock-fill"></i> Connexion</a>
+                                </div>
+                            {% endif %}
+
                         </div>
                     </div>
                 </div>
