@@ -31,12 +31,16 @@ class DemandeurController extends AbstractController
     public function tbord(): Response
     {
         $verif = $this->allRepositories->getOneDemandeur(null, $this->getUser());
+        $demandeur = $verif;
         if (!$verif){
             return $this->redirectToRoute('app_frontend_demandeur_profile');
+            $demandeur = [];
         }
 
+
         return $this->render('frontend/demandeur_tboard.html.twig',[
-            'menu' => 'tbord'
+            'menu' => 'tbord',
+            'demandeur' => $demandeur
         ]);
     }
 

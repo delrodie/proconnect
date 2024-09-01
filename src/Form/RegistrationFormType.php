@@ -58,7 +58,7 @@ class RegistrationFormType extends AbstractType
             ->add('statut', ChoiceType::class, [
                 'choices' => [
                     'Je suis un demandeur' => "DEMANDEUR",
-                    'Je suis un prestataire' => "PRESTATAIRE"
+//                    'Je suis un prestataire' => "PRESTATAIRE"
                 ],
                 'multiple' => false,
                 'expanded' => true

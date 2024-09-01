@@ -15,11 +15,14 @@
                 <a href="{{ absolute_url(path('app_frontend_demandeur_profile')) }}" class="nav-link"><i
                             class="bi bi-person-bounding-box"></i> Profile</a>
             </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link"><i
-                            class="bi bi-card-list"></i> Mes
-                    projets</a>
-            </li>
+            {% if demandeur.code %}
+                <li class="nav-item">
+                    <a href="{{ absolute_url(path('app_frontend_demandeurprojet_index',{'demandeur': demandeur.code})) }}" class="nav-link"><i
+                                class="bi bi-card-list"></i> Mes
+                        projets</a>
+                </li>
+            {% endif %}
+
             <li class="nav-item">
                 <a href="#" class="nav-link"><i class="bi bi-people"></i> Prestataires</a>
             </li>

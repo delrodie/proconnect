@@ -11,13 +11,48 @@
                     <div class="col-12 col-lg-9 profile-content">
                         <h2 class="titre">Mes informations personnelles</h2>
                         <div class="row mt-5">
-                            <div class="col-12"><label for="">Code</label> : {{ demandeur.code }}</div>
-                            <div class="col-12"><label for="">Nom de famille</label> : {{ demandeur.nom }}</div>
-                            <div class="col-12"><label for="">Prenoms</label> : {{ demandeur.prenom }}</div>
-                            <div class="col-12"><label for="">Adresse email</label> : {{ demandeur.email }}</div>
-                            <div class="col-12"><label for="">Téléphone</label> : {{ demandeur.telephone }}</div>
-                            <div class="col-12"><label for="">Profession</label> : {{ demandeur.profession }}</div>
-                            <div class="col-12"><label for="">Adresse géographique</label> : {{ demandeur.adresse }}</div>
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <div class="col-12 form-group">
+                                        <label for="">Code</label>
+                                        <input type="text" class="form-control" value="{{ demandeur.code }}" disabled>
+                                    </div>
+                                    <div class="col-12 form-group mt-2">
+                                        <label for="">Nom de famille</label>
+                                        <input type="text" class="form-control" value="{{ demandeur.nom }}" disabled>
+
+                                    </div>
+                                    <div class="col-12 form-group mt-2">
+                                        <label for="">Prenoms</label>
+                                        <input type="text" class="form-control" value="{{ demandeur.prenom }}" disabled>
+
+                                    </div>
+                                    <div class="col-12 form-group mt-2">
+                                        <label for="">Adresse email</label>
+                                        <input type="text" class="form-control" value="{{ demandeur.email }}" disabled>
+
+                                    </div>
+                                    <div class="col-12 form-group mt-2">
+                                        <label for="">Téléphone</label>
+                                        <input type="text" class="form-control" value="{{ demandeur.telephone }}" disabled>
+
+                                    </div>
+                                    <div class="col-12 form-group mt-2">
+                                        <label for="">Profession</label>
+                                        <input type="text" class="form-control" value="{{ demandeur.profession }}" disabled>
+
+                                    </div>
+                                    <div class="col-12 form-group mt-2">
+                                        <label for="">Adresse géographique</label>
+                                        <input type="text" class="form-control" value="{{ demandeur.adresse }}" disabled>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <img src="{{ absolute_url(asset('upload/demandeur/' ~ demandeur.media)) }}" alt="" class="img-fluid">
+                            </div>
+
                         </div>
                         <div class="mt-3">
                             <a href="{{ absolute_url(path('app_frontend_demandeur_edit',{'code' : demandeur.code})) }}"><i class="bi bi-pencil-square"></i> Modifier mon profile</a>
