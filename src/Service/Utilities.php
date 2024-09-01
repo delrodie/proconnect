@@ -107,11 +107,16 @@ class Utilities
     public function entityExiste(string $string, string $entity): AbstractUnicodeString|false
     {
         $slug = $this->slug($string);
-        $verif = '';
 
-        if ($entity === 'domaine') {
-            $verif = $this->allRepositories->getOneDomaine($slug);
-        }
+        $verif = match ($entity){
+            'domaine' => $this->allRepositories->getOneDomaine($slug),
+            'categorie' => $this->allRepositories->getOneCategorie($slug),
+            default => ""
+        };
+
+//        if ($entity === 'domaine') {
+//            $verif = $this->allRepositories->getOneDomaine($slug);
+//        }
 
         if ($verif) return false;
 

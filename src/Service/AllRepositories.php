@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Repository\CategorieRepository;
 use App\Repository\DemandeurRepository;
 use App\Repository\DomaineRepository;
 use App\Repository\MaintenanceRepository;
@@ -11,7 +12,8 @@ class AllRepositories
     public function __construct(
         private MaintenanceRepository $maintenanceRepository,
         private DemandeurRepository $demandeurRepository,
-        private DomaineRepository $domaineRepository
+        private DomaineRepository $domaineRepository,
+        private CategorieRepository $categorieRepository
     )
     {
     }
@@ -46,5 +48,14 @@ class AllRepositories
         }
 
         return $this->domaineRepository->findOneBy([], ['id' => "DESC"]);
+    }
+
+    public function getOneCategorie(string $slug = null)
+    {
+        if ($slug){
+            return $this->categorieRepository->findOneBy(['slug' => $slug]);
+        }
+
+        return $this->categorieRepository->findOneBy([], ['id' => "DESC"]);
     }
 }
