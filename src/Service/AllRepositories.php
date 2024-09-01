@@ -3,13 +3,15 @@
 namespace App\Service;
 
 use App\Repository\DemandeurRepository;
+use App\Repository\DomaineRepository;
 use App\Repository\MaintenanceRepository;
 
 class AllRepositories
 {
     public function __construct(
         private MaintenanceRepository $maintenanceRepository,
-        private DemandeurRepository $demandeurRepository
+        private DemandeurRepository $demandeurRepository,
+        private DomaineRepository $domaineRepository
     )
     {
     }
@@ -35,5 +37,14 @@ class AllRepositories
         }
 
         return $this->demandeurRepository->findOneBy([], ['id' => 'DESC']);
+    }
+
+    public function getOneDomaine(string $slug = null)
+    {
+        if ($slug){
+            return $this->domaineRepository->findOneBy(['slug' => $slug]);
+        }
+
+        return $this->domaineRepository->findOneBy([], ['id' => "DESC"]);
     }
 }

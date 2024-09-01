@@ -103,4 +103,18 @@ class Utilities
 
         return $code;
     }
+
+    public function entityExiste(string $string, string $entity): AbstractUnicodeString|false
+    {
+        $slug = $this->slug($string);
+        $verif = '';
+
+        if ($entity === 'domaine') {
+            $verif = $this->allRepositories->getOneDomaine($slug);
+        }
+
+        if ($verif) return false;
+
+        return $slug;
+    }
 }
