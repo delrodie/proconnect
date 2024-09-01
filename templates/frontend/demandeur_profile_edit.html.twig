@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} Demandeur - inscription {% endblock %}
+{% block title %} Demandeur - modification {% endblock %}
 {% block body %}
     <main>
         <section class="profile" id="profile">
@@ -8,7 +8,7 @@
                 <div class="row">
                     {% include 'frontend/_demandeur_menu.html.twig' %}
                     <div class="col-12 col-lg-9 profile-content">
-                        {{ include('frontend/_demandeur_form.html.twig') }}
+                        {{ include('frontend/_demandeur_form.html.twig',{'button_label': 'Modifier'}) }}
                     </div>
                 </div>
             </div>

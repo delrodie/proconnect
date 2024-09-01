@@ -1,0 +1,51 @@
+{{ form_start(form) }}
+
+<h2 class="titre">Informations personnelles du demandeur</h2>
+<div class="row mt-5">
+    <div class="col-12 col-md-5 mt-3">
+        {{ form_widget(form.media) }}
+        {{ form_errors(form.media) }}
+        {{ form_label(form.media) }}
+    </div>
+    <div class="col-12 col-md-7">
+        <div class="row">
+            <div class="col-12 mt-3">
+                {{ form_widget(form.nom) }}
+                {{ form_errors(form.nom) }}
+            </div>
+            <div class="col-12 mt-3">
+                {{ form_widget(form.prenom) }}
+                {{ form_errors(form.prenom) }}
+            </div>
+            <div class="col-12 mt-3">
+                {{ form_widget(form.email) }}
+                {{ form_errors(form.email) }}
+            </div>
+            <div class="col-12 mt-3">
+                {{ form_widget(form.telephone) }}
+                {{ form_errors(form.telephone) }}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 mt-3">
+        {{ form_widget(form.profession) }}
+        {{ form_errors(form.profession) }}
+    </div>
+    <div class="col-md-6 mt-3">
+        {{ form_widget(form.adresse) }}
+        {{ form_errors(form.adresse) }}
+    </div>
+</div>
+<div class="row mt-5">
+    <div class="col-6 col-md-4 offset-md-4 d-grid gap-2">
+        <a href="{{ absolute_url(path('app_frontend_demandeur_tbord')) }}" class="btn btn-outline-secondary">Annuler</a>
+    </div>
+    <div class="col-6 col-md-4 d-grid gap-2">
+        <button type="submit" class="btn btn-main">
+            {{ button_label|default('Enregistrez') }}
+        </button>
+    </div>
+</div>
+
+{{ form_widget(form) }}
+{{ form_end(form) }}

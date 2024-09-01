@@ -1,0 +1,70 @@
+<div class="col-12 col-lg-3 profile-menu">
+    <!-- Ordinateur -->
+    <div class="card d-none d-lg-block">
+        <div class="avatar">
+            <img src="{{ absolute_url(asset('img/all/3d-worker.png')) }}"
+                 alt="" class="">
+        </div>
+        <nav class="nav flex-column">
+            <li class="nav-item">
+                <a href="{{ absolute_url(path('app_frontend_demandeur_tbord')) }}" class="nav-link"><i
+                            class="bi bi-clipboard-data"></i> Tableau de
+                    bord</a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ absolute_url(path('app_frontend_demandeur_profile')) }}" class="nav-link"><i
+                            class="bi bi-person-bounding-box"></i> Profile</a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link"><i
+                            class="bi bi-card-list"></i> Mes
+                    projets</a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link"><i class="bi bi-people"></i> Prestataires</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a href="#parametre" class="nav-link" role="button" data-bs-toggle="collapse"
+                   aria-expanded="false" aria-controls="parametre">
+                    <i class="bi bi-gear"></i> Paramètres
+                </a>
+            </li>
+            <ul class="collapse" id="parametre">
+                <li class="nav-item"><a href="#" class="dropdown-item">Modifier le mot de
+                        passe</a></li>
+                <li class="nav-item"><a href="#" class="dropdown-item">Supprimer le compte</a>
+                </li>
+            </ul>
+            <li class="nav-item">
+                <a href="{{ absolute_url(path('app_logout')) }}" class="nav-link"><i class="bi bi-unlock"></i> Déconnexion</a>
+            </li>
+        </nav>
+    </div>
+
+    <!-- Mobile -->
+    <div class="profile-menu_mobile d-block d-lg-none">
+        <div class="dropdown">
+            <div class="profile-menu_mobile-avatar dropdown-toggle" data-bs-toggle="dropdown"
+                 aria-expanded="false" role="button">
+                <img src="{{ absolute_url(asset('img/all/3d-worker.png')) }}"
+                     alt="" class=""> menu
+            </div>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#"><i class="bi bi-clipboard-data"></i>
+                        Tableau de bord</a></li>
+                <li><a class="dropdown-item" href="#"><i class="bi bi-person-bounding-box"></i>
+                        Profile</a></li>
+                <li><a class="dropdown-item" href="#"><i class="bi bi-card-list"></i> Mes
+                        projets</a></li>
+                <li><a class="dropdown-item" href="#"><i class="bi bi-people"></i>
+                        Prestataires</a></li>
+                <li><a class="dropdown-item" href="#"><i class="bi bi-pencil-square"></i>
+                        Mot de passe</a></li>
+                <li><a class="dropdown-item" href="#"><i class="bi bi-trash3"></i>
+                        Supprimer le compte</a></li>
+                <li><a class="dropdown-item" href="{{ absolute_url(path('app_logout')) }}"><i class="bi bi-unlock"></i>
+                        Déconnexion</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

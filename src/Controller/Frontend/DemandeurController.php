@@ -4,6 +4,12 @@ declare(strict_types=1);
 
 namespace App\Controller\Frontend;
 
+use App\Entity\Demandeur;
+use App\Form\DemandeurFormType;
+use App\Service\AllRepositories;
+use App\Service\GestionMedia;
+use App\Service\Utilities;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,15 +18,100 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/demandeur')]
 class DemandeurController extends AbstractController
 {
+    public function __construct(
+        private Utilities $utilities,
+        private EntityManagerInterface $entityManager,
+        private GestionMedia $gestionMedia,
+        private AllRepositories $allRepositories
+    )
+    {
+    }
+
     #[Route('/', name: 'app_frontend_demandeur_tbord')]
     public function tbord(): Response
     {
-        return $this->render('frontend/demandeur_tboard.html.twig');
+        $verif = $this->allRepositories->getOneDemandeur(null, $this->getUser());
+        if (!$verif){
+            return $this->redirectToRoute('app_frontend_demandeur_profile');
+        }
+
+        return $this->render('frontend/demandeur_tboard.html.twig',[
+            'menu' => 'tbord'
+        ]);
     }
 
     #[Route('/profile', name: 'app_frontend_demandeur_profile', methods: ['GET', 'POST'])]
-    public function profile(Request $request)
+    public function profile(Request $request): Response
     {
-        return $this->render('frontend/demandeur_profile.html.twig');
+        // Verification s'il le profile existe deja
+        $verif = $this->allRepositories->getOneDemandeur(null, $this->getUser());
+        if ($verif){
+            return $this->redirectToRoute('app_frontend_demandeur_show',[
+                'code' => $verif->getCode(),
+            ]);
+        }
+
+        $demandeur = new Demandeur();
+        $form = $this->createForm(DemandeurFormType::class, $demandeur);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            // Gestion des medias, code et slug
+            $this->gestionMedia->media($form, $demandeur, 'demandeur');
+            $demandeur->setCode($this->utilities->codeDemandeur());
+            $demandeur->setSlug($this->utilities->slug(
+                $demandeur->getNom().'-'
+                .$demandeur->getPrenom().'-'
+                .$this->getUser()->getUserIdentifier()
+            ));
+            $demandeur->setUser($this->getUser());
+
+//            dd($this->getUser());
+
+            $this->entityManager->persist($demandeur);
+            $this->entityManager->flush();
+
+            notyf()->success('Votre profile a été enregistré avec succès!');
+
+            return $this->redirectToRoute('app_frontend_demandeur_show',[
+                'code' => $demandeur->getCode(),
+            ]);
+        }
+        return $this->render('frontend/demandeur_profile.html.twig', [
+            'demandeur' => $demandeur,
+            'form' => $form,
+            'menu' => 'profile'
+        ]);
+    }
+
+    #[Route('/{code}', name: 'app_frontend_demandeur_show', methods: ['GET'])]
+    public function show($code)
+    {
+        return $this->render('frontend/demandeur_profile_show.html.twig',[
+            'demandeur' => $this->allRepositories->getOneDemandeur($code)
+        ]);
+    }
+
+    #[Route('/{code}/profile', name: 'app_frontend_demandeur_edit', methods: ['GET','POST'])]
+    public function edit(Request $request, $code)
+    {
+        $demandeur = $this->allRepositories->getOneDemandeur($code);
+        $form = $this->createForm(DemandeurFormType::class, $demandeur);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->flush();
+
+            notyf()->success("Votre profile a été modifié avec succès!");
+
+            return $this->redirectToRoute('app_frontend_demandeur_show',[
+                'code' => $code
+            ]);
+        }
+
+        return $this->render('frontend/demandeur_profile_edit.html.twig',[
+            'demandeur' => $demandeur,
+            'form' => $form
+        ]);
     }
 }
