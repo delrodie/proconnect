@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Random\RandomException;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\RouterInterface;
@@ -87,21 +88,39 @@ class Utilities
     /**
      * Generation du code du demandeur
      *
-     * @param $username
      * @return string
-     * @throws \Random\RandomException
+     * @throws RandomException
      */
     public function codeDemandeur(): string
     {
         do{
             $nombreAleatory = random_int(1000,9999);
             $codeDate = date('ym');
-            $code = $codeDate.''.$nombreAleatory;
+            $code = $codeDate.$nombreAleatory;
 
             $verify = $this->allRepositories->getOneDemandeur($code);
         } while($verify);
 
         return $code;
+    }
+
+    /**
+     * Generation de la reference du projet
+     *
+     * @return string
+     * @throws RandomException
+     */
+    public function referenceProjet(): string
+    {
+        do{
+            $nombreAleatory = random_int(1000,9999);
+            $code = date('ymd');
+            $reference = $code.$nombreAleatory;
+
+            $verify = $this->allRepositories->getOneProjet($reference);
+        }while($verify);
+
+        return $reference;
     }
 
     public function entityExiste(string $string, string $entity): AbstractUnicodeString|false

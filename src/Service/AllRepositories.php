@@ -6,6 +6,7 @@ use App\Repository\CategorieRepository;
 use App\Repository\DemandeurRepository;
 use App\Repository\DomaineRepository;
 use App\Repository\MaintenanceRepository;
+use App\Repository\ProjetRepository;
 
 class AllRepositories
 {
@@ -13,7 +14,8 @@ class AllRepositories
         private MaintenanceRepository $maintenanceRepository,
         private DemandeurRepository $demandeurRepository,
         private DomaineRepository $domaineRepository,
-        private CategorieRepository $categorieRepository
+        private CategorieRepository $categorieRepository,
+        private ProjetRepository $projetRepository
     )
     {
     }
@@ -57,5 +59,19 @@ class AllRepositories
         }
 
         return $this->categorieRepository->findOneBy([], ['id' => "DESC"]);
+    }
+
+    public function getOneProjet(string $reference = null)
+    {
+        if ($reference){
+            return $this->projetRepository->findOneBy(['reference' => $reference]);
+        }
+
+        return $this->projetRepository->findOneBy([],['id' => "DESC"]);
+    }
+
+    public function findProjetsByUser($user)
+    {
+        return $this->projetRepository->findBy(['user' => $user], ['createdAt' =>'DESC']);
     }
 }

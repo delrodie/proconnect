@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes projets{% endblock %}
+
+{% block body %}
+    <main>
+        <section class="profile" id="profile">
+            <div class="container">
+                <div class="row">
+                    {% include 'frontend_demandeur/_menu.html.twig' %}
+                    <div class="col-12 col-lg-9 profile-content">
+                        <h2 class="titre">Modifiez le projet {{ projet.reference }}</h2>
+                        <div class="mt-5 profile-content_projet">
+                            {{ include('frontend_demandeur/_form_projet.html.twig',{button_label: 'Modifiez'}) }}
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
+{% block breadcrumb %}
+    <section class="header py-30" id="breadcrumb"> </section>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+{% endblock %}
+{% block javascripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    {{ parent() }}
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.form-select').select2({
+                theme: 'bootstrap-5'
+            });
+        });
+    </script>
+{% endblock %}

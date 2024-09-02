@@ -7,53 +7,70 @@
         <section class="profile" id="profile">
             <div class="container">
                 <div class="row">
-                    {% include 'frontend/_demandeur_menu.html.twig' %}
+                    {% include 'frontend_demandeur/_menu.html.twig' %}
                     <div class="col-12 col-lg-9 profile-content">
                         <h2 class="titre">Mes projets</h2>
                         <div class="text-end">
-                            <a href="{{ absolute_url(path('app_frontend_demandeurprojet_ajout', {'demandeur': demandeur.code})) }}" class="btn btn-main btn-sm"><i
+                            <a href="{{ absolute_url(path('app_frontend_demandeur_projet_ajout', {'demandeur': demandeur.code})) }}" class="btn btn-main btn-sm"><i
                                         class="bi bi-plus-circle-fill"></i> Ajouter un projet</a>
                         </div>
                         <div class="mt-5 profile-content_projet">
                             <div class="card">
                                 <div class="card-body">
-                                    <span class="badge bg-primary">Domaine</span>
-                                    <h5 class="card-title">Lorem titre</h5>
+                                    <span class="badge bg-primary">{{ projet.categorie.title }}</span>
+                                    <h5 class="card-title">{{ projet.title }}</h5>
                                     <div class="row">
-                                        <div class="col-md-6 budgetisation">
-                                            Budgetisation : <span>12.000FCFA - 25.000FCFA</span>
-                                        </div>
+                                        {% if projet.budgetMin and projet.budgetMax %}
+                                            <div class="col-md-6 budgetisation">
+                                                Budgétisation : <span>{{ projet.budgetMin|number_format(0, '','.') }} FCFA - {{ projet.budgetMax|number_format(0, '','.') }}  FCFA</span>
+                                            </div>
+                                        {% endif %}
+
                                         <div class="col-md-6">
-                                            Publié le 30/08/2024 à 17:31:58
+                                            Publié le {{ projet.createdAt|date('Y-m-d')}} à {{ projet.createdAt|date('H:i:s') }}
                                         </div>
                                         <div class="col12">
-                                            <i class="bi bi-geo-alt"></i> Abidjan Riviera 3
+                                            <i class="bi bi-geo-alt"></i> {{ projet.lieu }}
                                         </div>
-                                        <div class="col-12 description">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam ad
-                                            totam id rem
-                                            suscipit eaque asperiores, non iure quo. Ad fugiat quos ut corporis
-                                            laboriosam
-                                            molestiae neque cupiditate? Iste, at.
+                                        <div class="col-12 description mt-3">
+                                            {{ projet.description|raw }}
                                         </div>
-                                        <div class="col-md-6">
-                                            Statut: <span class="badge text-bg-danger">Fermé</span>
+                                        <div class="col-md-6 mt-2">
+                                            Statut:
+                                            {% if projet.statut == 'TERMINE' %}
+                                                <span class="badge text-bg-success">TERMINE</span>
+                                            {% elseif projet.statut == 'FERME' %}
+                                                <span class="badge text-bg-danger">FERME</span>
+                                            {% elseif projet.statut == 'ENCOURS' %}
+                                                <span class="badge text-bg-secondary">ENCOURS</span>
+                                            {% else %}
+                                                <span class="badge text-bg-info">OUVERT</span>
+                                            {% endif %}
                                         </div>
-                                        <div class="col-md-6">
-                                            Prestataire: <a href="#" class="prestatatire">Nom prestataire</a>
-                                        </div>
-                                        <div class="col-12">
-                                            Budget final: 20.000 FCFA
-                                        </div>
+                                        {% if projet.statut == 'TERMINE' %}
+                                            <div class="col-md-6 mt-2">
+                                                Prestataire: <a href="#" class="prestatatire">Nom prestataire</a>
+                                            </div>
+                                            <div class="col-12">
+                                                Budget final: 20.000 FCFA
+                                            </div>
+                                        {% endif %}
+
                                     </div>
                                 </div>
                                 <div class="card-footer text-end">
-{#                                    <a href="demandeur_mesprojetsdetails.html"#}
-{#                                       class="btn btn-outline-secondary btn-sm">Details</a>#}
-                                    <a href="{{ absolute_url(path('app_frontend_demandeurprojet_ajout', {'demandeur': demandeur.code})) }}" class="btn btn-main btn-sm">Modifier</a>
+                                    <div class="row">
+                                        <div class="col-6 col-md-2 offset-md-8 d-grid gap-2">{{ include('frontend_demandeur/_form_delete_projet.html.twig') }}</div>
+                                        <div class="col-6 col-md-2 d-grid gap-2">
+                                            <a href="{{ absolute_url(path('app_frontend_demandeur_projet_modif', {'demandeur': demandeur.code, 'reference': projet.reference})) }}" class="btn btn-main btn-sm float-end">Modifier</a>
+                                        </div>
+                                    </div>
+
+{#                                    <a href="#" class="btn btn-outline-danger btn-sm">Supprimer</a>#}
+
                                 </div>
                             </div>
-
+                            <!--
                             <div class="profile-content_projet-prestataires mt-5">
                                 <h4 class="nombre">2 prestataires</h4>
                                 <div class="card mt-3">
@@ -100,6 +117,7 @@
                                     </div>
                                 </div>
                             </div>
+                            -->
                         </div>
 
                     </div>

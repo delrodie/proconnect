@@ -38,7 +38,7 @@ class DemandeurController extends AbstractController
         }
 
 
-        return $this->render('frontend/demandeur_tboard.html.twig',[
+        return $this->render('frontend_demandeur/tableau_bord.html.twig',[
             'menu' => 'tbord',
             'demandeur' => $demandeur
         ]);
@@ -81,7 +81,7 @@ class DemandeurController extends AbstractController
                 'code' => $demandeur->getCode(),
             ]);
         }
-        return $this->render('frontend/demandeur_profile.html.twig', [
+        return $this->render('frontend_demandeur/profile.html.twig', [
             'demandeur' => $demandeur,
             'form' => $form,
             'menu' => 'profile'
@@ -91,7 +91,7 @@ class DemandeurController extends AbstractController
     #[Route('/{code}', name: 'app_frontend_demandeur_show', methods: ['GET'])]
     public function show($code)
     {
-        return $this->render('frontend/demandeur_profile_show.html.twig',[
+        return $this->render('frontend_demandeur/profile_show.html.twig',[
             'demandeur' => $this->allRepositories->getOneDemandeur($code)
         ]);
     }
@@ -113,7 +113,7 @@ class DemandeurController extends AbstractController
             ]);
         }
 
-        return $this->render('frontend/demandeur_profile_edit.html.twig',[
+        return $this->render('frontend_demandeur/profile_edit.html.twig',[
             'demandeur' => $demandeur,
             'form' => $form
         ]);

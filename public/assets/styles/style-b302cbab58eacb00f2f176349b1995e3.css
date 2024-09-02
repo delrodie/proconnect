@@ -12,8 +12,8 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css");
 @import url("https://unpkg.com/aos@next/dist/aos.css");
-@import url("../vendor/atropos/atropos.min.css");
-@import url("../vendor/scrollcue/scrollCue.css");
+@import url("../vendor/atropos/atropos.min-09fca6356e30514afce0a3f9f7984883.css");
+@import url("../vendor/scrollcue/scrollCue-d14318606ce1bba1413b2ed425aa039c.css");
 /************************************
         01. Reset 	 
         02. Declarations 	 
@@ -5525,8 +5525,6 @@ form ul li {
       font-weight: 700; }
     .profile-content_projet .card.candidature .card-body a {
       color: var(--color-dark-gray); }
-  .profile-content_projet .card .informations {
-    line-height: 18px; }
 .profile-content_projet-prestataires h4 {
   font-size: 1.2222222222rem;
   font-weight: 600;
@@ -5645,4 +5643,4 @@ footer {
     footer .copyright a:hover {
       color: var(--color-main); }
 
-/*# sourceMappingURL=style.css.map */
+/*# sourceMappingURL=style.css-ae0f9eeaecf6f379bd9338debfb6a2ce.map */

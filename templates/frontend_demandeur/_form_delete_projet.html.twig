@@ -1,0 +1,7 @@
+<form method="post" action="{{ path('app_frontend_demandeur_projet_supprimer', {'demandeur': demandeur.code, 'reference': projet.reference}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer ce projet?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ projet.id) }}">
+    <div class="d-grid gap-2">
+        <button class="btn btn-outline-danger btn-sm">Supprimer</button>
+    </div>
+
+</form>
