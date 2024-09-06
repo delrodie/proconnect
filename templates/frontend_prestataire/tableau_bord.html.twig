@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Prestataire - tableau de bord {% endblock %}
+{% block body %}
+    <main>
+        <section class="profile" id="profile">
+            <div class="container">
+                <div class="row">
+                    {% include 'frontend_prestataire/_menu.html.twig' %}
+                    <div class="col-12 col-lg-9 profile-content">
+                        <h2 class="titre">Tableau de bord</h2>
+
+                        <div class="mt-5 profile-content_dashboard">
+
+                            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-2 statistics">
+
+                                <div class="col">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <h5 class="card-title"><i class="bi bi-suitcase-lg"></i> Projets
+                                                réalisés</h5>
+                                            <div class="card-text">
+                                                    <span class="nombre">5
+                                                    </span>
+                                                <a href="#" class="details">Voir détails</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <h5 class="card-title"><i class="bi bi-cloud-upload"></i> Projets soumissionnés</h5>
+                                            <div class="card-text">
+                                                <span class="nombre">10</span>
+                                                <a href="#" class="details">Voir détails</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <h5 class="card-title"><i class="bi bi-cash-coin"></i> Recette total</h5>
+                                            <div class="card-text text-center">
+                                                <span class="finance">350.000 FCFA</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="profile-content_dashboard-projets">
+                                <h6 class="title">
+                                    Liste des projets
+                                    <a href="#" class="all">...Voir tous les projets</a>
+                                </h6>
+                                <table class="table table-striped table-hover table-sm table-responsive-sm mt-3">
+                                    <thead>
+                                    <tr>
+                                        <th>Intitulés</th>
+                                        <th>Budget</th>
+                                        <th>Propositions</th>
+                                        <th>Statut</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>Recherche d'un menuisier pour table centrale</td>
+                                        <td class="text-end">75.000 FCFA</td>
+                                        <td class="text-center">25</td>
+                                        <td class="text-center"><span
+                                                    class="badge text-bg-primary">Terminés</span></td>
+                                        <td class="text-center">
+                                            <a href="#" class="">Détails</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Intitulé projet 2</td>
+                                        <td class="text-end">350.000 FCFA</td>
+                                        <td class="text-center">72</td>
+                                        <td class="text-center"><span
+                                                    class="badge text-bg-secondary">Encours</span></td>
+                                        <td class="text-center">
+                                            <a href="#" class="">Détails</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
+{% block breadcrumb %}
+    <section class="header py-30" id="breadcrumb"> </section>
+{% endblock %}

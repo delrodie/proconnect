@@ -50,17 +50,12 @@ class LoginRedirectPath
      */
     protected function getPath($statut): string
     {
-        if ($statut === 'DEMANDEUR'){
-            $targetPath =  $this->router->generate('app_frontend_demandeur_tbord');
-        } elseif ($statut === 'PRESTATAIRE'){
-            $targetPath = $this->router->generate('app_home_index');
-        }elseif ($statut === 'ADMIN'){
-            $targetPath = $this->router->generate('app_backend_dashboard');
-        }else{
-            $targetPath = $this->router->generate('app_home_index');
-        }
-
-        return $targetPath;
+        return match ($statut){
+            'DEMANDEUR' => $this->router->generate('app_frontend_demandeur_tbord'),
+            'PRESTATAIRE' => $this->router->generate('app_frontend_prestataire_tbord'),
+            'ADMIN' => $this->router->generate('app_backend_dashboard'),
+            default => $this->router->generate('app_home_index'),
+        };
     }
 
 }
