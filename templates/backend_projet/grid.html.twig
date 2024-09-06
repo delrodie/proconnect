@@ -1,0 +1,176 @@
+{% extends 'backend_layout.html.twig' %}
+
+{% block title %}{{ parent() }} Liste des projets{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="card bg-light-info shadow-none position-relative overflow-hidden">
+            <div class="card-body px-4 py-3">
+                <div class="row align-items-center">
+                    <div class="col-9">
+                        <h4 class="fw-semibold mb-8">Gestion des projets</h4>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a class="text-muted" href="#">Modules</a></li>
+                                <li class="breadcrumb-item"><a class="text-muted" href="#">Projets</a></li>
+                                <li class="breadcrumb-item" aria-current="page">Liste</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="col-3">
+                        <div class="text-center mb-n5">
+                            <span class="head-icon"><i class="ti-package"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ul class="nav nav-pills p-3 mb-3 rounded align-items-center card flex-row">
+            <li class="nav-item">
+                <a href="javascript:void(0)" class="
+                      nav-link
+
+                      note-link
+                      d-flex
+                      align-items-center
+                      justify-content-center
+                      active
+                      px-3 px-md-3
+                      me-0 me-md-2 text-body-color
+                    " id="all-category">
+                    <i class="bi bi-list-ul fill-white me-0 me-md-1"></i>
+                    <span class="d-none d-md-block font-weight-medium">Tous les projets</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="javascript:void(0)" class="
+                      nav-link
+
+                      note-link
+                      d-flex
+                      align-items-center
+                      justify-content-center
+                      px-3 px-md-3
+                      me-0 me-md-2 text-body-color
+                    " id="projet-realise">
+                    <i class="bi bi-battery-full fill-white me-0 me-md-1"></i>
+                    <span class="d-none d-md-block font-weight-medium">Réalisés</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="javascript:void(0)" class="
+                      nav-link
+
+                      note-link
+                      d-flex
+                      align-items-center
+                      justify-content-center
+                      px-3 px-md-3
+                      me-0 me-md-2 text-body-color
+                    " id="en-realisation">
+                    <i class="bi bi-battery-charging fill-white me-0 me-md-1"></i>
+                    <span class="d-none d-md-block font-weight-medium">En réalisation</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="javascript:void(0)" class="
+                      nav-link
+
+                      note-link
+                      d-flex
+                      align-items-center
+                      justify-content-center
+                      px-3 px-md-3
+                      me-0 me-md-2 text-body-color
+                    " id="en-appel">
+                    <i class="bi bi-battery fill-white me-0 me-md-1"></i>
+                    <span class="d-none d-md-block font-weight-medium">En appel</span>
+                </a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div id="note-full-container" class="note-has-grid row">
+                {% for projet in projets %}
+
+                    <div class="col-md-4 single-note-item all-category {{ projet.statut_backend }}">
+                        <div class="card h-100 card-body">
+                            <span class="side-stick {{ projet.statut|stick_css_class }}"></span>
+                            <h6 class="note-title text-truncate w-75 mb-0" data-noteHeading="Book a Ticket for Movie">
+                                {{ projet.categorie}}
+
+
+                            </h6>
+                            <p class="note-date fs-2">{{ projet.created_at|date('d M Y') }} à {{ projet.created_at|date('H:i:s') }}</p>
+                            <div class="note-content">
+                                <p class="note-inner-content" data-noteContent="">
+                                    {{ projet.title }}
+                                </p>
+                            </div>
+                            <div class="d-flex align-items-center mt-3">
+                                <a href="{{ absolute_url(path('app_backend_projet_show',{'id': projet.id})) }}" class="link me-1">
+                                    <i class="bi bi-eye"></i> Détails
+                                </a>
+                                <a href="{{ absolute_url(path('app_backend_projet_edit',{id: projet.id})) }}" class="link text-danger ms-2">
+                                    <i class="bi bi-pencil-square"></i> Modifier
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/vendor/css/prism.min.css')) }}">
+    <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/vendor/DataTables/datatables.min.css')) }}">
+    <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/vendor/css/select2.min.css')) }}">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ absolute_url(asset('backoffice/vendor/js/prism.js')) }}"></script>
+    <script src="{{ absolute_url(asset('backoffice/vendor/DataTables/datatables.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('backoffice/vendor/js/select2.full.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('backoffice/vendor/js/select2.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('backoffice/vendor/js/note.js')) }}"></script>
+    <script>
+        $(document).ready(function() {
+            var tableLoader = $('#table-loader');
+            var table = $('#listes');
+
+            table.on('init.dt', function() {
+                tableLoader.find('.loader').hide();
+                table.show();
+            });
+
+            table.DataTable({
+                // Configurations du DataTable
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'excel', 'pdf'
+                ],
+                initComplete: function() {
+                    tableLoader.find('.loader').show();
+                    table.hide();
+                }
+            });
+        });
+    </script>
+    {#    <script>#}
+    {#        $('#listes').DataTable( {#}
+    {#            dom: 'Bfrtip',#}
+    {#            buttons: [#}
+    {#                'copy', 'excel', 'pdf'#}
+    {#            ]#}
+    {#        } );#}
+    {#    </script>#}
+    <script>
+        $(".select2").select2();
+    </script>
+{% endblock %}
+

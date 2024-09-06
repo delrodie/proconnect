@@ -1,0 +1,23 @@
+{{ form_start(form) }}
+<div class="row form-group">
+    <div class="col-6 mt-3">{{ form_row(form.user) }}</div>
+    <div class="col-6 mt-3">{{ form_row(form.categorie) }}</div>
+    <div class="col-7 mt-3">{{ form_row(form.title) }}</div>
+    <div class="col-5 mt-3">{{ form_row(form.lieu) }}</div>
+    <div class="col-4 mt-3">{{ form_row(form.datePrestation) }}</div>
+    <div class="col-4 mt-3">{{ form_row(form.dateLimite) }}</div>
+    <div class="col-4 mt-3">{{ form_row(form.preference) }}</div>
+    <div class="col-4 mt-3">{{ form_row(form.budgetMin) }}</div>
+    <div class="col-4 mt-3">{{ form_row(form.budgetMax) }}</div>
+    <div class="col-4 mt-3">{{ form_row(form.statut) }}</div>
+    <div class="col-12 mt-3">{{ form_row(form.description) }}</div>
+</div>
+<div class="row mt-5">
+    <div class="col-12 text-end">
+        {{ form_widget(form) }}
+        <a href="{{ absolute_url(path('app_backend_projet_index')) }}" class="btn btn-outline-primary">Annuler</a>
+        <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+    </div>
+</div>
+
+{{ form_end(form) }}

@@ -141,4 +141,13 @@ class Utilities
 
         return $slug;
     }
+
+    public function stickCssClass($statut): string
+    {
+        return match ($statut){
+            'TERMINE' => 'text-bg-success',
+            'ENCOURS' => 'text-bg-warning',
+            default => 'text-bg-info'
+        };
+    }
 }

@@ -1,6 +1,6 @@
 {% extends 'backend_layout.html.twig' %}
 
-{% block title %}{{ parent() }} Gestion liste des demandeurs{% endblock %}
+{% block title %}{{ parent() }} Liste des projets{% endblock %}
 
 {% block body %}
     <div class="container-fluid">
@@ -8,11 +8,11 @@
             <div class="card-body px-4 py-3">
                 <div class="row align-items-center">
                     <div class="col-9">
-                        <h4 class="fw-semibold mb-8">Gestion des demandeurs</h4>
+                        <h4 class="fw-semibold mb-8">Gestion des projets</h4>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a class="text-muted" href="#">Modules</a></li>
-                                <li class="breadcrumb-item"><a class="text-muted" href="#">Demandeurs</a></li>
+                                <li class="breadcrumb-item"><a class="text-muted" href="#">Projets</a></li>
                                 <li class="breadcrumb-item" aria-current="page">Liste</li>
                             </ol>
                         </nav>
@@ -32,7 +32,10 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col"><h5 class="mb-2 fw-semibold fs-4">Liste</h5></div>
-
+                                <div class="col text-end">
+                                    <a href="{{ absolute_url(path('app_backend_projetgrid_index')) }}" class="btn btn-outline-secondary"><i class="ti-layout-grid2"></i></a>
+                                    <a href="{{ absolute_url(path('app_backend_projet_new')) }}" class="btn btn-primary"> <i class="ti-plus"></i> Ajouter</a>
+                                </div>
                             </div>
 
                         </div>
@@ -41,31 +44,32 @@
                                 <div class="loader"></div>
                             </div>
                             <div class="table-responsive">
-                                <table id="listes" class="table  border table-striped table-bordered display text-nowrap">
+                                <table id="listes" class="table  border table-striped table-bordered display  table-responsive">
                                     <thead>
                                     <tr>
                                         <th class="text-center text-uppercase">#</th>
-                                        <th class="text-center text-uppercase">Code</th>
-                                        <th class="text-center text-uppercase">Identité</th>
-                                        <th class="text-center text-uppercase">Email</th>
-                                        <th class="text-center text-uppercase">Telephone</th>
-                                        <th class="text-center text-uppercase">Profession</th>
+                                        <th class="text-center text-uppercase">References</th>
+                                        <th class="text-center text-uppercase">Categories</th>
+                                        <th class="text-center text-uppercase">Intitulés</th>
+                                        <th class="text-center text-uppercase">Demandeurs</th>
+                                        <th class="text-center text-uppercase">Statuts</th>
                                         <th class="text-center text-uppercase">actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {% for demandeur in demandeurs %}
+                                    {% for projet in projets %}
                                         <tr>
                                             <td>{{ loop.index }}</td>
-                                            <td class="text-center">{{ demandeur.code }}</td>
-                                            <td class="text-left">{{ demandeur.nom }} {{ demandeur.prenom }}</td>
-                                            <td>{{ demandeur.email}}</td>
-                                            <td>{{ demandeur.telephone }}</td>
-                                            <td class="text-left">{{ demandeur.profession }}</td>
+                                            <td class="text-center">{{ projet.reference }}</td>
+                                            <td class="text-left">{{ projet.categorie.title }}</td>
+                                            <td>{{ projet.title}}</td>
+                                            <td>{{ projet.user.username }}</td>
+                                            <td class="text-left">
+                                                <span class="badge {{ projet.statut|stick_css_class }}">{{ projet.statut|statut_label }}</span>
+                                            </td>
                                             <td class="text-center">
-                                                <a href="{{ path('app_backend_demandeur_show', {'id': demandeur.id}) }}"><i class="ti-eye"></i></a>
-{#                                                &nbsp; | &nbsp;#}
-{#                                                <a href="{{ path('app_backend_demandeur_edit', {'id': demandeur.id}) }}"><i class="ti-pencil-alt"></i></a>#}
+                                                 <a href="{{ path('app_backend_projet_show', {'id': projet.id}) }}"><i class="ti-eye"></i></a> &nbsp; | &nbsp;
+                                                 <a href="{{ path('app_backend_projet_edit', {'id': projet.id}) }}"><i class="ti-pencil-alt"></i></a>
                                             </td>
                                         </tr>
                                     {% else %}

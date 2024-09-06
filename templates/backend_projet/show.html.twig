@@ -1,0 +1,177 @@
+{% extends 'backend_layout.html.twig' %}
+
+{% block title %}{{ parent() }} Liste des projets{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="card bg-light-info shadow-none position-relative overflow-hidden">
+            <div class="card-body px-4 py-3">
+                <div class="row align-items-center">
+                    <div class="col-9">
+                        <h4 class="fw-semibold mb-8">Gestion des projets</h4>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a class="text-muted" href="#">Modules</a></li>
+                                <li class="breadcrumb-item"><a class="text-muted" href="#">Projets</a></li>
+                                <li class="breadcrumb-item" aria-current="page">Liste</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="col-3">
+                        <div class="text-center mb-n5">
+                            <span class="head-icon"><i class="ti-package"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section>
+            <div class="card">
+                <div class="chat-container h-100 w-100">
+                    <div class="chat-box-inner-part">
+                        <div class="chatting-box app-email-chatting-box">
+                            <div class="p-9 py-3 border-bottom chat-meta-user d-flex align-items-center justify-content-between">
+                                <h5 class="text-dark mb-0 fw-semibold">Référence: {{ projet.reference }} </h5>
+                                <ul class="list-unstyled mb-0 d-flex align-items-center">
+
+                                    <li class="position-relative" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Liste des projets">
+                                        <a class="d-block text-dark px-2 fs-5 bg-hover-primary nav-icon-hover position-relative z-index-5" href="{{ absolute_url(path('app_backend_projetgrid_index')) }}">
+                                            <i class="bi bi-grid"></i>
+                                        </a>
+                                    </li>
+                                    <li class="position-relative" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Modifier">
+                                        <a class="d-block text-dark px-2 fs-5 bg-hover-primary nav-icon-hover position-relative z-index-5" href="{{ path('app_backend_projet_edit', {'id': projet.id}) }}">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
+                                    </li>
+                                    <li class="position-relative" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Supprimer">
+                                        {{ include('backend_projet/_delete_form.html.twig') }}
+{#                                        <a class="text-dark px-2 fs-5 bg-hover-danger text-danger nav-icon-hover position-relative z-index-5" href="javascript:void(0)">#}
+{#                                            <i class="bi bi-trash3"></i>#}
+{#                                        </a>#}
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="position-relative overflow-hidden">
+                                <div class="position-relative">
+                                    <div class="chat-box p-9" style="/*height: calc(100vh - 428px)*/" data-simplebar>
+                                        <div class="chat-list chat active-chat" data-user-id="1">
+
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <p style="float: right;"><span class="badge {{ projet.statut|stick_css_class }}">{{ projet.statut|statut_label }}</span></p>
+                                                    <p class="mb-2"><span class="badge text-bg-primary">{{ projet.categorie.title }}</span></p>
+                                                    <h5 class="fw-semibold fs-4 mb-1">{{ projet.title }}</h5>
+                                                    <p class="">{{ projet.createdAt|date('d-m-Y') }} à {{ projet.createdAt|date('H:i:s') }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-4 mb-3">
+                                                    <p class="mb-1 fs-2">Demandeur</p>
+                                                    <h6 class="fw-semibold mb-0">
+                                                        <a href="{{ absolute_url(path('app_backend_demandeur_show', {'id': demandeur.id})) }}">{{ demandeur.nom|upper}} {{ demandeur.prenom}} ({{ projet.user.username }})</a>
+                                                    </h6>
+                                                </div>
+                                                <div class="col-8 mb-9">
+                                                    <p class="mb-1 fs-2">Adresse de réalisation</p>
+                                                    <h6 class="fw-semibold mb-0">{{ projet.lieu }}</h6>
+                                                </div>
+                                                <div class="col-4 mb-9">
+                                                    <p class="mb-1 fs-2">Préférence</p>
+                                                    <h6 class="fw-semibold mb-0">{{ projet.preference }}</h6>
+                                                </div>
+                                                <div class="col-4 mb-7">
+                                                    <p class="mb-1 fs-2">Date de prestation</p>
+                                                    <h6 class="fw-semibold mb-0">{{ projet.datePrestation|date('d/m/Y') }}</h6>
+                                                </div>
+                                                <div class="col-4 mb-7">
+                                                    <p class="mb-1 fs-2">Date limite</p>
+                                                    <h6 class="fw-semibold mb-0">{{ projet.dateLimite|date('d/m/Y') }}</h6>
+                                                </div>
+                                                <div class="col-4 mb-7">
+                                                    <p class="mb-1 fs-2">Budget Prévisionnel</p>
+                                                    <h6 class="fw-semibold mb-0">
+                                                        {{ projet.budgetMin ?? '0'}} FCFA -
+                                                        {{ projet.budgetMax ?? '0' }} FCFA
+                                                    </h6>
+                                                </div>
+                                            </div>
+                                            <div class="border-bottom pb-7 mb-4">
+                                                <p class="mb-2 fs-2">Description</p>
+                                                <p class="mb-3 text-dark">
+                                                    {{ projet.description|raw }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/vendor/css/prism.min.css')) }}">
+    <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/vendor/DataTables/datatables.min.css')) }}">
+    <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/vendor/css/select2.min.css')) }}">
+    <style>
+        .projet-realise{
+            background: darkgreen;
+        }
+
+        .en-realisation{
+            background: purple;
+        }
+        
+        .en-appel{
+            background: #7a91a0;
+        }
+    </style>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ absolute_url(asset('backoffice/vendor/js/prism.js')) }}"></script>
+    <script src="{{ absolute_url(asset('backoffice/vendor/DataTables/datatables.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('backoffice/vendor/js/select2.full.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('backoffice/vendor/js/select2.min.js')) }}"></script>
+    <script>
+        $(document).ready(function() {
+            var tableLoader = $('#table-loader');
+            var table = $('#listes');
+
+            table.on('init.dt', function() {
+                tableLoader.find('.loader').hide();
+                table.show();
+            });
+
+            table.DataTable({
+                // Configurations du DataTable
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'excel', 'pdf'
+                ],
+                initComplete: function() {
+                    tableLoader.find('.loader').show();
+                    table.hide();
+                }
+            });
+        });
+    </script>
+    {#    <script>#}
+    {#        $('#listes').DataTable( {#}
+    {#            dom: 'Bfrtip',#}
+    {#            buttons: [#}
+    {#                'copy', 'excel', 'pdf'#}
+    {#            ]#}
+    {#        } );#}
+    {#    </script>#}
+    <script>
+        $(".select2").select2();
+    </script>
+{% endblock %}
+

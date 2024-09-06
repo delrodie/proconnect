@@ -1,0 +1,11 @@
+{% extends 'backend_layout.html.twig' %}
+
+{% block title %}New Projet{% endblock %}
+
+{% block body %}
+    <h1>Create new Projet</h1>
+
+    {{ include('backend_projet/_form.html.twig') }}
+
+    <a href="{{ path('app_backend_projet_index') }}">back to list</a>
+{% endblock %}
