@@ -44,7 +44,7 @@ class BackendDomaineController extends AbstractController
             $this->entityManager->persist($domaine);
             $this->entityManager->flush();
 
-            sweetalert()->success("Le domaine {$domaine->getTitle()} a été ajouté avec succèc!");
+            sweetalert()->success("Le domaine '{$domaine->getTitle()}' a été ajouté avec succès!");
 
             return $this->redirectToRoute('app_backend_domaine_index', [], Response::HTTP_SEE_OTHER);
         }

@@ -130,6 +130,7 @@ class Utilities
         $verif = match ($entity){
             'domaine' => $this->allRepositories->getOneDomaine($slug),
             'categorie' => $this->allRepositories->getOneCategorie($slug),
+            'competence' => $this->allRepositories->getOneCompetence($slug),
             default => ""
         };
 

@@ -1,6 +1,6 @@
 {% extends 'backend_layout.html.twig' %}
 
-{% block title %}{{ parent() }} Gestion des domaines{% endblock %}
+{% block title %}{{ parent() }} Gestion des competences{% endblock %}
 
 {% block body %}
     <div class="container-fluid">
@@ -8,11 +8,11 @@
             <div class="card-body px-4 py-3">
                 <div class="row align-items-center">
                     <div class="col-9">
-                        <h4 class="fw-semibold mb-8">Gestion des domaines</h4>
+                        <h4 class="fw-semibold mb-8">Gestion des competences</h4>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a class="text-muted" href="#">Services</a></li>
-                                <li class="breadcrumb-item"><a class="text-muted" href="#">Domaines</a></li>
+                                <li class="breadcrumb-item"><a class="text-muted" href="#">competences</a></li>
                                 <li class="breadcrumb-item" aria-current="page">Liste</li>
                             </ol>
                         </nav>
@@ -48,24 +48,24 @@
                                     <tr>
                                         <th class="text-center text-uppercase">#</th>
                                         <th class="text-center text-uppercase">TITRES</th>
-                                        <th class="text-center text-uppercase">CATEGORIES</th>
                                         <th class="text-center text-uppercase">ACTIONS</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {% for domaine in domaines %}
+                                    {% for competence in competences %}
                                         <tr>
                                             <td>{{ loop.index }}</td>
-                                            <td class="text-left">{{ domaine.title }}</td>
-                                            <td class="text-center">{{ domaine.categories|length }}</td>
+                                            <td class="text-left">{{ competence.title }}</td>
                                             <td class="text-center">
-{#                                                <a href="{{ path('app_admin_user_show', {'id': user.id}) }}"><i class="ti-receipt"></i></a>#}
-                                                <a href="{{ path('app_backend_domaine_edit', {'id': domaine.id}) }}"><i class="ti-pencil-alt"></i></a>
+
+                                                {#                                                <a href="{{ path('app_admin_user_show', {'id': user.id}) }}"><i class="ti-receipt"></i></a>#}
+                                                <a href="{{ path('app_backend_competence_edit', {'id': competence.id}) }}"><i class="ti-pencil-alt"></i></a>
                                             </td>
                                         </tr>
                                     {% else %}
                                         <tr>
-                                            <td colspan="4">Aucun domaine trouvé</td>
+                                            <td class="text-center" colspan="3">Aucune competence trouvée
+                                            </td>
                                         </tr>
                                     {% endfor %}
                                     </tbody>
@@ -79,7 +79,7 @@
         </section>
 
         <div id="primary-header-modal" class="modal fade" tabindex="-1" aria-labelledby="primary-header-modalLabel" aria-hidden="true">
-            {{ include('backend_domaine/_form.html.twig') }}
+            {{ include('backend_competence/_form.html.twig', {button_label: 'Modifier'}) }}
         </div>
 
     </div>
@@ -88,11 +88,14 @@
     {{ parent() }}
     <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/vendor/css/prism.min.css')) }}">
     <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/vendor/DataTables/datatables.min.css')) }}">
+    <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/vendor/css/select2.min.css')) }}">
+
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
     <script src="{{ absolute_url(asset('backoffice/vendor/js/prism.js')) }}"></script>
     <script src="{{ absolute_url(asset('backoffice/vendor/DataTables/datatables.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('backoffice/vendor/js/select2.min.js')) }}"></script>
     <script>
         $('#listes').DataTable( {
             dom: 'Bfrtip',
@@ -101,10 +104,14 @@
             ]
         } );
     </script>
-    {#    <script>#}
-    {#        document.addEventListener("DOMContentLoaded", function() {#}
-    {#            var modal = new bootstrap.Modal(document.getElementById("primary-header-modal"));#}
-    {#            modal.show();#}
-    {#        });#}
-    {#    </script>#}
+    <script>
+
+        // $(document).ready(function() {
+        //     $('.select2').select2();
+        // });
+        document.addEventListener("DOMContentLoaded", function() {
+            var modal = new bootstrap.Modal(document.getElementById("primary-header-modal"));
+            modal.show();
+        });
+    </script>
 {% endblock %}

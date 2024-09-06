@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Repository\CategorieRepository;
+use App\Repository\CompetenceRepository;
 use App\Repository\DemandeurRepository;
 use App\Repository\DomaineRepository;
 use App\Repository\MaintenanceRepository;
@@ -15,7 +16,8 @@ class AllRepositories
         private DemandeurRepository $demandeurRepository,
         private DomaineRepository $domaineRepository,
         private CategorieRepository $categorieRepository,
-        private ProjetRepository $projetRepository
+        private ProjetRepository $projetRepository,
+        private CompetenceRepository $competenceRepository
     )
     {
     }
@@ -68,6 +70,13 @@ class AllRepositories
         }
 
         return $this->projetRepository->findOneBy([],['id' => "DESC"]);
+    }
+
+    public function getOneCompetence(string $slug = null )
+    {
+        if ($slug) return $this->competenceRepository->findOneBy(['slug' => $slug]);
+
+        return $this->competenceRepository->findOneBy([],['id' => 'DESC']);
     }
 
     public function findProjetsByUser($user)
