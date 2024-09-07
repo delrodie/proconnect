@@ -1,0 +1,107 @@
+{{ form_start(form) }}
+
+<h2 class="titre">Informations personnelles du prestataire</h2>
+<div class="row mt-5">
+    <div class="col-12 col-md-5 mt-3">
+        {{ form_widget(form.media) }}
+        {{ form_errors(form.media) }}
+        {{ form_label(form.media) }}
+    </div>
+    <div class="col-12 col-md-7">
+        <div class="row">
+            <div class="col-12 mt-3">
+                {{ form_widget(form.nom) }}
+                {{ form_errors(form.nom) }}
+            </div>
+            <div class="col-12 mt-3">
+                {{ form_widget(form.prenoms) }}
+                {{ form_errors(form.prenoms) }}
+            </div>
+            <div class="col-12 mt-3">
+                {{ form_widget(form.sexe) }}
+                {{ form_errors(form.sexe) }}
+            </div>
+        </div>
+    </div>
+    <div class="col-6 mt-3">
+        {{ form_widget(form.email) }}
+        {{ form_errors(form.email) }}
+    </div>
+    <div class="col-6 mt-3">
+        {{ form_widget(form.telephone) }}
+        {{ form_errors(form.telephone) }}
+    </div>
+    <div class="col-md-6 mt-3">
+        {{ form_widget(form.profession) }}
+        {{ form_errors(form.profession) }}
+    </div>
+    <div class="col-md-6 mt-3">
+        {{ form_widget(form.adresse) }}
+        {{ form_errors(form.adresse) }}
+    </div>
+    <div class="col-md-6 mt-3">
+        {{ form_widget(form.langue) }}
+        {{ form_errors(form.langue) }}
+    </div>
+{#    <div class="col-md-6 mt-3">#}
+{#        {{ form_widget(form.geolocalisation, { 'attr': { 'readonly': true, 'onclick': 'geolocateAddress()' } }) }}#}
+{#        {{ form_errors(form.geolocalisation) }}#}
+{#    </div>#}
+    <div class="col-md-6 mt-3">
+        {{ form_widget(form.niveau) }}
+        {{ form_errors(form.niveau) }}
+    </div>
+    <div class="col-6 mt-3">
+        {{ form_row(form.competence) }}
+    </div>
+    <div class="col-md-6 mt-3">
+        {{ form_row(form.experience) }}
+    </div>
+    <div class="col-md-6 mt-3">
+        {{ form_widget(form.tarifHoraire) }}
+        {{ form_errors(form.tarifHoraire) }}
+    </div>
+    <div class="col-md-6 mt-3">
+        {{ form_widget(form.garantie) }}
+        {{ form_errors(form.garantie) }}
+    </div>
+    <div class="col-md-6 mt-3">
+        {{ form_widget(form.stock) }}
+        {{ form_errors(form.stock) }}
+    </div>
+    <div class="col-md-6 mt-3">
+        {{ form_widget(form.deplacement) }}
+        {{ form_errors(form.deplacement) }}
+    </div>
+    <div class="col-md-6 mt-3">
+        {{ form_widget(form.paiement) }}
+        {{ form_errors(form.paiement) }}
+    </div>
+    <div class="col-md-6 mt-3">
+        {{ form_widget(form.modeTravail) }}
+        {{ form_errors(form.modeTravail) }}
+    </div>
+    <div class="col-md-6 mt-3">
+        {{ form_row(form.casier) }}
+{#        {{ form_errors(form.document) }}#}
+    </div>
+    <div class="col-md-6 mt-3">
+        {{ form_row(form.licence) }}
+{#        {{ form_errors(form.licence) }}#}
+    </div>
+</div>
+<div class="row mt-5">
+
+    {{ form_widget(form) }}
+    <div class="col-6 col-md-4 offset-md-4 d-grid gap-2">
+        <a href="{{ absolute_url(path('app_frontend_prestataire_tbord')) }}" class="btn btn-outline-secondary">Annuler</a>
+    </div>
+    <div class="col-6 col-md-4 d-grid gap-2">
+        <button type="submit" class="btn btn-main btnSoumission">
+            {{ button_label|default('Enregistrez') }}
+        </button>
+    </div>
+</div>
+
+
+{{ form_end(form) }}

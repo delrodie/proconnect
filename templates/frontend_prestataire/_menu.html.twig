@@ -2,22 +2,28 @@
     <!-- Ordinateur -->
     <div class="card d-none d-lg-block">
         <div class="avatar">
-            <img src="{{ absolute_url(asset('img/all/3d-worker.png')) }}"
-                 alt="" class="">
+            {% if prestataire.media %}
+                <img src="{{ absolute_url(asset('upload/prestataire/' ~ prestataire.media)) }}"
+                     alt="" class="">
+            {% else %}
+                <img src="{{ absolute_url(asset('img/all/3d-worker.png')) }}"
+                     alt="" class="">
+            {% endif %}
+
         </div>
         <nav class="nav flex-column">
             <li class="nav-item">
-                <a href="{{ absolute_url(path('app_frontend_demandeur_tbord')) }}" class="nav-link"><i
+                <a href="{{ absolute_url(path('app_frontend_prestataire_tbord')) }}" class="nav-link"><i
                             class="bi bi-clipboard-data"></i> Tableau de
                     bord</a>
             </li>
             <li class="nav-item">
-                <a href="{{ absolute_url(path('app_frontend_demandeur_profile')) }}" class="nav-link"><i
+                <a href="{{ absolute_url(path('app_frontend_prestataire_profile')) }}" class="nav-link active"><i
                             class="bi bi-person-bounding-box"></i> Profile</a>
             </li>
             {% if prestataire.matricule %}
                 <li class="nav-item">
-                    <a href="{{ absolute_url(path('app_frontend_demandeur_projet_index',{'demandeur': prestataire.matricule})) }}" class="nav-link"><i
+                    <a href="#" class="nav-link"><i
                                 class="bi bi-card-list"></i> Mes
                         projets</a>
                 </li>

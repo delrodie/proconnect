@@ -104,6 +104,19 @@ class Utilities
         return $code;
     }
 
+    public function matriculePrestataire(): string
+    {
+        do{
+            $nombreAleatoire = random_int(1000,9999);
+            $codeDate = date('ymd');
+            $matricule = $codeDate.$nombreAleatoire;
+
+            $verify = $this->allRepositories->getOnePrestataire($matricule);
+        } while($verify);
+
+        return $matricule;
+    }
+
     /**
      * Generation de la reference du projet
      *

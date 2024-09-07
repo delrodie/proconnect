@@ -48,17 +48,17 @@ class Prestataire
     #[ORM\Column(nullable: true)]
     private ?int $tarifHoraire = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $stock = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $stock = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $paiement = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?int $garantie = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $garantie = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $document = null;
+    private ?string $casier = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $modeTravail = null;
@@ -74,6 +74,18 @@ class Prestataire
      */
     #[ORM\ManyToMany(targetEntity: Competence::class)]
     private Collection $competence;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $deplacement = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $email = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $telephone = null;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?User $user = null;
 
     public function __construct()
     {
@@ -217,12 +229,12 @@ class Prestataire
         return $this;
     }
 
-    public function getStock(): ?int
+    public function getStock(): ?string
     {
         return $this->stock;
     }
 
-    public function setStock(?int $stock): static
+    public function setStock(?string $stock): static
     {
         $this->stock = $stock;
 
@@ -241,26 +253,26 @@ class Prestataire
         return $this;
     }
 
-    public function getGarantie(): ?int
+    public function getGarantie(): ?string
     {
         return $this->garantie;
     }
 
-    public function setGarantie(?int $garantie): static
+    public function setGarantie(?string $garantie): static
     {
         $this->garantie = $garantie;
 
         return $this;
     }
 
-    public function getDocument(): ?string
+    public function getCasier(): ?string
     {
-        return $this->document;
+        return $this->casier;
     }
 
-    public function setDocument(?string $document): static
+    public function setCasier(?string $casier): static
     {
-        $this->document = $document;
+        $this->casier = $casier;
 
         return $this;
     }
@@ -321,6 +333,54 @@ class Prestataire
     public function removeCompetence(Competence $competence): static
     {
         $this->competence->removeElement($competence);
+
+        return $this;
+    }
+
+    public function getDeplacement(): ?string
+    {
+        return $this->deplacement;
+    }
+
+    public function setDeplacement(?string $deplacement): static
+    {
+        $this->deplacement = $deplacement;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(?string $email): static
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getTelephone(): ?string
+    {
+        return $this->telephone;
+    }
+
+    public function setTelephone(?string $telephone): static
+    {
+        $this->telephone = $telephone;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

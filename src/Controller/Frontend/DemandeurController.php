@@ -34,7 +34,6 @@ class DemandeurController extends AbstractController
         $demandeur = $verif;
         if (!$verif){
             return $this->redirectToRoute('app_frontend_demandeur_profile');
-            $demandeur = [];
         }
 
 
@@ -47,7 +46,7 @@ class DemandeurController extends AbstractController
     #[Route('/profile', name: 'app_frontend_demandeur_profile', methods: ['GET', 'POST'])]
     public function profile(Request $request): Response
     {
-        // Verification s'il le profile existe deja
+        // Verification si le profile existe deja
         $verif = $this->allRepositories->getOneDemandeur(null, $this->getUser());
         if ($verif){
             return $this->redirectToRoute('app_frontend_demandeur_show',[

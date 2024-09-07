@@ -7,6 +7,7 @@ use App\Repository\CompetenceRepository;
 use App\Repository\DemandeurRepository;
 use App\Repository\DomaineRepository;
 use App\Repository\MaintenanceRepository;
+use App\Repository\PrestataireRepository;
 use App\Repository\ProjetRepository;
 
 class AllRepositories
@@ -17,7 +18,8 @@ class AllRepositories
         private DomaineRepository $domaineRepository,
         private CategorieRepository $categorieRepository,
         private ProjetRepository $projetRepository,
-        private CompetenceRepository $competenceRepository
+        private CompetenceRepository $competenceRepository,
+        private PrestataireRepository $prestataireRepository
     )
     {
     }
@@ -77,6 +79,15 @@ class AllRepositories
         if ($slug) return $this->competenceRepository->findOneBy(['slug' => $slug]);
 
         return $this->competenceRepository->findOneBy([],['id' => 'DESC']);
+    }
+
+    public function getOnePrestataire(string $matricule = null, object $user = null)
+    {
+        if ($matricule) return $this->prestataireRepository->findOneBy(['matricule' => $matricule]);
+
+        if ($user) return $this->prestataireRepository->findOneBy(['user' => $user]);
+
+        return $this->prestataireRepository->findOneBy([], ['id' => 'DESC']);
     }
 
     public function findProjetsByUser($user)

@@ -1,0 +1,126 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Prestataire - inscription {% endblock %}
+{% block body %}
+    <main>
+        <section class="profile" id="profile">
+            <div class="container">
+                <div class="row">
+                    {% include 'frontend_prestataire/_menu.html.twig' %}
+                    <div class="col-12 col-lg-9 profile-content">
+
+
+                        <h2 class="titre">Informations personnelles du prestataire</h2>
+                        <div class="row mt-5">
+                            <div class="col-12 col-md-5 mt-3">
+                                <img src="{{ absolute_url(asset('upload/prestataire/' ~ prestataire.media)) }}" alt="{{ prestataire.nom }} {{ prestataire.prenoms }}" class="img-fluid" >
+                            </div>
+                            <div class="col-12 col-md-7">
+                                <div class="row">
+                                    <div class="col-12 mt-1">
+                                        <label for="">Nom de famille</label>
+                                        <input type="text" class="form-control" value="{{ prestataire.nom }}" disabled>
+                                    </div>
+                                    <div class="col-12 mt-2">
+                                        <label for="">Prénoms</label>
+                                        <input type="text" class="form-control" value="{{ prestataire.prenoms }}" disabled>
+                                    </div>
+                                    <div class="col-12 mt-2">
+                                        <label for="">Sexe</label>
+                                        <input type="text" class="form-control" value="{{ prestataire.sexe }}" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 mt-2">
+                                <label for="">Adresse email</label>
+                                <input type="text" class="form-control" value="{{ prestataire.email }}" disabled>
+                            </div>
+                            <div class="col-6 mt-2">
+                                <label for="">Téléphone</label>
+                                <input type="text" class="form-control" value="{{ prestataire.telephone }}" disabled>
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                <label for="">Profession</label>
+                                <input type="text" class="form-control" value="{{ prestataire.profession }}" disabled>
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                <label for="">Adresse géographique</label>
+                                <input type="text" class="form-control" value="{{ prestataire.adresse }}" disabled>
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                <label for="">Langues parlées</label>
+                                <input type="text" class="form-control" value="{{ prestataire.langue }}" disabled>
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                <label for="">Niveau</label>
+                                <input type="text" class="form-control" value="{{ prestataire.niveau }}" disabled>
+                            </div>
+                            <div class="col-6 mt-2">
+                                <label for="">Compétences</label>
+                                <input type="text" class="form-control" value="{% for competence in prestataire.competence %}{{ competence.title }},{% endfor %}" disabled>
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                <label for="">Expériences</label>
+                                <input type="text" class="form-control" value="{{ prestataire.experience }}" disabled>
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                <label for="">Tarif horaire</label>
+                                <input type="text" class="form-control" value="{{ prestataire.tarifHoraire }}" disabled>
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                <label for="">Garantie</label>
+                                <input type="text" class="form-control" value="{{ prestataire.garantie }}" disabled>
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                <label for="">Stock</label>
+                                <input type="text" class="form-control" value="{{ prestataire.stock }}" disabled>
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                <label for="">Déplacement</label>
+                                <input type="text" class="form-control" value="{{ prestataire.deplacement }}" disabled>
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                <label for="">Mode de paiement</label>
+                                <input type="text" class="form-control" value="{{ prestataire.paiement }}" disabled>
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                <label for="">Mode de travail</label>
+                                <input type="text" class="form-control" value="{{ prestataire.modeTravail }}" disabled>
+                            </div>
+                            <div class="col-md-12 mt-2">
+                                 <a href="{{ absolute_url(asset('upload/prestataire/document/' ~ prestataire.casier)) }}"><i class="bi bi-file-earmark-arrow-down"></i> Document complémentaire (casier judiciaire)</a>
+                            </div>
+                            <div class="col-md-12 mt-0">
+                                <a href="{{ absolute_url(asset('upload/prestataire/licence/' ~ prestataire.licence)) }}"><i class="bi bi-file-earmark-arrow-down"></i> Licence de travail</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
+{% block breadcrumb %}
+    <section class="header py-30" id="breadcrumb"> </section>
+{% endblock %}
+
+{% block stylesheets %}
+    <script src="{{ absolute_url(asset('js/jquery-3.7.1.min.js')) }}"></script>
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    {{ parent() }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="{{ absolute_url(asset('js/upload-init.js')) }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.select-2').select2();
+        });
+    </script>
+{% endblock %}

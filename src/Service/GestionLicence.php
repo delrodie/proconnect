@@ -6,17 +6,15 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\String\Slugger\AsciiSlugger;
 
-class GestionMedia
+class GestionLicence
 {
-    private $mediaDemandeur;
-    private $mediaPrestataire;
+    private $mediaLicence;
 
     public function __construct(
-        $demandeurDirectory, $prestataireDirectory
+        $licenceDirectory,
     )
     {
-        $this->mediaDemandeur = $demandeurDirectory;
-        $this->mediaPrestataire = $prestataireDirectory;
+        $this->mediaLicence = $licenceDirectory;
     }
 
     /**
@@ -28,15 +26,15 @@ class GestionMedia
     public function media($form, object $entity, string $entityName): void
     {
         // Gestion des médias
-        $mediaFile = $form->get('media')->getData();
+        $mediaFile = $form->get('licence')->getData();
         if ($mediaFile){
             $media = $this->upload($mediaFile, $entityName);
 
-            if ($entity->getMedia()){
-                $this->removeUpload($entity->getMedia(), $entityName);
-            }
+//            if ($entity->getLicence()){
+//                $this->removeUpload($entity->getLicence(), $entityName);
+//            }
 
-            $entity->setMedia($media);
+            $entity->setLicence($media);
         }
     }
 
@@ -57,9 +55,8 @@ class GestionMedia
 
         // Deplacement du fichier dans le repertoire dedié
         try {
-            if ($media === 'demandeur') $file->move($this->mediaDemandeur, $newFilename);
-            elseif ($media === 'prestataire') $file->move($this->mediaPrestataire, $newFilename);
-            else $file->move($this->mediaDemandeur, $newFilename);
+            if ($media === 'prestataire') $file->move($this->mediaLicence, $newFilename);
+            else $file->move($this->mediaLicence, $newFilename);
         }catch (FileException $e){
 
         }
@@ -76,8 +73,7 @@ class GestionMedia
      */
     public function removeUpload($ancienMedia, $media = null): bool
     {
-        if ($media === 'demandeur') unlink($this->mediaDemandeur.'/'.$ancienMedia);
-        elseif ($media === 'prestataire') unlink($this->mediaPrestataire.'/'.$ancienMedia);
+        if ($media === 'prestataire') unlink($this->mediaLicence.'/'.$ancienMedia);
         else return false;
 
         return true;

@@ -32,3 +32,12 @@ services:
     App\Service\GestionMedia:
         arguments:
             $demandeurDirectory: '%kernel.project_dir%/public/upload/demandeur'
+            $prestataireDirectory: '%kernel.project_dir%/public/upload/prestataire'
+
+    App\Service\GestionDocument:
+        arguments:
+            $documentDirectory: '%kernel.project_dir%/public/upload/prestataire/document'
+
+    App\Service\GestionLicence:
+        arguments:
+            $licenceDirectory: '%kernel.project_dir%/public/upload/prestataire/licence'
