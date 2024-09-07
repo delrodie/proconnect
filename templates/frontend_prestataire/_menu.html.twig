@@ -9,31 +9,30 @@
                 <img src="{{ absolute_url(asset('img/all/3d-worker.png')) }}"
                      alt="" class="">
             {% endif %}
-
         </div>
         <nav class="nav flex-column">
             <li class="nav-item">
-                <a href="{{ absolute_url(path('app_frontend_prestataire_tbord')) }}" class="nav-link"><i
+                <a href="{{ absolute_url(path('app_frontend_prestataire_tbord')) }}" class="nav-link {{ menu_active('app_frontend_prestataire_tbord') }}"><i
                             class="bi bi-clipboard-data"></i> Tableau de
                     bord</a>
             </li>
             <li class="nav-item">
-                <a href="{{ absolute_url(path('app_frontend_prestataire_profile')) }}" class="nav-link active"><i
+                <a href="{{ absolute_url(path('app_frontend_prestataire_profile')) }}" class="nav-link {{ menu_active('app_frontend_prestataire_profile') }} {{ menu_active('app_frontend_prestataire_show',{matricule: prestataire.matricule}) }}"><i
                             class="bi bi-person-bounding-box"></i> Profile</a>
             </li>
             {% if prestataire.matricule %}
                 <li class="nav-item">
-                    <a href="#" class="nav-link"><i
+                    <a href="#" class="nav-link {{ menu_active('#') }}"><i
                                 class="bi bi-card-list"></i> Mes
                         projets</a>
                 </li>
             {% endif %}
 
             <li class="nav-item">
-                <a href="#" class="nav-link"><i class="bi bi-people"></i> Prestataires</a>
+                <a href="#" class="nav-link {{ menu_active('#') }}"><i class="bi bi-people"></i> Prestataires</a>
             </li>
             <li class="nav-item dropdown">
-                <a href="#parametre" class="nav-link" role="button" data-bs-toggle="collapse"
+                <a href="#parametre" class="nav-link {{ menu_active('#parametre') }}" role="button" data-bs-toggle="collapse"
                    aria-expanded="false" aria-controls="parametre">
                     <i class="bi bi-gear"></i> Paramètres
                 </a>

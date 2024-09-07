@@ -164,4 +164,21 @@ class Utilities
             default => 'text-bg-info'
         };
     }
+
+    public function typeOfUser($user): false|int
+    {
+        $userTypes = [
+            1 => 'getOneDemandeur',
+            2 => 'getOnePrestataire',
+        ];
+
+        foreach ($userTypes as $type => $method) {
+            if ($this->allRepositories->$method(null, $user)) {
+                return $type;
+            }
+        }
+
+        return false;
+    }
+
 }
