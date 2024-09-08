@@ -114,6 +114,7 @@ class DemandeurController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->gestionMedia->media($form, $demandeur, 'demandeur');
             $this->entityManager->flush();
 
             notyf()->success("Votre profile a été modifié avec succès!");

@@ -85,7 +85,11 @@
                                         %}
 
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="{{ absolute_url(account_path) }}">Mon compte</a></li>
+                                            {% if is_granted('ROLE_SUPER_ADMIN') %}
+                                                <li><a class="dropdown-item" href="{{ absolute_url(path('app_backend_dashboard')) }}">Backoffice</a></li>
+                                            {% else %}
+                                                <li><a class="dropdown-item" href="{{ absolute_url(account_path) }}">Mon compte</a></li>
+                                            {% endif %}
                                             <li><a class="dropdown-item" href="{{ absolute_url(path('app_logout')) }}">Deconnexion</a></li>
                                         </ul>
 
