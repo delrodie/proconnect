@@ -12,9 +12,6 @@
 
                         <h2 class="titre">Informations personnelles du prestataire</h2>
                         <div class="row mt-5">
-                            <div class="col-12 col-md-5 mt-3">
-                                <img src="{{ absolute_url(asset('upload/prestataire/' ~ prestataire.media)) }}" alt="{{ prestataire.nom }} {{ prestataire.prenoms }}" class="img-fluid" >
-                            </div>
                             <div class="col-12 col-md-7">
                                 <div class="row">
                                     <div class="col-12 mt-1">
@@ -30,6 +27,9 @@
                                         <input type="text" class="form-control" value="{{ prestataire.sexe }}" disabled>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="col-12 col-md-5 mt-3">
+                                <img src="{{ absolute_url(asset('upload/prestataire/' ~ prestataire.media)) }}" alt="{{ prestataire.nom }} {{ prestataire.prenoms }}" class="img-fluid" >
                             </div>
                             <div class="col-6 mt-2">
                                 <label for="">Adresse email</label>
@@ -92,6 +92,10 @@
                             </div>
                             <div class="col-md-12 mt-0">
                                 <a href="{{ absolute_url(asset('upload/prestataire/licence/' ~ prestataire.licence)) }}"><i class="bi bi-file-earmark-arrow-down"></i> Licence de travail</a>
+                            </div>
+
+                            <div class="mt-5 text-end">
+                                <a href="{{ absolute_url(path('app_frontend_prestataire_edit',{'matricule' : prestataire.matricule})) }}"><i class="bi bi-pencil-square"></i> Modifier mon profile</a>
                             </div>
                         </div>
                     </div>

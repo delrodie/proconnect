@@ -90,15 +90,26 @@ class DemandeurController extends AbstractController
     #[Route('/{code}', name: 'app_frontend_demandeur_show', methods: ['GET'])]
     public function show($code)
     {
+        $demandeur = $this->allRepositories->getOneDemandeur($code);
+        if ($demandeur->getUser() !== $this->getUser()){
+            sweetalert()->error("Echèc! vous n'êtes pas autorisé(e) à modifier ce profile",[],"Accès non autorisé");
+            return $this->redirectToRoute('app_home_index');
+        }
+
         return $this->render('frontend_demandeur/profile_show.html.twig',[
-            'demandeur' => $this->allRepositories->getOneDemandeur($code)
+            'demandeur' => $demandeur
         ]);
     }
 
     #[Route('/{code}/profile', name: 'app_frontend_demandeur_edit', methods: ['GET','POST'])]
-    public function edit(Request $request, $code)
+    public function edit(Request $request, $code): Response
     {
         $demandeur = $this->allRepositories->getOneDemandeur($code);
+        if ($demandeur->getUser() !== $this->getUser()){
+            sweetalert()->error("Echèc! vous n'êtes pas autorisé(e) à modifier ce profile",[],"Accès non autorisé");
+            return $this->redirectToRoute('app_home_index');
+        }
+
         $form = $this->createForm(DemandeurFormType::class, $demandeur);
         $form->handleRequest($request);
 

@@ -89,11 +89,43 @@ class PrestataireController extends AbstractController
     {
         $prestataire = $this->allRepositories->getOnePrestataire($matricule);
         if ($prestataire->getUser() !== $this->getUser()){
-            sweetalert()->error('Attention!! Vous n\'êtes pas autorisé.e à voir ce profil ');
+            sweetalert()->error('Attention!! Vous n\'êtes pas autorisé(e) à voir ce profil ');
             return $this->redirectToRoute('app_home_index');
         }
         return $this->render('frontend_prestataire/profile_show.html.twig',[
             'prestataire' => $prestataire
+        ]);
+    }
+
+    #[Route('/{matricule}/profile', name: 'app_frontend_prestataire_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, $matricule): Response
+    {
+        $prestataire = $this->allRepositories->getOnePrestataire($matricule);
+
+        if ($prestataire->getUser() !== $this->getUser()){
+            sweetalert()->error("Echèc! vous n'êtes pas autorisé(e) à modifier ce profile",[],"Accès non autorisé");
+            return $this->redirectToRoute('app_home_index');
+        }
+
+        $form = $this->createForm(PrestataireFormType::class, $prestataire);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            // Gestion des medias
+            $this->gestionMedia->media($form, $prestataire, 'prestataire');
+            $this->gestionLicence->media($form, $prestataire, 'prestataire');
+            $this->gestionDocument->media($form, $prestataire, 'prestataire');
+
+            $this->entityManager->flush();
+
+            notyf()->success("Votre profile a été modifié avec succès!");
+
+            return $this->redirectToRoute('app_frontend_prestataire_profile');
+        }
+
+        return $this->render('frontend_prestataire/profile_edit.html.twig',[
+            'prestataire' => $prestataire,
+            'form' => $form,
         ]);
     }
 }

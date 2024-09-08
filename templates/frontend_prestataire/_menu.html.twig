@@ -17,7 +17,7 @@
                     bord</a>
             </li>
             <li class="nav-item">
-                <a href="{{ absolute_url(path('app_frontend_prestataire_profile')) }}" class="nav-link {{ menu_active('app_frontend_prestataire_profile') }} {{ menu_active('app_frontend_prestataire_show',{matricule: prestataire.matricule}) }}"><i
+                <a href="{{ absolute_url(path('app_frontend_prestataire_profile')) }}" class="nav-link {{ menu_active('app_frontend_prestataire_profile') }} {{ menu_active('app_frontend_prestataire_show',{matricule: prestataire.matricule}) }} {{ menu_active('app_frontend_prestataire_edit',{matricule: prestataire.matricule}) }}"><i
                             class="bi bi-person-bounding-box"></i> Profile</a>
             </li>
             {% if prestataire.matricule %}

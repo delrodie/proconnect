@@ -104,18 +104,21 @@ class PrestataireFormType extends AbstractType
                     '-- Mode de paiement --' => '',
                     'Espèce' => 'ESPECE',
                     'Paiement mobile' => 'MOBILE',
-                    'Banque' => 'BANQUE'
+                    'Banque' => 'BANQUE',
+                    'Les trois modes' => 'TOUS LES MODES',
                 ],
                 'multiple' => false,
                 'expanded' => false,
                 'label' => "Mode de paiement"
             ])
-            ->add('garantie', IntegerType::class,[
+            ->add('garantie', TextType::class,[
                 'attr' => ['class' => 'form-control form-control-lg', 'placeholder' => 'Durée de garantie', 'autocomplete'=>'off']
             ])
             ->add('casier', FileType::class,[
                 'attr' => ['class' => 'form-control'],
-                'label' => 'Documents complémentaires (Casier judiciaire)'
+                'label' => 'Documents complémentaires (Casier judiciaire)',
+                'mapped' => false,
+                'required' => false
             ])
             ->add('modeTravail', ChoiceType::class,[
                 'attr' => ['class' => 'form-select', 'placeholder'=>"Mode de travail"],
@@ -146,11 +149,13 @@ class PrestataireFormType extends AbstractType
                         //'maxSizeMessage' => "La taille de votre image doit être inférieure à 2Mo",
                     ])
                 ],
-                'required' => false
+                'required' => false,
             ])
             ->add('licence', FileType::class,[
                 'attr' => ['class' => 'form-control'],
-                'label' => 'Téléchargez votre licence de travail'
+                'label' => 'Téléchargez votre licence de travail',
+                'mapped' => false,
+                'required' => false
             ])
             ->add('competence', EntityType::class, [
                 'class' => Competence::class,

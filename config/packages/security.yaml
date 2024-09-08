@@ -48,6 +48,7 @@ security:
          - { path: ^/admin, roles: ROLE_ADMIN }
          - { path: ^/dashboard/, roles: ROLE_ADMIN }
          - { path: ^/demandeur/, roles: ROLE_DEMANDEUR }
+         - { path: ^/prestataire/, roles: ROLE_PRESTATAIRE }
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:
