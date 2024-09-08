@@ -1,0 +1,234 @@
+{% extends 'backend_layout.html.twig' %}
+
+{% block title %}{{ parent() }} {{ prestataire.nom }} {{ prestataire.prenoms }}{% endblock %}
+
+{% block body %}
+<div class="container-fluid">
+    <div class="card bg-light-info shadow-none position-relative overflow-hidden">
+        <div class="card-body px-4 py-3">
+            <div class="row align-items-center">
+                <div class="col-9">
+                    <h4 class="fw-semibold mb-8">Gestion des prestataires</h4>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a class="text-muted" href="{{ absolute_url(path('app_backend_dashboard')) }}">Tableau de bord</a></li>
+                            <li class="breadcrumb-item" aria-current="page">Profile</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-3">
+                    <div class="text-center mb-n5">
+                        <span class="head-icon"><i class="ti-user"></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card overflow-hidden">
+        <div class="card-body p-0">
+            <div class="barre" style="height: 100px;"></div>
+            <div class="row align-items-center">
+                <div class="col-lg-4 order-lg-1 order-2">
+                    <div class="d-flex align-items-center justify-content-around m-4">
+                        <div class="text-center">
+                            <i class="bi bi-cloud-arrow-up fs-6 d-block mb-2"></i>
+                            <h4 class="mb-0 fw-semibold lh-1">{{ projets|length }}</h4>
+                            <p class="mb-0 fs-4">Projets réalisés</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="bi bi-suitcase-lg fs-6 d-block mb-2"></i>
+                            <h4 class="mb-0 fw-semibold lh-1">5</h4>
+                            <p class="mb-0 fs-4">Projets postulés</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mt-n3 order-lg-2 order-1">
+                    <div class="mt-n5">
+                        <div class="d-flex align-items-center justify-content-center mb-2">
+                            <div class="linear-gradient d-flex align-items-center justify-content-center rounded-circle" style="width: 110px; height: 110px;";>
+                                <div class="border border-4 border-white d-flex align-items-center justify-content-center rounded-circle overflow-hidden" style="width: 100px; height: 100px;";>
+                                    <img src="{{ absolute_url(asset('/upload/prestataire/' ~ prestataire.media)) }}" alt="" class="w-100 h-100">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <h5 class="fs-5 mb-0 fw-semibold">{{ prestataire.prenoms|title }} {{ prestataire.nom|upper }}</h5>
+                            <p class="mb-0 fs-4">{{ prestataire.profession }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 order-last">
+                    <div class="d-flex align-items-center justify-content-around m-4">
+
+                        <div class="text-center">
+                            <i class="bi bi-cash-coin fs-6 d-block mb-2"></i>
+                            <h4 class="mb-0 fw-semibold lh-1">350.000 FCFA</h4>
+                            <p class="mb-0 fs-4">Recette</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ul class="nav nav-pills user-profile-tab justify-content-end mt-2 bg-light-info rounded-2" id="pills-tab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link position-relative rounded-0 active d-flex align-items-center justify-content-center bg-transparent fs-3 py-6" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="true">
+                        <i class="ti ti-user-circle me-2 fs-6"></i>
+                        <span class="d-none d-md-block">Profile</span>
+                    </button>
+                </li>
+
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link position-relative rounded-0 d-flex align-items-center justify-content-center bg-transparent fs-3 py-6" id="pills-friends-tab" data-bs-toggle="pill" data-bs-target="#pills-friends" type="button" role="tab" aria-controls="pills-friends" aria-selected="false">
+                        <i class="ti ti-user-circle me-2 fs-6"></i>
+                        <span class="d-none d-md-block">Prestataires</span>
+                    </button>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="card shadow-none border">
+                        <div class="card-body">
+                            <h4 class="fw-semibold mb-3">{{ prestataire.matricule }}</h4>
+                            <p>Matricule prestataire</p>
+                            <ul class="list-unstyled mt-5 mb-0">
+                                <li class="d-flex align-items-center gap-3 mb-2">
+                                    {% if prestataire.sexe == 'HOMME' %}
+                                        <i class="bi bi-person-standing text-dark fs-6"></i>
+                                        Sexe: <h6 class="fs-4 fw-semibold mb-0">{{ prestataire.sexe }}</h6>
+                                    {% else %}
+                                        <i class="bi bi-person-standing-dress text-dark fs-6"></i>
+                                        <h6 class="fs-4 fw-semibold mb-0">{{ prestataire.sexe }}</h6>
+                                    {% endif %}
+                                </li>
+                                <li class="d-flex align-items-center gap-3 mb-2">
+                                    <i class="bi bi-geo-alt text-dark fs-6"></i>
+                                    Adresse: <h6 class="fs-4 fw-semibold mb-0">{{ prestataire.adresse }}</h6>
+                                </li>
+                                <li class="d-flex align-items-center gap-3 mb-2">
+                                    <i class="bi bi-envelope text-dark fs-6"></i>
+                                    Email: <h6 class="fs-4 fw-semibold mb-0">{{ prestataire.email }}</h6>
+                                </li>
+                                <li class="d-flex align-items-center gap-3 mb-2">
+                                    <i class="bi bi-phone text-dark fs-6"></i>
+                                    Téléphone: <h6 class="fs-4 fw-semibold mb-0">{{ prestataire.telephone }}</h6>
+                                </li>
+                                <li class="d-flex align-items-center gap-3 mb-2">
+                                    <i class="bi bi-file-earmark-bar-graph text-dark fs-6"></i>
+                                    Niveau: <h6 class="fs-4 fw-semibold mb-0">{{ prestataire.niveau }}</h6>
+                                </li>
+                                <li class="d-flex align-items-center gap-3 mb-2">
+                                    <i class="bi bi-briefcase text-dark fs-6"></i>
+                                    Expérience: <h6 class="fs-4 fw-semibold mb-0">{{ prestataire.experience }} ans</h6>
+                                </li>
+                                <li class="d-flex align-items-center gap-3 mb-2">
+                                    <i class="bi bi-flag text-dark fs-6"></i>
+                                    Langues: <h6 class="fs-4 fw-semibold mb-0">{{ prestataire.langue }}</h6>
+                                </li>
+                                <li class="d-flex align-items-center gap-3 mb-2">
+                                    <i class="bi bi-hourglass-split text-dark fs-6"></i>
+                                    Tarif horaire: <h6 class="fs-4 fw-semibold mb-0">{{ prestataire.tarifHoraire }} FCFA</h6>
+                                </li>
+                                <li class="d-flex align-items-center gap-3 mb-2">
+                                    <i class="bi bi-cash-coin text-dark fs-6"></i>
+                                    Paiement: <h6 class="fs-4 fw-semibold mb-0">{{ prestataire.paiement }} </h6>
+                                </li>
+                                <li class="d-flex align-items-center gap-3 mb-2">
+                                    <i class="bi bi-house-lock text-dark fs-6"></i>
+                                    Paiement: <h6 class="fs-4 fw-semibold mb-0">{{ prestataire.garantie }} </h6>
+                                </li>
+                                <li class="d-flex align-items-center gap-3 mb-2">
+                                    <i class="bi bi-people text-dark fs-6"></i>
+                                    Mode de travail: <h6 class="fs-4 fw-semibold mb-0">{{ prestataire.modeTravail }} </h6>
+                                </li>
+                                <li class="d-flex align-items-center gap-3 mb-2">
+                                    <i class="bi bi-car-front-fill text-dark fs-6"></i>
+                                    Deplacement: <h6 class="fs-4 fw-semibold mb-0">{{ prestataire.deplacement }} </h6>
+                                </li>
+                                <li class="d-flex align-items-center gap-3 mb-2">
+                                    <a href="{{ absolute_url(asset('upload/prestataire/licence/' ~ prestataire.licence)) }}">
+                                        <i class="bi bi-file-earmark-text text-dark fs-6"></i> Licence
+                                    </a>
+
+                                </li>
+                                <li class="d-flex align-items-center gap-3 mb-2">
+                                    <a href="{{ absolute_url(asset('upload/prestataire/document/' ~ prestataire.casier)) }}">
+                                        <i class="bi bi-archive text-dark fs-6"></i> Casier judiciaire
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+
+                    {% for projet in projets %}
+                        <div class="card">
+                            <div class="card-body border-bottom">
+                                <div class="d-flex align-items-center gap-3">
+                                    <h6 class="fw-semibold mb-0 fs-4 text-black">
+                                        <a href="{{ path('app_backend_projet_show', {'id': projet.id}) }}" style="color: black">
+                                            {{ projet.title }}
+                                        </a>
+                                    </h6>
+                                    <span class="fs-2"><span class="p-1 bg-light rounded-circle d-inline-block"></span> {{ projet.createdAt|date('d M Y') }} à {{ projet.createdAt|date('H:i:s') }}</span>
+                                </div>
+                                <p class="text-dark my-3">{{ projet.description|raw(0,255) }}</p>
+                                <div class="d-flex align-items-center my-3">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <a class="text-white d-flex align-items-center justify-content-center bg-primary p-2 fs-4 rounded-circle" href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Candidatures">
+                                            <i class="bi bi-people"></i>
+                                        </a>
+                                        <span class="text-dark fw-semibold">67</span> <small class="text-dark">Candidatures</small>
+                                    </div>
+                                    <a class="text-dark ms-auto d-flex align-items-center justify-content-center {{ projet.statut|stick_css_class  }} p-1  " href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Statut du projet">
+                                        {{ projet.statut|statut_label }}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="pills-friends" role="tabpanel" aria-labelledby="pills-friends-tab" tabindex="0">
+            <div class="d-sm-flex align-items-center justify-content-between mt-3 mb-4">
+                <h3 class="mb-3 mb-sm-0 fw-semibold d-flex align-items-center">Prestataires <span class="badge text-bg-secondary fs-2 rounded-4 py-1 px-2 ms-2">5</span></h3>
+
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card hover-img">
+                        <div class="card-body p-4 text-center border-bottom">
+                            <img src="https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/profile/user-1.jpg" alt="" class="rounded-circle mb-3" width="80" height="80">
+                            <h5 class="fw-semibold mb-0">Nom prestataire</h5>
+                            <span class="text-dark fs-2">Profession prestataires</span>
+                            <div class="row mt-3">
+                                <div class="col-6">
+                                    <div class=""><strong>252</strong></div>
+                                    <p> Reference projet</p>
+                                </div>
+                                <div class="col-6">
+                                    <div class=""><strong>0 FCFA</strong></div>
+                                    <p>Facture</p>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="px-2 py-2 bg-light list-unstyled d-flex align-items-center justify-content-center mb-0">
+                            <li class="position-relative">
+                                <a class="text-primary d-flex align-items-center justify-content-center p-2 fs-5 rounded-circle fw-semibold" href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Profile">
+                                    <i class="bi bi-person-circle"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+

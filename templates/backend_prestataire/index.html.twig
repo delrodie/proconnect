@@ -1,0 +1,158 @@
+{% extends 'backend_layout.html.twig' %}
+
+{% block title %}{{ parent() }} Gestion liste des prestataires{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="card bg-light-info shadow-none position-relative overflow-hidden">
+            <div class="card-body px-4 py-3">
+                <div class="row align-items-center">
+                    <div class="col-9">
+                        <h4 class="fw-semibold mb-8">Gestion des prestataires</h4>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a class="text-muted" href="#">Modules</a></li>
+                                <li class="breadcrumb-item"><a class="text-muted" href="#">prestataires</a></li>
+                                <li class="breadcrumb-item" aria-current="page">Liste</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="col-3">
+                        <div class="text-center mb-n5">
+                            <span class="head-icon"><i class="ti-package"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col"><h5 class="mb-2 fw-semibold fs-4">Liste</h5></div>
+
+                            </div>
+
+                        </div>
+                        <div class="card-body">
+                            <div id="table-loader" class="table-loader">
+                                <div class="loader"></div>
+                            </div>
+                            <div class="table-responsive">
+                                <table id="listes" class="table  border table-striped table-bordered display text-nowrap table-responsive">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center text-uppercase">#</th>
+                                        <th class="text-center text-uppercase">Identité</th>
+                                        <th class="text-center text-uppercase">Matricule</th>
+                                        <th class="text-center text-uppercase">Sexe</th>
+                                        <th class="text-center text-uppercase">Email</th>
+                                        <th class="text-center text-uppercase">Telephone</th>
+                                        <th class="text-center text-uppercase">Compétences</th>
+                                        <th class="text-center text-uppercase">actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for prestataire in prestataires %}
+                                        <tr>
+                                            <td>{{ loop.index }}</td>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <img src="https://demos.adminmart.com/premium/bootstrap/modernize-bootstrap/package/dist/images/profile/user-1.jpg" alt="avatar" class="rounded-circle" width="35" />
+                                                    <div class="ms-3">
+                                                        <div class="user-meta-info">
+                                                            <h6 class="user-name mb-0" data-name="{{ prestataire.nom }} {{ prestataire.prenoms }}">{{ prestataire.nom }} {{ prestataire.prenoms }}</h6>
+                                                            <span class="user-work fs-3">{{ prestataire.profession }}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">{{ prestataire.sexe }}</td>
+                                            <td class="text-center">{{ prestataire.matricule }}</td>
+                                            <td>{{ prestataire.email}}</td>
+                                            <td>{{ prestataire.telephone }}</td>
+                                            <td>
+                                                {% for competence in prestataire.competence %}
+                                                    <span class="badge text-bg-primary">{{ competence.title }}</span>
+                                                {% endfor %}
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="{{ path('app_backend_prestataire_show', {'id': prestataire.id}) }}"><i class="ti-eye"></i></a>
+                                                {#                                                &nbsp; | &nbsp;#}
+                                                {#                                                <a href="{{ path('app_backend_prestataire_edit', {'id': prestataire.id}) }}"><i class="ti-pencil-alt"></i></a>#}
+                                            </td>
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="5">no records found</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/vendor/css/prism.min.css')) }}">
+    <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/vendor/DataTables/datatables.min.css')) }}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/scroller/2.4.3/css/scroller.bootstrap5.css">
+    <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/vendor/css/select2.min.css')) }}">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ absolute_url(asset('backoffice/vendor/js/prism.js')) }}"></script>
+    <script src="{{ absolute_url(asset('backoffice/vendor/DataTables/datatables.min.js')) }}"></script>
+    <script src="https://cdn.datatables.net/scroller/2.4.3/js/scroller.bootstrap5.js"></script>
+    <script src="https://cdn.datatables.net/scroller/2.4.3/js/dataTables.scroller.js"></script>
+    <script src="{{ absolute_url(asset('backoffice/vendor/js/select2.full.min.js')) }}"></script>
+    <script src="{{ absolute_url(asset('backoffice/vendor/js/select2.min.js')) }}"></script>
+    <script>
+        $(document).ready(function() {
+            var tableLoader = $('#table-loader');
+            var table = $('#listes');
+
+            table.on('init.dt', function() {
+                tableLoader.find('.loader').hide();
+                table.show();
+            });
+
+            table.DataTable({
+                // Configurations du DataTable
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'excel', 'pdf'
+                ],
+                initComplete: function() {
+                    tableLoader.find('.loader').show();
+                    table.hide();
+                },
+                // responsive: true,
+                scrollCollapse: true,
+                scroller: true,
+                scrollY: 500
+            });
+        });
+    </script>
+    {#    <script>#}
+    {#        $('#listes').DataTable( {#}
+    {#            dom: 'Bfrtip',#}
+    {#            buttons: [#}
+    {#                'copy', 'excel', 'pdf'#}
+    {#            ]#}
+    {#        } );#}
+    {#    </script>#}
+    <script>
+        $(".select2").select2();
+    </script>
+{% endblock %}
+
