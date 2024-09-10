@@ -1,0 +1,46 @@
+<div class="projects-offre">
+    <h4 class="h4 title text-center">Formulaire de soumission</h4>
+    {{ form_start(form,{"attr":{"class": 'soumission form'}}) }}
+    <div class="row form-group">
+        <div class="col-12 mt-5">
+            <label for="title" class="form-label">Intitulé du projet</label>
+            <input type="text" class="form-control form-control-lg" placeholder="" value="{{ projet.title }}" disabled>
+        </div>
+        <div class="col-md-6 mt-3">
+            <label for="name" class="form-label">Reference</label>
+            <input type="text" class="form-control form-control-lg" value="{{ projet.reference }}" disabled>
+        </div>
+        <div class="col-md-6 mt-3">
+            <label for="name" class="form-label">Localisation</label>
+            <input type="text" class="form-control form-control-lg" value="{{ projet.lieu }}" disabled>
+        </div>
+        <div class="col-md-6 mt-3">
+            <label for="name" class="form-label">Budget</label>
+            <input type="text" class="form-control form-control-lg" value="{{ projet.budgetMin ? projet.budgetMin|number_format(0,'',' ') :  0 }} - {{ projet.budgetMax ? projet.budgetMax|number_format(0,'',' ') : 0}} FCFA" disabled>
+        </div>
+        <div class="col-md-6 mt-3">
+            <label for="name" class="form-label">Date limite</label>
+            <input type="text" class="form-control form-control-lg" value="{{ projet.dateLimite|date('d/m/Y') }}" disabled>
+        </div>
+        <div class="col-md-6 mt-3">
+            {{ form_row(form.modeTravail) }}
+        </div>
+        <div class="col-md-6 mt-3">
+            {{ form_row(form.garantie) }}
+        </div>
+        <div class="col-md-6 mt-3">
+            {{ form_row(form.facturation) }}
+        </div>
+        <div class="col-md-6 mt-3">
+            {{ form_row(form.delai) }}
+        </div>
+        <div class="col-12 mt-3">
+            {{ form_row(form.description) }}
+        </div>
+        <div class="text-end mt-5">
+            <input type="hidden" name="_form_reference" value="{{ projet.reference }}">
+            <button class="btn btn-lg btn-main btn-no-rounded btnSoumission">{{ button_label|default('Envoyez votre offre') }}</button>
+        </div>
+    </div>
+    {{ form_end(form) }}
+</div>

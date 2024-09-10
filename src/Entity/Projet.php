@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProjetRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -55,6 +57,17 @@ class Projet
 
     #[ORM\ManyToOne]
     private ?Categorie $categorie = null;
+
+    /**
+     * @var Collection<int, Postuler>
+     */
+    #[ORM\OneToMany(targetEntity: Postuler::class, mappedBy: 'projet')]
+    private Collection $postulers;
+
+    public function __construct()
+    {
+        $this->postulers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -225,6 +238,36 @@ class Projet
     public function setCategorie(?Categorie $categorie): static
     {
         $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Postuler>
+     */
+    public function getPostulers(): Collection
+    {
+        return $this->postulers;
+    }
+
+    public function addPostuler(Postuler $postuler): static
+    {
+        if (!$this->postulers->contains($postuler)) {
+            $this->postulers->add($postuler);
+            $postuler->setProjet($this);
+        }
+
+        return $this;
+    }
+
+    public function removePostuler(Postuler $postuler): static
+    {
+        if ($this->postulers->removeElement($postuler)) {
+            // set the owning side to null (unless already changed)
+            if ($postuler->getProjet() === $this) {
+                $postuler->setProjet(null);
+            }
+        }
 
         return $this;
     }

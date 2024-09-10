@@ -7,44 +7,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8" data-aos="fade-up">
-                        <div class="projects-offre">
-                            <h4 class="h4 title text-center">Formulaire de soumission</h4>
-                            <form action="" class="soumission form" id="soumissionForm">
-                                <div class="row form-group">
-                                    <div class="col-12 mt-5">
-                                        <label for="title" class="form-label">Intitulé du projet</label>
-                                        <input type="text" class="form-control form-control-lg" placeholder="" value="{{ projet.title }}" disabled>
-                                    </div>
-                                    <div class="col-md-6 mt-3">
-                                        <label for="name" class="form-label">Reference</label>
-                                        <input type="text" class="form-control form-control-lg" value="{{ projet.reference }}" disabled>
-                                    </div>
-                                    <div class="col-md-6 mt-3">
-                                        <label for="name" class="form-label">Localisation</label>
-                                        <input type="text" class="form-control form-control-lg" value="{{ projet.lieu }}" disabled>
-                                    </div>
-                                    <div class="col-md-6 mt-3">
-                                        <label for="name" class="form-label">Budget</label>
-                                        <input type="text" class="form-control form-control-lg" value="{{ projet.budgetMin ? projet.budgetMin|number_format(0,'',' ') :  0 }} - {{ projet.budgetMax ? projet.budgetMax|number_format(0,'',' ') : 0}} FCFA" disabled>
-                                    </div>
-                                    <div class="col-md-6 mt-3">
-                                        <label for="name" class="form-label">Date limite</label>
-                                        <input type="text" class="form-control form-control-lg" value="{{ projet.dateLimite|date('d/m/Y') }}" disabled>
-                                    </div>
-                                    <div class="col-md-6 mt-3">
-                                        <label for="name" class="form-label">Facturation</label>
-                                        <input type="number" class="form-control form-control-lg" placeholder="">
-                                    </div>
-                                    <div class="col-12 mt-3">
-                                        <label for="name" class="form-label">Description de votre offre au demandeur</label>
-                                        <textarea class="form-control form-control-lg" rows="5" placeholder="Votre description de votre offre"></textarea>
-                                    </div>
-                                    <div class="text-end mt-5">
-                                        <button class="btn btn-lg btn-main btn-no-rounded">Envoyer votre offre</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                        {{ include('frontend_projet/_form.html.twig',{button_label: 'Envoyez votre offre'}) }}
 
                     </div>
                     <div class="col-lg-4" data-aos="fade-left">

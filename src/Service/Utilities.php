@@ -136,6 +136,25 @@ class Utilities
         return $reference;
     }
 
+    /**
+     * Generation de la reference
+     *
+     * @return string
+     * @throws RandomException
+     */
+    public function referencePostuler(): string
+    {
+        do{
+            $nombreAleatory = random_int(100,999);
+            $code = date('ymd');
+            $reference = $code.$nombreAleatory;
+
+            $verify = $this->allRepositories->getOnePostuler($reference);
+        }while($verify);
+
+        return $reference;
+    }
+
     public function entityExiste(string $string, string $entity): AbstractUnicodeString|false
     {
         $slug = $this->slug($string);
@@ -179,6 +198,15 @@ class Utilities
         }
 
         return false;
+    }
+
+    public function messageAlert($code): string
+    {
+        return match ($code){
+            201 => "Attention, vous avez déjà postulé à ce projet. Veuillez vous rendre dans votre compte pour modifier votre offre!",
+            401 => "Vous n'êtes pas autorisé à soumettre d'offre de prestation. Cette section est réservée exclusivement aux prestataires.",
+            default => "Erreur"
+        };
     }
 
 }

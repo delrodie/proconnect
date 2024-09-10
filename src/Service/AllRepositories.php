@@ -7,6 +7,7 @@ use App\Repository\CompetenceRepository;
 use App\Repository\DemandeurRepository;
 use App\Repository\DomaineRepository;
 use App\Repository\MaintenanceRepository;
+use App\Repository\PostulerRepository;
 use App\Repository\PrestataireRepository;
 use App\Repository\ProjetRepository;
 
@@ -14,12 +15,13 @@ class AllRepositories
 {
     public function __construct(
         private MaintenanceRepository $maintenanceRepository,
-        private DemandeurRepository $demandeurRepository,
-        private DomaineRepository $domaineRepository,
-        private CategorieRepository $categorieRepository,
-        private ProjetRepository $projetRepository,
-        private CompetenceRepository $competenceRepository,
-        private PrestataireRepository $prestataireRepository
+        private DemandeurRepository   $demandeurRepository,
+        private DomaineRepository     $domaineRepository,
+        private CategorieRepository   $categorieRepository,
+        private ProjetRepository      $projetRepository,
+        private CompetenceRepository  $competenceRepository,
+        private PrestataireRepository $prestataireRepository,
+        private PostulerRepository    $postulerRepository,
     )
     {
     }
@@ -90,6 +92,15 @@ class AllRepositories
         return $this->prestataireRepository->findOneBy([], ['id' => 'DESC']);
     }
 
+    public function getOnePostuler(string $reference = null, object $user = null)
+    {
+        if ($reference) return $this->postulerRepository->findOneBy(['reference' => $reference]);
+
+        if ($user) return $this->postulerRepository->findOneBy(['user' => $user]);
+
+        return $this->postulerRepository->findOneBy([],['id' =>'DESC']);
+    }
+
     public function findProjetsByUser($user)
     {
         return $this->projetRepository->findBy(['user' => $user], ['createdAt' =>'DESC']);
@@ -131,6 +142,14 @@ class AllRepositories
     public function getProjetByUser($user)
     {
         return $this->projetRepository->findBy(['user' => $user], ['id' => 'DESC']);
+    }
+
+    public function findPostulerByReferenceAndUser(object $projet, object $user)
+    {
+        return $this->postulerRepository->findOneBy([
+            'projet' => $projet,
+            'user' => $user
+        ]);
     }
 
     public function foreachProjets($projets): array

@@ -59,7 +59,10 @@
                                     <a class="nav-link {{ menu_active('app_home_index') }}" href="{{ absolute_url(path('app_home_index')) }}">Accueil</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link {{ menu_active('app_frontend_projet_list') }} {{ menu_active('app_frontend_projet_show') }}" href="{{ absolute_url(path('app_frontend_projet_list')) }}">Projets</a>
+                                    <a
+                                            class="nav-link {{ menu_active('app_frontend_projet_list') }} {{ menu_active('app_frontend_projet_show') }} {{ menu_active('app_frontend_projet_postuler') }}"
+                                            href="{{ absolute_url(path('app_frontend_projet_list')) }}"
+                                    >Projets</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="p#">Prestataires</a>
