@@ -97,31 +97,12 @@ class AllRepositories
 
     public function findAllProjets(): array
     {
-        $projets = $this->projetRepository->findAll();
-        $results=[];
-        $i=0;
+        return $this->foreachProjets($this->projetRepository->findAll());
+    }
 
-        foreach ($projets as $projet){
-            $results[$i++] = [
-                'categorie' => $projet->getCategorie()->getTitle(),
-                'user' => $projet->getUser()->getUsername(),
-                'id' => $projet->getId(),
-                'reference' => $projet->getReference(),
-                'title' => $projet->getTitle(),
-                'lieu' => $projet->getLieu(),
-                'date_presentation' => $projet->getDatePrestation(),
-                'date_limite' => $projet->getDateLimite(),
-                'preference' => $projet->getPreference(),
-                'budget_min' => $projet->getBudgetMin(),
-                'budget_max' => $projet->getBudgetMax(),
-                'description' => $projet->getDescription(),
-                'created_at' => $projet->getCreatedAt(),
-                'statut' => $projet->getStatut(),
-                'statut_backend' => $this->backendStatut($projet->getStatut())
-            ];
-        }
-
-        return $results;
+    public function findAllProjetByStatut(string $statut = null, $date=null, $budget=null): array
+    {
+        return $this->foreachProjets($this->projetRepository->findAllByStatut($statut, $date, $budget));
     }
 
     public function backendStatut($statut): string
@@ -150,5 +131,34 @@ class AllRepositories
     public function getProjetByUser($user)
     {
         return $this->projetRepository->findBy(['user' => $user], ['id' => 'DESC']);
+    }
+
+    public function foreachProjets($projets): array
+    {
+        $results=[];
+        $i=0;
+
+        foreach ($projets as $projet){
+            $results[$i++] = [
+                'categorie' => $projet->getCategorie()->getTitle(),
+                'user' => $projet->getUser()->getUsername(),
+                'id' => $projet->getId(),
+                'reference' => $projet->getReference(),
+                'title' => $projet->getTitle(),
+                'lieu' => $projet->getLieu(),
+                'date_presentation' => $projet->getDatePrestation(),
+                'date_limite' => $projet->getDateLimite(),
+                'preference' => $projet->getPreference(),
+                'budget_min' => $projet->getBudgetMin(),
+                'budget_max' => $projet->getBudgetMax(),
+                'description' => $projet->getDescription(),
+                'created_at' => $projet->getCreatedAt(),
+                'statut' => $projet->getStatut(),
+                'statut_backend' => $this->backendStatut($projet->getStatut()),
+                'demandeur' => $this->getDemandeurByUser($projet->getUser())
+            ];
+        }
+
+        return $results;
     }
 }

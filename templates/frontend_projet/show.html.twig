@@ -1,0 +1,220 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ projet.title}} {% endblock %}
+{% block body %}
+    <main>
+        <section class="projects" id="projects">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8" data-aos="fade-up">
+                        <div class="projects-details">
+                            {% if projet.budgetMin or projet.budgetMax %}
+                                <div class="budgetisation fw-700 fz-18 text-end">Budget: <span>{{ projet.budgetMin|number_format(0,'',' ')}} - {{ projet.budgetMax|number_format(0,'',' ')}} FCFA</span></div>
+                            {% endif %}
+
+                            <div class="title fz-26 fw-500">{{ projet.title }}</div>
+                            <div class="row mt-3">
+                                <div class="col-12 col-lg-6 created-at fz-16">
+                                    {{ projet.createdAt|date('d/m/Y') }} à {{ projet.createdAt|date('H:i:s') }}
+                                </div>
+                                <div class="col-12 col-lg-6 count-down">
+                                    <span class="days">{{ jour_restant(projet.reference) }}</span> jour(s) restant(s)pour soummissionner
+                                </div>
+                            </div>
+                            <div class="projects-details__content-text mt-20">
+                                {{ projet.description|raw }}
+                            </div>
+                        </div>
+                        <div class="projects-comment mt-30">
+                            <h6 class="h6 number">2 prestataires</h6>
+
+                                <div class="card mt-3">
+                                    <div class="row g-0">
+                                        <div class="col-md-2">
+                                            <img src="./assets/img/all/3d-render-african-american-worker-woman-with-helmet.png" alt="" class="img-fluid rounded-start">
+                                        </div>
+                                        <div class="col-md-10">
+                                            <div class="card-body">
+                                                <div class="card-title">
+                                                    <div class="row">
+                                                        <div class="col-10">
+                                                            <h6 class="fz-26 fw-500">Nom du prestataire</h6>
+                                                            <small class="text-body-secondary fz-16">
+                                              <span class="rating">
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-half"></i>
+                                                <i class="bi bi-star"></i>
+                                                4.5 avis
+                                              </span>
+                                                                <span class="create-at fz-16">22/07/2024 17:22:59</span>
+                                                            </small>
+                                                        </div>
+                                                        <div class="col-2">
+                                                            <a href="#" class="btn btn-sm btn-main">Message</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <p class="card-text fz-16">
+                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore modi ducimus assumenda, dicta tempore nesciunt iusto non officia
+                                                    minima molestias quo beatae quae repellendus, nulla odit necessitatibus sint ipsum quidem.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card mt-3">
+                                    <div class="row g-0">
+                                        <div class="col-md-2 profile">
+                                            <img src="./assets/img/all/Firefly_Under_a_transparent_background__generate_an_image_of_a_black_construction_worker_looking_at.png" alt="" class="img-fluid rounded-start">
+                                        </div>
+                                        <div class="col-md-10">
+                                            <div class="card-body">
+                                                <div class="card-title">
+                                                    <div class="row">
+                                                        <div class="col-10">
+                                                            <h6 class="fz-26 fw-500">Nom du prestataire</h6>
+                                                            <small class="text-body-secondary fz-16">
+                                              <span class="rating">
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-fill"></i>
+                                                <i class="bi bi-star-half"></i>
+                                                <i class="bi bi-star"></i>
+                                                4.5 avis
+                                              </span>
+                                                                <span class="create-at fz-16">22/07/2024 17:22:59</span>
+                                                            </small>
+                                                        </div>
+                                                        <div class="col-2">
+                                                            <a href="#" class="btn btn-sm btn-main">Message</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <p class="card-text fz-16">
+                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore modi ducimus assumenda, dicta tempore nesciunt iusto non officia
+                                                    minima molestias quo beatae quae repellendus, nulla odit necessitatibus sint ipsum quidem.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-4" data-aos="fade-left">
+                        <div class="d-grid gap-2">
+                            <a href="{{ absolute_url(path('app_frontend_projet_postuler', {'reference': projet.reference})) }}" class="btn btn-lg btn-main btn-no-rounded py-7">Postuler à ce projet</a>
+                        </div>
+                        <div class="projects-client">
+                            <h6 class="fz-26 fw-500 mt-5">{{ projet.reference|projet_demandeur}} </h6>
+
+                            <div class="projects-client__location">
+                                <i class="bi bi-geo-alt"></i> {{ projet.lieu }}
+                            </div>
+
+                            <h6 class="h6 mt-5">Projets similaires</h6>
+
+                            <div class="row row-cols-1 projects-items">
+
+                                <div class="col projects-items__content mt-3">
+                                    <a href="projet_details.html">
+                                        <div class="card h-100">
+                                            <div class="card-body">
+
+                                                <div class="projects-items__content-author">
+                                                    <div class="projects-items__content-avatar bg-main-gradient">
+                                                        <img src="./assets/img/all/3d-render-african-american-worker-woman-with-helmet.png" alt="" class="img-fluid">
+                                                    </div>
+                                                    <div class="projects-items__content-infos pl-3">
+                                                        <span class="badge bg-main">Catégorie</span>
+                                                        <h6 class="h6">Menuisier</h6>
+                                                        <div class="reference fz-16">
+                                                            Par <span class="author fw-500">Delrodie</span> le2024/07/31 à 13:04:00
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="projects-items__content-details mt-2">
+                                                    <div class="location"> <i class="bi bi-geo-alt"></i> Abidjan Riviera III </div>
+                                                </div>
+                                                <div class="projects-items__content-countdown py-5">
+                                                    <span class="fz-22 fw-500 px-2">2</span> jours restants pour postuler.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div class="col projects-items__content mt-3">
+                                    <a href="projet_details.html">
+                                        <div class="card h-100">
+                                            <div class="card-body">
+
+                                                <div class="projects-items__content-author">
+                                                    <div class="projects-items__content-avatar bg-main-gradient">
+                                                        <img src="./assets/img/all/3d-render-african-american-worker-woman-with-helmet.png" alt="" class="img-fluid">
+                                                    </div>
+                                                    <div class="projects-items__content-infos pl-3">
+                                                        <span class="badge bg-main">Catégorie</span>
+                                                        <h6 class="h6">Menuisier</h6>
+                                                        <div class="reference fz-16">
+                                                            Par <span class="author fw-500">Delrodie</span> le2024/07/31 à 13:04:00
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="projects-items__content-details mt-2">
+                                                    <div class="location"> <i class="bi bi-geo-alt"></i> Abidjan Riviera III </div>
+                                                </div>
+                                                <div class="projects-items__content-countdown py-5">
+                                                    <span class="fz-22 fw-500 px-2">2</span> jours restants pour postuler.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div class="col projects-items__content mt-3">
+                                    <a href="projet_details.html">
+                                        <div class="card h-100">
+                                            <div class="card-body">
+
+                                                <div class="projects-items__content-author">
+                                                    <div class="projects-items__content-avatar bg-main-gradient">
+                                                        <img src="./assets/img/all/3d-render-african-american-worker-woman-with-helmet.png" alt="" class="img-fluid">
+                                                    </div>
+                                                    <div class="projects-items__content-infos pl-3">
+                                                        <span class="badge bg-main">Catégorie</span>
+                                                        <h6 class="h6">Menuisier</h6>
+                                                        <div class="reference fz-16">
+                                                            Par <span class="author fw-500">Delrodie</span> le2024/07/31 à 13:04:00
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="projects-items__content-details mt-2">
+                                                    <div class="location"> <i class="bi bi-geo-alt"></i> Abidjan Riviera III </div>
+                                                </div>
+                                                <div class="projects-items__content-countdown py-5">
+                                                    <span class="fz-22 fw-500 px-2">2</span> jours restants pour postuler.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
+{% block breadcrumb %}
+    <section class="header py-30" id="breadcrumb"> </section>
+{% endblock %}

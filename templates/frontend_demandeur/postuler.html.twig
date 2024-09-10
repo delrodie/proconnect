@@ -1,0 +1,155 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ projet.title}} {% endblock %}
+{% block body %}
+    <main>
+        <section class="projects" id="projects">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8" data-aos="fade-up">
+                        <div class="projects-offre">
+                            <h4 class="h4 title text-center">Formulaire de soumission</h4>
+                            <form action="" class="soumission form" id="soumissionForm">
+                                <div class="row form-group">
+                                    <div class="col-12 mt-5">
+                                        <label for="title" class="form-label">Intitulé du projet</label>
+                                        <input type="text" class="form-control form-control-lg" placeholder="" value="{{ projet.title }}" disabled>
+                                    </div>
+                                    <div class="col-md-6 mt-3">
+                                        <label for="name" class="form-label">Reference</label>
+                                        <input type="text" class="form-control form-control-lg" value="{{ projet.reference }}" disabled>
+                                    </div>
+                                    <div class="col-md-6 mt-3">
+                                        <label for="name" class="form-label">Localisation</label>
+                                        <input type="text" class="form-control form-control-lg" value="{{ projet.lieu }}" disabled>
+                                    </div>
+                                    <div class="col-md-6 mt-3">
+                                        <label for="name" class="form-label">Budget</label>
+                                        <input type="text" class="form-control form-control-lg" value="{{ projet.budgetMin ? projet.budgetMin|number_format(0,'',' ') :  0 }} - {{ projet.budgetMax ? projet.budgetMax|number_format(0,'',' ') : 0}} FCFA" disabled>
+                                    </div>
+                                    <div class="col-md-6 mt-3">
+                                        <label for="name" class="form-label">Date limite</label>
+                                        <input type="text" class="form-control form-control-lg" value="{{ projet.dateLimite|date('d/m/Y') }}" disabled>
+                                    </div>
+                                    <div class="col-md-6 mt-3">
+                                        <label for="name" class="form-label">Facturation</label>
+                                        <input type="number" class="form-control form-control-lg" placeholder="">
+                                    </div>
+                                    <div class="col-12 mt-3">
+                                        <label for="name" class="form-label">Description de votre offre au demandeur</label>
+                                        <textarea class="form-control form-control-lg" rows="5" placeholder="Votre description de votre offre"></textarea>
+                                    </div>
+                                    <div class="text-end mt-5">
+                                        <button class="btn btn-lg btn-main btn-no-rounded">Envoyer votre offre</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-4" data-aos="fade-left">
+                        <div class="projects-client">
+
+                            <h6 class="h6 mt-5">Autres projets</h6>
+
+                            <div class="row row-cols-1 projects-items">
+
+                                <div class="col projects-items__content mt-3">
+                                    <a href="projet_details.html">
+                                        <div class="card h-100">
+                                            <div class="card-body">
+
+                                                <div class="projects-items__content-author">
+                                                    <div class="projects-items__content-avatar bg-main-gradient">
+                                                        <img src="./assets/img/all/3d-render-african-american-worker-woman-with-helmet.png" alt="" class="img-fluid">
+                                                    </div>
+                                                    <div class="projects-items__content-infos pl-3">
+                                                        <span class="badge bg-main">Catégorie</span>
+                                                        <h6 class="h6">Menuisier</h6>
+                                                        <div class="reference fz-16">
+                                                            Par <span class="author fw-500">Delrodie</span> le2024/07/31 à 13:04:00
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="projects-items__content-details mt-2">
+                                                    <div class="location"> <i class="bi bi-geo-alt"></i> Abidjan Riviera III </div>
+                                                </div>
+                                                <div class="projects-items__content-countdown py-5">
+                                                    <span class="fz-22 fw-500 px-2">2</span> jours restants pour postuler.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div class="col projects-items__content mt-3">
+                                    <a href="projet_details.html">
+                                        <div class="card h-100">
+                                            <div class="card-body">
+
+                                                <div class="projects-items__content-author">
+                                                    <div class="projects-items__content-avatar bg-main-gradient">
+                                                        <img src="./assets/img/all/3d-render-african-american-worker-woman-with-helmet.png" alt="" class="img-fluid">
+                                                    </div>
+                                                    <div class="projects-items__content-infos pl-3">
+                                                        <span class="badge bg-main">Catégorie</span>
+                                                        <h6 class="h6">Menuisier</h6>
+                                                        <div class="reference fz-16">
+                                                            Par <span class="author fw-500">Delrodie</span> le2024/07/31 à 13:04:00
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="projects-items__content-details mt-2">
+                                                    <div class="location"> <i class="bi bi-geo-alt"></i> Abidjan Riviera III </div>
+                                                </div>
+                                                <div class="projects-items__content-countdown py-5">
+                                                    <span class="fz-22 fw-500 px-2">2</span> jours restants pour postuler.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div class="col projects-items__content mt-3">
+                                    <a href="projet_details.html">
+                                        <div class="card h-100">
+                                            <div class="card-body">
+
+                                                <div class="projects-items__content-author">
+                                                    <div class="projects-items__content-avatar bg-main-gradient">
+                                                        <img src="./assets/img/all/3d-render-african-american-worker-woman-with-helmet.png" alt="" class="img-fluid">
+                                                    </div>
+                                                    <div class="projects-items__content-infos pl-3">
+                                                        <span class="badge bg-main">Catégorie</span>
+                                                        <h6 class="h6">Menuisier</h6>
+                                                        <div class="reference fz-16">
+                                                            Par <span class="author fw-500">Delrodie</span> le2024/07/31 à 13:04:00
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="projects-items__content-details mt-2">
+                                                    <div class="location"> <i class="bi bi-geo-alt"></i> Abidjan Riviera III </div>
+                                                </div>
+                                                <div class="projects-items__content-countdown py-5">
+                                                    <span class="fz-22 fw-500 px-2">2</span> jours restants pour postuler.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
+{% block breadcrumb %}
+    <section class="header py-30" id="breadcrumb"> </section>
+{% endblock %}
