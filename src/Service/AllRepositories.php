@@ -152,6 +152,11 @@ class AllRepositories
         ]);
     }
 
+    public function findPostulerByUser(object $user)
+    {
+        return $this->postulerRepository->findBy(['user' => $user], ['id' => 'DESC']);
+    }
+
     public function foreachProjets($projets): array
     {
         $results=[];

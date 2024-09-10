@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Liste des soumissions  {% endblock %}
+{% block body %}
+    <main>
+        <section class="profile" id="profile">
+            <div class="container">
+                <div class="row">
+                    {% include 'frontend_prestataire/_menu.html.twig' %}
+                    <div class="col-12 col-lg-9 profile-content">
+                        <h2 class="titre">Mes candidatures</h2>
+
+                        <div class="mt-3 profile-content_dashboard">
+
+                            <div class="profile-content_dashboard-projets">
+                                <table class="table table-bordered table-striped table-hover table-sm table-responsive-sm mt-3 " id="liste">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">Intitulés</th>
+                                        <th class="text-center">Budget</th>
+                                        <th class="text-center">Candidatures</th>
+                                        <th class="text-center">Statut</th>
+                                        <th class="text-center">Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for soumission in soumissions %}
+                                        <tr>
+                                            <td>{{ soumission.projet.title }}</td>
+                                            <td class="text-end">{{ soumission.facturation|number_format(0,'',' ')}} FCFA</td>
+                                            <td class="text-center">{{ soumission.projet.postulers|length }}</td>
+                                            <td class="text-center"><span
+                                                        class="badge text-bg-primary">{{ soumission.projet.statut|statut_label }}</span></td>
+                                            <td class="text-center">
+                                                {% if soumission.projet.statut == 'APPEL' %}
+                                                    <a href="">Modifier</a> &nbsp; | &nbsp;
+                                                {% endif %}
+                                                <a href="{{ absolute_url(path('app_frontend_projet_show', {'reference': soumission.projet.reference})) }}" class="">Détails</a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
+{% block breadcrumb %}
+    <section class="header py-30" id="breadcrumb"> </section>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+{#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">#}
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.5/css/dataTables.bootstrap5.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.1.2/css/buttons.dataTables.css">
+{% endblock %}
+{% block javascripts %}
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    {{ parent() }}
+    <script src="https://cdn.datatables.net/2.1.5/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.1.5/js/dataTables.bootstrap5.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.1.2/js/dataTables.buttons.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.1.2/js/buttons.dataTables.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.1.2/js/buttons.html5.min.js"></script>
+    <script>
+        new DataTable('#liste', {
+            layout: {
+                topStart: {
+                    buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5']
+                }
+            },
+            language: {
+                url: '//cdn.datatables.net/plug-ins/2.1.5/i18n/fr-FR.json',
+            },
+        });
+    </script>
+{% endblock %}

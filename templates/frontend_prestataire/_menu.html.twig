@@ -29,7 +29,7 @@
             {% endif %}
 
             <li class="nav-item">
-                <a href="#" class="nav-link {{ menu_active('#') }}"><i class="bi bi-people"></i> Prestataires</a>
+                <a href="{{ absolute_url(path('app_frontend_prestataire_projet_list',{'prestataire': prestataire.matricule})) }}" class="nav-link {{ menu_active('app_frontend_prestataire_projet_list') }}"><i class="bi bi-people"></i> Mes candidatures</a>
             </li>
             <li class="nav-item dropdown">
                 <a href="#parametre" class="nav-link {{ menu_active('#parametre') }}" role="button" data-bs-toggle="collapse"
