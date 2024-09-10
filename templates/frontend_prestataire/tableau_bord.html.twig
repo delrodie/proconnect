@@ -20,7 +20,7 @@
                                             <h5 class="card-title"><i class="bi bi-suitcase-lg"></i> Projets
                                                 réalisés</h5>
                                             <div class="card-text">
-                                                    <span class="nombre">5
+                                                    <span class="nombre">0
                                                     </span>
                                                 <a href="#" class="details">Voir détails</a>
                                             </div>
@@ -32,8 +32,8 @@
                                         <div class="card-body">
                                             <h5 class="card-title"><i class="bi bi-cloud-upload"></i> Projets soumissionnés</h5>
                                             <div class="card-text">
-                                                <span class="nombre">10</span>
-                                                <a href="#" class="details">Voir détails</a>
+                                                <span class="nombre">{{ soumissions|length }}</span>
+                                                <a href="{{ absolute_url(path('app_frontend_prestataire_projet_list',{'prestataire': prestataire.matricule})) }}" class="details">Voir détails</a>
                                             </div>
                                         </div>
                                     </div>

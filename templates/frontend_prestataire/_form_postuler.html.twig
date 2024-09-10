@@ -1,0 +1,68 @@
+{{ form_start(form) }}
+
+<h2 class="titre">Modification de l'offre {{ postuler.reference }}</h2>
+<div class="row mt-3">
+    <div class="col-md-12 mt-3">
+        <label for="">Intitulé du projet</label>
+        <input type="text" class="form-control" value="{{ postuler.projet.title }}" disabled>
+    </div>
+    <div class="col-md-6 mt-3">
+        <label for="">Reference du projet</label>
+        <input type="text" class="form-control" value="{{ postuler.projet.reference }}" disabled>
+    </div>
+    <div class="col-md-6 mt-3">
+        <label for="">Localisation</label>
+        <input type="text" class="form-control" value="{{ postuler.projet.lieu }}" disabled>
+    </div>
+    <div class="col-md-6 mt-3">
+        <label for="">Budget</label>
+        <input type="text" class="form-control" value="{{ postuler.projet.lieu }}" disabled>
+    </div>
+    <div class="col-md-6 mt-3">
+        <label for="">Date limite</label>
+        <input type="text" class="form-control" value="{{ postuler.projet.lieu }}" disabled>
+    </div>
+    <div class="col-md-6 mt-3">
+        <label for="name" class="form-label">Budget</label>
+        <input type="text" class="form-control form-control-lg" value="{{ postuler.projet.budgetMin ? postuler.projet.budgetMin|number_format(0,'',' ') :  0 }} - {{ postuler.projet.budgetMax ? postuler.projet.budgetMax|number_format(0,'',' ') : 0}} FCFA" disabled>
+    </div>
+    <div class="col-md-6 mt-3">
+        <label for="name" class="form-label">Date limite</label>
+        <input type="text" class="form-control form-control-lg" value="{{ postuler.projet.dateLimite|date('d/m/Y') }}" disabled>
+    </div>
+    <div class="col-md-6 mt-3">
+        {{ form_row(form.modeTravail) }}
+    </div>
+    <div class="col-md-6 mt-3">
+        {{ form_row(form.garantie) }}
+    </div>
+    <div class="col-md-6 mt-3">
+        {{ form_row(form.facturation) }}
+    </div>
+    <div class="col-md-6 mt-3">
+        {{ form_row(form.delai) }}
+    </div>
+    <div class="col-12 mt-3">
+        {{ form_row(form.description) }}
+    </div>
+</div>
+<div class="row mt-5">
+
+    {{ form_widget(form) }}
+    <div class="col-6 col-md-4 offset-md-4 d-grid gap-2">
+        <a href="{{ absolute_url(path('app_frontend_prestataire_tbord')) }}" class="btn btn-outline-secondary">Annuler</a>
+    </div>
+
+    <div class="col-6 col-md-4 d-grid gap-2">
+        <button type="submit" class="btn btn-main btnSoumission">
+            {{ button_label|default('Enregistrez') }}
+        </button>
+    </div>
+
+</div>
+{{ form_end(form) }}
+<div class="row mt-3">
+    <div class="col-6 col-md-4 mt-3 d-grid gap-2">
+        {{ include('frontend_prestataire/_form_postuler_delete.html.twig') }}
+    </div>
+</div>

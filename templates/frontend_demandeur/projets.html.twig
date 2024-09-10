@@ -78,10 +78,11 @@
                                                                     {%  set dateLimite = projet.dateLimite|date('Y-m-d') %}
                                                                     {% set restant = (dateLimite|date('U') - aujourdHui|date('U')) / 86400 %}
 
-                                                                    {% if restant < 0%}
-                                                                        <i class="bi bi-stopwatch"></i> La date limite était le {{ dateLimite }}
+                                                                    {% if projet.reference|jour_restant < 0 %}
+{#                                                                    {% if restant < 0 %}#}
+                                                                        <i class="bi bi-stopwatch"></i> La date limite était le <span class="badge text-bg-danger"> {{ dateLimite }}</span>
                                                                     {% else %}
-                                                                        <i class="bi bi-stopwatch"></i> Il reste <span>{{ restant }}</span> jours.
+                                                                        <i class="bi bi-stopwatch"></i> Il reste <span style="font-weight:bold; color: var(--color-main)">{{ projet.reference|jour_restant }}</span> jours.
                                                                     {% endif %}
                                                                 </div>
                                                             </div>
@@ -98,8 +99,8 @@
                                             <div class="card h-100 candidature">
                                                 <div class="card-body text-center">
                                                     <a href="#">
-                                                        <span>21</span> <br>
-                                                        Candidatures
+                                                        <span>{{ projet.postulers|length }}</span> <br>
+                                                        Candidature(s)
                                                     </a>
                                                 </div>
                                             </div>
@@ -107,7 +108,7 @@
                                     </div>
                                 {% endif %}
                             {% endfor %}
-
+                            <!--
                             <nav class="paginations mt-5" aria-label="Page navigation">
                                 <ul class="pagination pagination-sm">
                                     <li class="page-item">
@@ -125,7 +126,7 @@
                                     </li>
                                 </ul>
                             </nav>
-
+-->
                         </div>
 
                     </div>

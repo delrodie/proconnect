@@ -33,7 +33,7 @@
                                                         class="badge text-bg-primary">{{ soumission.projet.statut|statut_label }}</span></td>
                                             <td class="text-center">
                                                 {% if soumission.projet.statut == 'APPEL' %}
-                                                    <a href="">Modifier</a> &nbsp; | &nbsp;
+                                                    <a href="{{ path('app_frontend_prestataire_projet_modif', {'prestataire': prestataire.matricule, 'reference': soumission.reference}) }}">Modifier</a> &nbsp; | &nbsp;
                                                 {% endif %}
                                                 <a href="{{ absolute_url(path('app_frontend_projet_show', {'reference': soumission.projet.reference})) }}" class="">Détails</a>
                                             </td>

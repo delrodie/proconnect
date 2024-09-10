@@ -22,8 +22,8 @@ class JourRestantRuntime implements RuntimeExtensionInterface
         $projet = $this->allRepositories->getOneProjet($value);
         $difference = $projet->getDateLimite()->diff($aujourdhui);
 
-        $jourRestants = $difference->days; //dd($jourRestants);
-
+//        $jourRestants = $difference->days; //dd($jourRestants);
+        $jourRestants = $difference->invert ? $difference->days : -$difference->days;
 
         return $jourRestants;
     }

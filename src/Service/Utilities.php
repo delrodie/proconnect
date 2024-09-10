@@ -204,6 +204,8 @@ class Utilities
     {
         return match ($code){
             201 => "Attention, vous avez déjà postulé à ce projet. Veuillez vous rendre dans votre compte pour modifier votre offre!",
+            202 => "La modification de votre offre a été effectuée avec succès!",
+            203 => "La suppression de votre offre a été effectuée avec succès!",
             401 => "Vous n'êtes pas autorisé à soumettre d'offre de prestation. Cette section est réservée exclusivement aux prestataires.",
             default => "Erreur"
         };

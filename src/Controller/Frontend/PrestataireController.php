@@ -41,7 +41,8 @@ class PrestataireController extends AbstractController
         }
 
         return $this->render('frontend_prestataire/tableau_bord.html.twig',[
-            'prestataire' => $prestataire
+            'prestataire' => $prestataire,
+            'soumissions' => $this->allRepositories->findPostulerByUser($this->getUser())
         ]);
     }
 
