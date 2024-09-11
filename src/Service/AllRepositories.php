@@ -6,6 +6,7 @@ use App\Repository\CategorieRepository;
 use App\Repository\CompetenceRepository;
 use App\Repository\DemandeurRepository;
 use App\Repository\DomaineRepository;
+use App\Repository\LocaliteRepository;
 use App\Repository\MaintenanceRepository;
 use App\Repository\PostulerRepository;
 use App\Repository\PrestataireRepository;
@@ -22,6 +23,7 @@ class AllRepositories
         private CompetenceRepository  $competenceRepository,
         private PrestataireRepository $prestataireRepository,
         private PostulerRepository    $postulerRepository,
+        private LocaliteRepository $localiteRepository,
     )
     {
     }
@@ -99,6 +101,11 @@ class AllRepositories
         if ($user) return $this->postulerRepository->findOneBy(['user' => $user]);
 
         return $this->postulerRepository->findOneBy([],['id' =>'DESC']);
+    }
+
+    public function getOneLocalite(string $slug = null)
+    {
+        return $this->localiteRepository->findOneBy(['slug' => $slug]);
     }
 
     public function findProjetsByUser($user)

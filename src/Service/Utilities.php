@@ -163,6 +163,7 @@ class Utilities
             'domaine' => $this->allRepositories->getOneDomaine($slug),
             'categorie' => $this->allRepositories->getOneCategorie($slug),
             'competence' => $this->allRepositories->getOneCompetence($slug),
+            'localite' => $this->allRepositories->getOneLocalite($slug),
             default => ""
         };
 
