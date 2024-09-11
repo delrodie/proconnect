@@ -64,8 +64,9 @@ class ProjetType extends AbstractType
                 'attr' => ['class' => 'form-select'],
                 'choices' => [
                     '' => '',
+                    'En appel' => 'APPEL',
+                    'En réalisation' => 'ENCOURS',
                     'Terminé' => 'TERMINE',
-                    'En réalisation' => 'ENCOURS'
                 ],
                 'multiple' => false,
                 'expanded' => false,

@@ -47,6 +47,7 @@ class DemandeurProjetController extends AbstractController
             $projet->setReference($this->utilities->referenceProjet());
             $projet->setCreatedAt($this->utilities->fuseauGMT());
             $projet->setUser($this->getUser());
+            $projet->setStatut('APPEL');
 
             $this->entityManager->persist($projet);
             $this->entityManager->flush();
