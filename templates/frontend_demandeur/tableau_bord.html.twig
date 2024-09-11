@@ -19,8 +19,8 @@
                                             <h5 class="card-title"><i class="bi bi-cloud-upload"></i> Projets postés
                                             </h5>
                                             <div class="card-text">
-                                                <span class="nombre">7</span>
-                                                <a href="#" class="details">Voir détails</a>
+                                                <span class="nombre">{{ projets|length }}</span>
+                                                <a href="{{ absolute_url(path('app_frontend_demandeur_projet_index', {'demandeur': demandeur.code})) }}" class="details">Voir détails</a>
                                             </div>
                                         </div>
                                     </div>
@@ -31,8 +31,7 @@
                                             <h5 class="card-title"><i class="bi bi-suitcase-lg"></i> Projets
                                                 réalisés</h5>
                                             <div class="card-text">
-                                                    <span class="nombre">5
-                                                    </span>
+                                                    <span class="nombre">0</span>
                                                 <a href="#" class="details">Voir détails</a>
                                             </div>
                                         </div>
@@ -43,7 +42,7 @@
                                         <div class="card-body">
                                             <h5 class="card-title"><i class="bi bi-people"></i> Candidats</h5>
                                             <div class="card-text">
-                                                <span class="nombre">10</span>
+                                                <span class="nombre">0</span>
                                                 <a href="#" class="details">Voir détails</a>
                                             </div>
                                         </div>
@@ -54,7 +53,7 @@
                                         <div class="card-body">
                                             <h5 class="card-title"><i class="bi bi-cash-coin"></i> Depenses</h5>
                                             <div class="card-text text-center">
-                                                <span class="finance">350.000 FCFA</span>
+                                                <span class="finance">0 FCFA</span>
                                             </div>
                                         </div>
                                     </div>
@@ -77,6 +76,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    <!--
                                     <tr>
                                         <td>Recherche d'un menuisier pour table centrale</td>
                                         <td class="text-end">75.000 FCFA</td>
@@ -96,6 +96,10 @@
                                         <td class="text-center">
                                             <a href="#" class="">Détails</a>
                                         </td>
+                                    </tr>
+                                    -->
+                                    <tr>
+                                        <td colspan="5" class="text-center">Aucun projet réalisé</td>
                                     </tr>
                                     </tbody>
                                 </table>

@@ -39,7 +39,8 @@ class DemandeurController extends AbstractController
 
         return $this->render('frontend_demandeur/tableau_bord.html.twig',[
             'menu' => 'tbord',
-            'demandeur' => $demandeur
+            'demandeur' => $demandeur,
+            'projets' => $this->allRepositories->findProjetsByUser($this->getUser())
         ]);
     }
 
