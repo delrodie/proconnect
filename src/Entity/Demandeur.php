@@ -47,6 +47,9 @@ class Demandeur
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?User $user = null;
 
+    #[ORM\ManyToOne]
+    private ?Localite $localite = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -180,6 +183,18 @@ class Demandeur
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getLocalite(): ?Localite
+    {
+        return $this->localite;
+    }
+
+    public function setLocalite(?Localite $localite): static
+    {
+        $this->localite = $localite;
 
         return $this;
     }

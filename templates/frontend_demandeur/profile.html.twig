@@ -24,11 +24,17 @@
     <script src="{{ absolute_url(asset('js/jquery-3.7.1.min.js')) }}"></script>
     {{ parent() }}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="{{ absolute_url(asset('js/upload-init.js')) }}"></script>
-
+    <script>
+        $(document).ready(function() {
+            $('.select-2').select2();
+        });
+    </script>
 {% endblock %}
