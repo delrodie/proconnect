@@ -3,8 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Categorie;
+use App\Entity\Localite;
 use App\Entity\Projet;
 use App\Entity\User;
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -28,7 +31,7 @@ class ProjetFormType extends AbstractType
             ])
             ->add('lieu', TextType::class,[
                 'attr' => ['class' => 'form-control'],
-                'label' => 'Lieu de prestation'
+                'label' => 'Adresse precise de prestatation'
             ])
             ->add('datePrestation', null, [
                 'widget' => 'single_text',
@@ -95,6 +98,14 @@ class ProjetFormType extends AbstractType
                 'class' => Categorie::class,
                 'choice_label' => 'title',
                 'attr' => ['class' => 'form-select']
+            ])
+            ->add('localite', EntityType::class, [
+                'class' => Localite::class,
+                'choice_label' => 'title',
+                'attr' => ['class' => 'form-select form-control-lg form-select'],
+                'query_builder' => function (EntityRepository $er): QueryBuilder {
+                    return $er->createQueryBuilder('l')->orderBy('l.title', 'ASC');
+                }
             ])
         ;
     }

@@ -30,7 +30,7 @@
                                             Publié le {{ projet.createdAt|date('Y-m-d')}} à {{ projet.createdAt|date('H:i:s') }}
                                         </div>
                                         <div class="col12">
-                                            <i class="bi bi-geo-alt"></i> {{ projet.lieu }}
+                                            <i class="bi bi-geo-alt"></i>{{ projet.localite.title ?? ''}}, {{ projet.lieu }}
                                         </div>
                                         <div class="col-12 description mt-3">
                                             {{ projet.description|raw }}

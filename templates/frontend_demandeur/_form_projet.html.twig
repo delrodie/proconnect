@@ -2,11 +2,14 @@
 <div class="card">
     <div class="card-body">
         <div class="row form-group">
-            <div class="col-12 mt-3">
+            <div class="col-md-4 mt-3">
+                {{ form_row(form.categorie) }}
+            </div>
+            <div class="col-8 mt-3">
                 {{ form_row(form.title) }}
             </div>
             <div class="col-md-4 mt-3">
-                {{ form_row(form.categorie) }}
+                {{ form_row(form.localite) }}
             </div>
             <div class="col-md-8 mt-3">
                 {{ form_row(form.lieu) }}

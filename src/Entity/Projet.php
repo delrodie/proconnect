@@ -64,6 +64,9 @@ class Projet
     #[ORM\OneToMany(targetEntity: Postuler::class, mappedBy: 'projet')]
     private Collection $postulers;
 
+    #[ORM\ManyToOne]
+    private ?Localite $localite = null;
+
     public function __construct()
     {
         $this->postulers = new ArrayCollection();
@@ -268,6 +271,18 @@ class Projet
                 $postuler->setProjet(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLocalite(): ?Localite
+    {
+        return $this->localite;
+    }
+
+    public function setLocalite(?Localite $localite): static
+    {
+        $this->localite = $localite;
 
         return $this;
     }

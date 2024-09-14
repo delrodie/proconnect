@@ -68,7 +68,7 @@
 
                                                             <div class="row informations">
                                                                 <div class="col-4">
-                                                                    <i class="bi bi-geo-alt"></i> {{ projet.lieu }}
+                                                                    <i class="bi bi-geo-alt"></i> {{ projet.localite.title ?? projet.lieu }}
                                                                 </div>
                                                                 <div class="col-4">
                                                                     <i class="bi bi-calendar"></i> {{ projet.createdAt|date('d/m/Y') }}
