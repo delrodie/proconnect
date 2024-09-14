@@ -44,9 +44,12 @@ class ProjetController extends AbstractController
     #[isGranted('ROLE_USER')]
     public function show($reference)
     {
+        $projet = $this->allRepositories->getOneProjet($reference);
 
         return $this->render('frontend_projet/show.html.twig',[
-            'projet' => $this->allRepositories->getOneProjet($reference)
+            'projet' => $projet,
+            'candidatures' => $this->allRepositories->findCanditatureByProjet($reference),
+            'similaires' => $this->allRepositories->findProjetByCategorie($projet->getCategorie())
         ]);
     }
 

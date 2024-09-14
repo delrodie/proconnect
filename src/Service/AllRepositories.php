@@ -123,6 +123,16 @@ class AllRepositories
         return $this->foreachProjets($this->projetRepository->findAllByStatut($statut, $date, $budget));
     }
 
+    public function findProjetByCategorie($category)
+    {
+        return $this->foreachProjets($this->projetRepository->findBy(['categorie' => $category], ['dateLimite' => 'DESC']));
+    }
+
+    public function findCanditatureByProjet($reference)
+    {
+        return $this->candidature($this->postulerRepository->getCanditatureByProjet($reference));
+    }
+
     public function backendStatut($statut): string
     {
         return match ($statut){
@@ -186,10 +196,50 @@ class AllRepositories
                 'created_at' => $projet->getCreatedAt(),
                 'statut' => $projet->getStatut(),
                 'statut_backend' => $this->backendStatut($projet->getStatut()),
-                'demandeur' => $this->getDemandeurByUser($projet->getUser())
+                'demandeur' => $this->getDemandeurByUser($projet->getUser()),
+                'localite' => $projet->getLocalite()->getTitle()
             ];
         }
 
         return $results;
+    }
+
+    public function candidature($candidatures): array
+    {
+        $candidats = []; $i=0;
+        foreach ($candidatures as $candidature) {
+            $prestataire = $this->getOnePrestataire(null, $candidature->getUser());
+            $candidats[$i++] = [
+                'id' => $candidature->getId(),
+                'reference' => $candidature->getReference(),
+                'facturation' => $candidature->getFacturation(),
+                'modeTravail' => $candidature->getModeTravail(),
+                'garantie' => $candidature->getGarantie(),
+                'delai' => $candidature->getDelai(),
+                'statut' => $candidature->getStatut(),
+                'createdAt' => $candidature->getCreatedAt(),
+                'description' => $candidature->getDescription(),
+                'projet_id' => $candidature->getProjet()->getId(),
+                'projet_reference' => $candidature->getProjet()->getReference(),
+                'projet_title' => $candidature->getProjet()->getTitle(),
+                'projet_lieu' => $candidature->getProjet()->getLieu(),
+                'projet_datePrestation' => $candidature->getProjet()->getDatePrestation(),
+                'projet_dateLimite' => $candidature->getProjet()->getDateLimite(),
+                'projet_preference' => $candidature->getProjet()->getPreference(),
+                'projet_budgetMin' => $candidature->getProjet()->getBudgetMin(),
+                'projet_budgetMax' => $candidature->getProjet()->getBudgetMax(),
+                'projet_description' => $candidature->getProjet()->getDescription(),
+                'projet_media' => $candidature->getProjet()->getMedia(),
+                'projet_statut' => $candidature->getProjet()->getStatut(),
+                'projet_createdAt' => $candidature->getProjet()->getCreatedAt(),
+                'user' => $candidature->getUser()->getUsername(),
+                'prestataire_matricule' => $prestataire->getMatricule(),
+                'prestataire_nom' => $prestataire->getNom(),
+                'prestataire_prenoms' => $prestataire->getPrenoms(),
+                'prestataire_media' => $prestataire->getMedia()
+            ];
+        }
+
+        return $candidats;
     }
 }

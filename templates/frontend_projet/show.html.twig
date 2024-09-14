@@ -26,19 +26,21 @@
                             </div>
                         </div>
                         <div class="projects-comment mt-30">
-                            <h6 class="h6 number">2 prestataires</h6>
+                            <h6 class="h6 number">{{ candidatures|length > 1 ? candidatures|length ~ "prestataires" : candidatures|length ~ " prestataire" }}</h6>
 
+                            {% for candidature in candidatures %}
+{#                                {{ dump(candidature) }}#}
                                 <div class="card mt-3">
                                     <div class="row g-0">
                                         <div class="col-md-2">
-                                            <img src="./assets/img/all/3d-render-african-american-worker-woman-with-helmet.png" alt="" class="img-fluid rounded-start">
+                                            <img src="{{ absolute_url(asset('/upload/prestataire/' ~ candidature.prestataire_media)) }}" alt="" class="img-fluid rounded-start">
                                         </div>
                                         <div class="col-md-10">
                                             <div class="card-body">
                                                 <div class="card-title">
                                                     <div class="row">
                                                         <div class="col-10">
-                                                            <h6 class="fz-26 fw-500">Nom du prestataire</h6>
+                                                            <h6 class="fz-26 fw-500">{{ candidature.prestataire_nom|upper }} {{ candidature.prestataire_prenoms|title }}</h6>
                                                             <small class="text-body-secondary fz-16">
                                               <span class="rating">
                                                 <i class="bi bi-star-fill"></i>
@@ -48,59 +50,20 @@
                                                 <i class="bi bi-star"></i>
                                                 4.5 avis
                                               </span>
-                                                                <span class="create-at fz-16">22/07/2024 17:22:59</span>
+                                                                <span class="create-at fz-16"> {{ candidature.createdAt|date('d/m/Y H:i:s') }}</span>
                                                             </small>
                                                         </div>
                                                         <div class="col-2">
-                                                            <a href="#" class="btn btn-sm btn-main">Message</a>
+                                                            <a href="#" class="btn btn-sm btn-main">Voir offre</a>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <p class="card-text fz-16">
-                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore modi ducimus assumenda, dicta tempore nesciunt iusto non officia
-                                                    minima molestias quo beatae quae repellendus, nulla odit necessitatibus sint ipsum quidem.
-                                                </p>
+                                                <p class="card-text fz-16">{{ candidature.description|slice(0,500) }}</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="card mt-3">
-                                    <div class="row g-0">
-                                        <div class="col-md-2 profile">
-                                            <img src="./assets/img/all/Firefly_Under_a_transparent_background__generate_an_image_of_a_black_construction_worker_looking_at.png" alt="" class="img-fluid rounded-start">
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="card-body">
-                                                <div class="card-title">
-                                                    <div class="row">
-                                                        <div class="col-10">
-                                                            <h6 class="fz-26 fw-500">Nom du prestataire</h6>
-                                                            <small class="text-body-secondary fz-16">
-                                              <span class="rating">
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-fill"></i>
-                                                <i class="bi bi-star-half"></i>
-                                                <i class="bi bi-star"></i>
-                                                4.5 avis
-                                              </span>
-                                                                <span class="create-at fz-16">22/07/2024 17:22:59</span>
-                                                            </small>
-                                                        </div>
-                                                        <div class="col-2">
-                                                            <a href="#" class="btn btn-sm btn-main">Message</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <p class="card-text fz-16">
-                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore modi ducimus assumenda, dicta tempore nesciunt iusto non officia
-                                                    minima molestias quo beatae quae repellendus, nulla odit necessitatibus sint ipsum quidem.
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            {% endfor %}
 
                         </div>
                     </div>
@@ -112,101 +75,47 @@
                             <h6 class="fz-26 fw-500 mt-5">{{ projet.reference|projet_demandeur}} </h6>
 
                             <div class="projects-client__location">
-                                <i class="bi bi-geo-alt"></i> {{ projet.lieu }}
+                                <i class="bi bi-geo-alt"></i> {{ projet.localite.title}}, {{ projet.lieu }}
                             </div>
 
-                            <h6 class="h6 mt-5">Projets similaires</h6>
+                            {% if similaires > 0 %}
+                                <h6 class="h6 mt-5">{{ similaires|length > 1 ? 'Projets similaires' : 'Projet similaire' }}</h6>
 
-                            <div class="row row-cols-1 projects-items">
+                                <div class="row row-cols-1 projects-items">
 
-                                <div class="col projects-items__content mt-3">
-                                    <a href="projet_details.html">
-                                        <div class="card h-100">
-                                            <div class="card-body">
+                                    {% for similaire in similaires %}
+                                        <div class="col projects-items__content mt-3">
+                                            <a href="{{ absolute_url(path('app_frontend_projet_show', {'reference': similaire.reference})) }}">
+                                                <div class="card h-100">
+                                                    <div class="card-body">
 
-                                                <div class="projects-items__content-author">
-                                                    <div class="projects-items__content-avatar bg-main-gradient">
-                                                        <img src="./assets/img/all/3d-render-african-american-worker-woman-with-helmet.png" alt="" class="img-fluid">
-                                                    </div>
-                                                    <div class="projects-items__content-infos pl-3">
-                                                        <span class="badge bg-main">Catégorie</span>
-                                                        <h6 class="h6">Menuisier</h6>
-                                                        <div class="reference fz-16">
-                                                            Par <span class="author fw-500">Delrodie</span> le2024/07/31 à 13:04:00
+                                                        <div class="projects-items__content-author">
+                                                            <div class="projects-items__content-infos pl-3">
+                                                                <span class="badge bg-main">{{ similaire.categorie }}</span>
+                                                                <h6 class="h6">{{ similaire.title }}</h6>
+                                                                <div class="reference fz-16">
+                                                                    Par <span class="author fw-500">{{ similaire.demandeur.nom }}</span> le {{ similaire.created_at|date('d/m/Y')}} à {{ similaire.created_at|date('H:i:s') }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="projects-items__content-details mt-2">
+                                                            <div class="location"> <i class="bi bi-geo-alt"></i> {{ similaire.localite}}, {{ similaire.lieu }} </div>
+                                                        </div>
+                                                        <div class="projects-items__content-countdown py-5">
+                                                            <span class="fz-22 fw-500 px-2">{{ jour_restant(similaire.reference)}}</span>
+                                                            {{ similaire.reference|jour_restant > 1 ? 'jours restants pour postuler.' : 'jour restant pour postuler.' }}
                                                         </div>
                                                     </div>
                                                 </div>
-
-                                                <div class="projects-items__content-details mt-2">
-                                                    <div class="location"> <i class="bi bi-geo-alt"></i> Abidjan Riviera III </div>
-                                                </div>
-                                                <div class="projects-items__content-countdown py-5">
-                                                    <span class="fz-22 fw-500 px-2">2</span> jours restants pour postuler.
-                                                </div>
-                                            </div>
+                                            </a>
                                         </div>
-                                    </a>
+                                    {% endfor %}
+
                                 </div>
+                            {% endif %}
 
-                                <div class="col projects-items__content mt-3">
-                                    <a href="projet_details.html">
-                                        <div class="card h-100">
-                                            <div class="card-body">
 
-                                                <div class="projects-items__content-author">
-                                                    <div class="projects-items__content-avatar bg-main-gradient">
-                                                        <img src="./assets/img/all/3d-render-african-american-worker-woman-with-helmet.png" alt="" class="img-fluid">
-                                                    </div>
-                                                    <div class="projects-items__content-infos pl-3">
-                                                        <span class="badge bg-main">Catégorie</span>
-                                                        <h6 class="h6">Menuisier</h6>
-                                                        <div class="reference fz-16">
-                                                            Par <span class="author fw-500">Delrodie</span> le2024/07/31 à 13:04:00
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="projects-items__content-details mt-2">
-                                                    <div class="location"> <i class="bi bi-geo-alt"></i> Abidjan Riviera III </div>
-                                                </div>
-                                                <div class="projects-items__content-countdown py-5">
-                                                    <span class="fz-22 fw-500 px-2">2</span> jours restants pour postuler.
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <div class="col projects-items__content mt-3">
-                                    <a href="projet_details.html">
-                                        <div class="card h-100">
-                                            <div class="card-body">
-
-                                                <div class="projects-items__content-author">
-                                                    <div class="projects-items__content-avatar bg-main-gradient">
-                                                        <img src="./assets/img/all/3d-render-african-american-worker-woman-with-helmet.png" alt="" class="img-fluid">
-                                                    </div>
-                                                    <div class="projects-items__content-infos pl-3">
-                                                        <span class="badge bg-main">Catégorie</span>
-                                                        <h6 class="h6">Menuisier</h6>
-                                                        <div class="reference fz-16">
-                                                            Par <span class="author fw-500">Delrodie</span> le2024/07/31 à 13:04:00
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="projects-items__content-details mt-2">
-                                                    <div class="location"> <i class="bi bi-geo-alt"></i> Abidjan Riviera III </div>
-                                                </div>
-                                                <div class="projects-items__content-countdown py-5">
-                                                    <span class="fz-22 fw-500 px-2">2</span> jours restants pour postuler.
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-
-                            </div>
                         </div>
                     </div>
                 </div>

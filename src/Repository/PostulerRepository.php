@@ -16,6 +16,24 @@ class PostulerRepository extends ServiceEntityRepository
         parent::__construct($registry, Postuler::class);
     }
 
+    /**
+     * Liste des candidatures par la reference du projet
+     *
+     * @param $reference
+     * @return mixed
+     */
+    public function getCanditatureByProjet($reference)
+    {
+        return $this->createQueryBuilder('p')
+            ->addSelect('t')
+            ->addSelect('u')
+            ->leftJoin('p.projet', 't')
+            ->leftJoin('p.user', 'u')
+            ->where('t.reference = :reference')
+            ->setParameter('reference', $reference)
+            ->getQuery()->getResult();
+    }
+
     //    /**
     //     * @return Postuler[] Returns an array of Postuler objects
     //     */
