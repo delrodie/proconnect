@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Competence;
+use App\Entity\Localite;
 use App\Entity\Prestataire;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
@@ -165,6 +166,14 @@ class PrestataireFormType extends AbstractType
                 'label' => "Compétences",
                 'query_builder' => function (EntityRepository $er): QueryBuilder {
                     return $er->createQueryBuilder('c')->orderBy('c.title', 'ASC');
+                }
+            ])
+            ->add('localite', EntityType::class, [
+                'class' => Localite::class,
+                'choice_label' => 'title',
+                'attr' => ['class' => 'form-select form-control-lg form-select'],
+                'query_builder' => function (EntityRepository $er): QueryBuilder {
+                    return $er->createQueryBuilder('l')->orderBy('l.title', 'ASC');
                 }
             ])
         ;

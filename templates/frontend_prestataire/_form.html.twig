@@ -32,14 +32,18 @@
         {{ form_errors(form.telephone) }}
     </div>
     <div class="col-md-6 mt-3">
-        {{ form_widget(form.profession) }}
-        {{ form_errors(form.profession) }}
+        {{ form_widget(form.localite) }}
+        {{ form_errors(form.localite) }}
     </div>
     <div class="col-md-6 mt-3">
         {{ form_widget(form.adresse) }}
         {{ form_errors(form.adresse) }}
     </div>
-    <div class="col-md-6 mt-3">
+    <div class="col-md-4 mt-3">
+        {{ form_widget(form.profession) }}
+        {{ form_errors(form.profession) }}
+    </div>
+    <div class="col-md-4 mt-3">
         {{ form_widget(form.langue) }}
         {{ form_errors(form.langue) }}
     </div>
@@ -47,7 +51,7 @@
 {#        {{ form_widget(form.geolocalisation, { 'attr': { 'readonly': true, 'onclick': 'geolocateAddress()' } }) }}#}
 {#        {{ form_errors(form.geolocalisation) }}#}
 {#    </div>#}
-    <div class="col-md-6 mt-3">
+    <div class="col-md-4 mt-3">
         {{ form_widget(form.niveau) }}
         {{ form_errors(form.niveau) }}
     </div>
