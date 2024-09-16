@@ -268,4 +268,9 @@ class AllRepositories
     {
         return $this->postulerRepository->findByProjetAndStatutDifferentOfAppel($projet);
     }
+
+    public function getCandidatureValideByPrestataire($user)
+    {
+        return $this->postulerRepository->findValideByPrestataire($user);
+    }
 }

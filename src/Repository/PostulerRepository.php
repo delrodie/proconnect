@@ -54,6 +54,28 @@ class PostulerRepository extends ServiceEntityRepository
             ;
     }
 
+    /**
+     * Liste des projets validés par prestataire
+     *
+     * @param $user
+     * @return mixed
+     */
+    public function findValideByPrestataire($user): mixed
+    {
+        return $this->createQueryBuilder('p')
+            ->addSelect('u')
+            ->addSelect('r')
+            ->leftJoin('p.user', 'u')
+            ->leftJoin('p.projet', 'r')
+            ->where('p.statut <> :statut')
+            ->andWhere('p.user = :user')
+            ->setParameter('statut', 'SOUMIS')
+            ->setParameter('user', $user)
+            ->orderBy('p.embaucheAt', 'DESC')
+            ->getQuery()->getResult()
+            ;
+    }
+
 
     //    /**
     //     * @return Postuler[] Returns an array of Postuler objects

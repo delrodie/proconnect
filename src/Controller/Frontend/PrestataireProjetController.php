@@ -58,6 +58,16 @@ class PrestataireProjetController extends AbstractController
         ]);
     }
 
+    #[Route('/mes-projets', name: 'app_frontend_prestataire_projet_valide', methods: ['GET'])]
+    public function projets(): Response
+    {
+        $prestataire = $this->allRepositories->getOnePrestataire(null, $this->getUser());
+        return $this->render('frontend_prestataire/projet_valide.html.twig',[
+            'prestataire' => $prestataire,
+            'valides' => $this->allRepositories->getCandidatureValideByPrestataire($this->getUser())
+        ]);
+    }
+
     #[Route('/{reference}', name: 'app_frontend_prestataire_projet_supprimer', methods: ['POST'])]
     public function supprimer(Request $request, $reference)
     {
