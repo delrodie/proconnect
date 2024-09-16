@@ -42,7 +42,7 @@ class ProjetController extends AbstractController
 
     #[Route('/{reference}', name: 'app_frontend_projet_show', methods: ['GET'])]
     #[isGranted('ROLE_USER')]
-    public function show($reference)
+    public function show($reference): Response
     {
         $projet = $this->allRepositories->getOneProjet($reference);
 
