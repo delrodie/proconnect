@@ -67,22 +67,24 @@ class DemandeurProjetController extends AbstractController
     }
 
     #[Route('/{reference}', name: 'app_frontend_demandeur_projet_details', methods: ['GET'])]
-    public function details($reference)
+    public function details($reference): Response
     {
         return $this->render('frontend_demandeur/projet_details.html.twig',[
             'demandeur' => $this->demandeur(),
-            'projet' => $this->allRepositories->getOneProjet($reference),
+            'projet' => $this->allRepositories->getProjetDetails($reference),
+            'candidatures' => $this->allRepositories->findCanditatureByProjet($reference),
         ]);
     }
 
     #[Route('/{reference}/modification', name: 'app_frontend_demandeur_projet_modif', methods: ['GET','POST'])]
-    public function modif(Request $request, $reference)
+    public function modif(Request $request, $reference): Response
     {
         $projet = $this->allRepositories->getOneProjet($reference);
         $form = $this->createForm(ProjetFormType::class, $projet);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $this->entityManager->flush();
 
             notyf()->success("Votre projet '{$projet->getReference()}' a été modifié avec succès!");
@@ -101,7 +103,7 @@ class DemandeurProjetController extends AbstractController
     }
 
     #[Route('/{reference}', name: 'app_frontend_demandeur_projet_supprimer', methods: ['POST'])]
-    public function supprimer(Request $request, $reference)
+    public function supprimer(Request $request, $reference): Response
     {
         $projet = $this->allRepositories->getOneProjet($reference);
         if ($this->isCsrfTokenValid('delete'.$projet->getId(), $request->getPayload()->getString('_token'))) {

@@ -161,6 +161,11 @@ class AllRepositories
         return $this->projetRepository->findBy(['user' => $user], ['id' => 'DESC']);
     }
 
+    public function getProjetDetails($reference)
+    {
+        return $this->projetRepository->findDetailsProjetByReference($reference);
+    }
+
     public function findPostulerByReferenceAndUser(object $projet, object $user)
     {
         return $this->postulerRepository->findOneBy([
@@ -172,6 +177,11 @@ class AllRepositories
     public function findPostulerByUser(object $user)
     {
         return $this->postulerRepository->findBy(['user' => $user], ['id' => 'DESC']);
+    }
+
+    public function getOnePostulerByReference($reference)
+    {
+        return $this->postulerRepository->findOneByReference($reference);
     }
 
     public function foreachProjets($projets): array
@@ -241,5 +251,21 @@ class AllRepositories
         }
 
         return $candidats;
+    }
+
+    public function getPrestataireByOffre($offre)
+    {
+        $postuler = $this->postulerRepository->findByProjetAndStatutDifferentOfAppel($offre);
+        $prestataire = [];
+        if ($postuler){
+            $prestataire = $this->getOnePrestataire(null, $postuler->getUser());
+        }
+
+        return $prestataire;
+    }
+
+    public function getCandidatureValideByProjet($projet)
+    {
+        return $this->postulerRepository->findByProjetAndStatutDifferentOfAppel($projet);
     }
 }

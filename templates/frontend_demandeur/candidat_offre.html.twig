@@ -1,0 +1,161 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes projets{% endblock %}
+
+{% block body %}
+    <main>
+        <section class="profile" id="profile">
+            <div class="container">
+                <div class="row">
+                    {% include 'frontend_demandeur/_menu.html.twig' %}
+                    <div class="col-12 col-lg-9 profile-content">
+                        <h2 class="titre">Offre de {{ prestataire.prenoms|title }} {{ prestataire.nom|upper }}</h2>
+                        {% if offre.statut == 'SOUMIS' %}
+                            <div class="text-end mt-5">
+                                <form action="" onsubmit="return confirm('Voulez-vous vraiment embaucher ce prestataire?');">
+                                    <input type="hidden" name="_offre" value="{{ offre.reference }}">
+                                    <input type="hidden" name="_token" value="{{ csrf_token('embauche'~ offre.reference) }}">
+                                    <button type="submit" class="btn btn-main btn-sm"><i class="bi bi-briefcase"></i> Embaucher ce prestataire</button>
+                                </form>
+                            </div>
+                        {% endif %}
+
+                        <div class="mt-0 profile-content_projet">
+
+                            <div class="profile-content_projet-prestataires mt-5">
+                                <div class="card">
+                                    <nav>
+                                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                            <button class="nav-link active" id="nav-offre-tab" data-bs-toggle="tab" data-bs-target="#nav-offre" type="button" role="tab" aria-controls="nav-offre" aria-selected="true">Offre</button>
+                                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Prestataire</button>
+                                        </div>
+                                    </nav>
+                                    <div class="tab-content" id="nav-tabContent">
+                                        <div class="tab-pane fade show active" id="nav-offre" role="tabpanel" aria-labelledby="nav-offre-tab" tabindex="0">
+                                            <div class="mt-3 px-10">
+                                                <div class="row">
+                                                    <div class="col-md-6 mt-3">
+                                                        <label>Référence</label>
+                                                        <h6><span class="fz-20 fw-600">{{ offre.reference }}</span></h6>
+                                                    </div>
+                                                    <div class="col-md-6 mt-3">
+                                                        <label for="">Facturation</label>
+                                                        <h6><span class="fz-20 fw-600">{{ offre.facturation|number_format(0,'','.') }} FCFA</span></h6>
+                                                    </div>
+                                                    <div class="col-md-6 mt-3">
+                                                        <div>Mode de travail</div>
+                                                        <h6><span class="fz-20 fw-600">{{ offre.modeTravail|mode_travail }}</span></h6>
+                                                    </div>
+                                                    <div class="col-md-6 mt-3">
+                                                        <div>Garantie</div>
+                                                        <h6><span class="fz-20 fw-600">{{ offre.garantie }}</span></h6>
+                                                    </div>
+                                                    <div class="col-md-6 mt-3">
+                                                        <div>Date d'achevement des travaux : </div>
+                                                        <h6><span class="fz-20 fw-600">{{ offre.delai|date('d/m/Y') }}</span></h6>
+                                                    </div>
+                                                    <div class="col-md-6 mt-3">
+                                                        <div>Date de soumission :</div>
+                                                        <h6><span class="fz-20 fw-600">{{ offre.createdAt|date('d/m/Y H:i:s') }}</span></h6>
+                                                    </div>
+                                                    <div class="col-md-12 mt-3">
+                                                        <h6>Desription:</h6>
+                                                        <p class="fz-20">{{ offre.description|raw }}</p>
+                                                    </div>
+                                                    <div class="col-md-6 mt-3"></div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
+                                            <div class="card mt-3">
+                                                <div class="row g-0 px-10">
+                                                    <div class="col-md-2">
+                                                        <img src="{{ absolute_url(asset('/upload/prestataire/' ~ prestataire.media)) }}"
+                                                             alt="{{ prestataire.nom }} {{ prestataire.prenoms }}" class="img-fluid" style="max-width: 120px; max-height: 120px; object-fit: cover">
+                                                    </div>
+                                                    <div class="col-md-10">
+                                                        <div class="card-body">
+                                                            <div class="card-title">
+                                                                <div class="row">
+                                                                    <div class="col-10">
+                                                                        <h6 class="fz-22 fw-500">
+                                                                            <a href="#">
+                                                                                {{ prestataire.nom|upper }} {{ prestataire.prenoms|title }}
+                                                                            </a>
+                                                                        </h6>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6 mt-3">
+                                                                    Matricule :
+                                                                    <h6 class="fz-18 fw-500">{{ prestataire.matricule }}</h6>
+                                                                </div>
+                                                                <div class="col-md-6 mt-3">
+                                                                    Sexe :
+                                                                    <h6 class="fz-18 fw-500">{{ prestataire.sexe }}</h6>
+                                                                </div>
+                                                                <div class="col-md-6 mt-3">
+                                                                    Profession :
+                                                                    <h6 class="fz-18 fw-500">{{ prestataire.profession }}</h6>
+                                                                </div>
+                                                                <div class="col-md-6 mt-3">
+                                                                    Adresse :
+                                                                    <h6 class="fz-18 fw-500">{{ prestataire.adresse }}</h6>
+                                                                </div>
+                                                                <div class="col-md-6 mt-3">
+                                                                    Niveau :
+                                                                    <h6 class="fz-18 fw-500">{{ prestataire.niveau }}</h6>
+                                                                </div>
+                                                                <div class="col-md-6 mt-3">
+                                                                    Expérience :
+                                                                    <h6 class="fz-18 fw-500">{{ prestataire.experience|filtre_experience }}</h6>
+                                                                </div>
+                                                                <div class="col-md-6 mt-3">
+                                                                    Langue :
+                                                                    <h6 class="fz-18 fw-500">{{ prestataire.langue }} </h6>
+                                                                </div>
+                                                                <div class="col-md-6 mt-3">
+                                                                    Tarif horaire :
+                                                                    <h6 class="fz-18 fw-500">{{ prestataire.tarifHoraire }} FCFA</h6>
+                                                                </div>
+                                                                <div class="col-md-6 mt-3">
+                                                                    Paiement :
+                                                                    <h6 class="fz-18 fw-500">{{ prestataire.paiement }} </h6>
+                                                                </div>
+                                                                <div class="col-md-6 mt-3">
+                                                                    Garantie :
+                                                                    <h6 class="fz-18 fw-500">{{ prestataire.garantie }} </h6>
+                                                                </div>
+                                                                <div class="col-md-6 mt-3">
+                                                                    Mode de travail :
+                                                                    <h6 class="fz-18 fw-500">{{ prestataire.modeTravail|mode_travail }} </h6>
+                                                                </div>
+                                                                <div class="col-md-6 mt-3">
+                                                                    Moyen de déplacement :
+                                                                    <h6 class="fz-18 fw-500">{{ prestataire.deplacement|mode_deplacement }} </h6>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
+{% block breadcrumb %}
+    <section class="header py-30" id="breadcrumb"> </section>
+{% endblock %}

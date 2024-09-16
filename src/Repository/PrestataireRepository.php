@@ -16,6 +16,17 @@ class PrestataireRepository extends ServiceEntityRepository
         parent::__construct($registry, Prestataire::class);
     }
 
+    public function findByProjet($reference)
+    {
+        return $this->createQueryBuilder('p')
+            ->addSelect('u')
+            ->addSelect('c')
+            ->addSelect('r')
+            ->leftJoin('p.user', 'u')
+            ->leftJoin('pos')
+            ;
+    }
+
     //    /**
     //     * @return Prestataire[] Returns an array of Prestataire objects
     //     */

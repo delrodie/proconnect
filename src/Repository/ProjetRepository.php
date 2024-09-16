@@ -39,6 +39,20 @@ class ProjetRepository extends ServiceEntityRepository
 
     }
 
+    public function findDetailsProjetByReference($reference)
+    {
+        return $this->createQueryBuilder('p')
+            ->addSelect('l')
+            ->addSelect('u')
+            ->addSelect('c')
+            ->leftJoin('p.localite', 'l')
+            ->leftJoin('p.user', 'u')
+            ->leftJoin('p.categorie', 'c')
+            ->where('p.reference = :reference')
+            ->setParameter('reference', $reference)
+            ->getQuery()->getSingleResult();
+    }
+
     //    /**
     //     * @return Projet[] Returns an array of Projet objects
     //     */

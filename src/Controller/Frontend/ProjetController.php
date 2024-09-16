@@ -83,6 +83,7 @@ class ProjetController extends AbstractController
             $postuler->setUser($this->getUser());
             $postuler->setProjet($projet);
             $postuler->setCreatedAt($this->utilities->fuseauGMT());
+            $postuler->setStatut('SOUMIS');
 
             $this->entityManager->persist($postuler);
             $this->entityManager->flush();

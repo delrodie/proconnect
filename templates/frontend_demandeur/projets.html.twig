@@ -88,8 +88,16 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-3 d-grid gap-2">
+                                                            {% if projet.statut != 'APPEL' %}
+                                                                <a href="#" class="btn btn-sm disabled">{{ projet.statut|statut_label }}</a>
+                                                            {% endif %}
+
                                                             <a href="{{ absolute_url(path('app_frontend_demandeur_projet_details', {'demandeur': demandeur.code, 'reference': projet.reference})) }}" class="btn btn-main btn-sm">Détails</a>
-                                                            <a href="{{ absolute_url(path('app_frontend_demandeur_projet_modif',{"demandeur": demandeur.code, 'reference': projet.reference})) }}" class="btn btn-outline-secondary btn-sm">Modifier</a>
+
+                                                            {% if projet.statut == 'APPEL' %}
+                                                                <a href="{{ absolute_url(path('app_frontend_demandeur_projet_modif',{"demandeur": demandeur.code, 'reference': projet.reference})) }}" class="btn btn-outline-secondary btn-sm">Modifier</a>
+                                                            {% endif %}
+
                                                         </div>
                                                     </div>
                                                 </div>

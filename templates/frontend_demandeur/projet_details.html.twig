@@ -35,21 +35,16 @@
                                         <div class="col-12 description mt-3">
                                             {{ projet.description|raw }}
                                         </div>
-                                        <div class="col-md-6 mt-2">
-                                            Statut:
-                                            {% if projet.statut == 'TERMINE' %}
-                                                <span class="badge text-bg-success">TERMINE</span>
-                                            {% elseif projet.statut == 'FERME' %}
-                                                <span class="badge text-bg-danger">FERME</span>
-                                            {% elseif projet.statut == 'ENCOURS' %}
-                                                <span class="badge text-bg-secondary">ENCOURS</span>
-                                            {% else %}
-                                                <span class="badge text-bg-info">OUVERT</span>
-                                            {% endif %}
+                                        <div class="col-md-4 mt-2">
+                                            Statut: <span class="badge {{ projet.statut|stick_css_class }}">{{ projet.statut|statut_label }}</span>
+
                                         </div>
-                                        {% if projet.statut == 'TERMINE' %}
-                                            <div class="col-md-6 mt-2">
-                                                Prestataire: <a href="#" class="prestatatire">Nom prestataire</a>
+                                        {% if projet.statut != 'APPEL' %}
+                                            <div class="col-md-8 mt-2">
+                                                Prestataire sélectionné:
+                                                <a href="{{ path('app_frontend_demandeur_candidat_offre', {'demandeur': demandeur.code, 'offre': projet.reference|candidature_selectionne}) }}" class="prestataire">
+                                                    {{ prestataire_selectionne(projet.reference)|title }}
+                                                </a>
                                             </div>
                                             <div class="col-12">
                                                 Budget final: 20.000 FCFA
@@ -60,34 +55,44 @@
                                 </div>
                                 <div class="card-footer text-end">
                                     <div class="row">
-                                        <div class="col-6 col-md-2 offset-md-8 d-grid gap-2">{{ include('frontend_demandeur/_form_delete_projet.html.twig') }}</div>
-                                        <div class="col-6 col-md-2 d-grid gap-2">
-                                            <a href="{{ absolute_url(path('app_frontend_demandeur_projet_modif', {'demandeur': demandeur.code, 'reference': projet.reference})) }}" class="btn btn-main btn-sm float-end">Modifier</a>
-                                        </div>
+                                        {% if candidatures|length > 0  %}
+                                            <div class="col-6 col-md-2 offset-md-10 d-grid gap-2 text-end">
+                                                <a href="{{ absolute_url(path('app_frontend_demandeur_projet_modif', {'demandeur': demandeur.code, 'reference': projet.reference})) }}" class="btn btn-main btn-sm float-end">Modifier</a>
+                                            </div>
+                                        {% else %}
+                                            <div class="col-6 col-md-2 offset-md-8 d-grid gap-2">{{ include('frontend_demandeur/_form_delete_projet.html.twig') }}</div>
+
+                                            <div class="col-6 col-md-2 d-grid gap-2 text-end">
+                                                <a href="{{ absolute_url(path('app_frontend_demandeur_projet_modif', {'demandeur': demandeur.code, 'reference': projet.reference})) }}" class="btn btn-main btn-sm float-end">Modifier</a>
+                                            </div>
+                                        {% endif %}
                                     </div>
 
 {#                                    <a href="#" class="btn btn-outline-danger btn-sm">Supprimer</a>#}
 
                                 </div>
                             </div>
-                            <!--
+
                             <div class="profile-content_projet-prestataires mt-5">
-                                <h4 class="nombre">2 prestataires</h4>
-                                <div class="card mt-3">
-                                    <div class="row g-0">
-                                        <div class="col-md-2">
-                                            <img src="{{ absolute_url(asset('img/all/3d-worker.png')) }}"
-                                                 alt="" class="img-fluid rounded-start">
-                                        </div>
-                                        <div class="col-md-10">
-                                            <div class="card-body">
-                                                <div class="card-title">
-                                                    <div class="row">
-                                                        <div class="col-10">
-                                                            <h6 class="fz-22 fw-500">
-                                                                <a href="#">Nom du prestataire</a>
-                                                            </h6>
-                                                            <small class="text-body-secondary fz-14">
+                                <h4 class="nombre">{{ candidatures|length > 1 ? candidatures|length ~ "prestataires" : candidatures|length ~ " prestataire" }}</h4>
+                                {% for candidature in candidatures %}
+                                    <div class="card mt-3">
+                                        <div class="row g-0">
+                                            <div class="col-md-2">
+                                                <img src="{{ absolute_url(asset('/upload/prestataire/' ~ candidature.prestataire_media)) }}"
+                                                     alt="{{ candidature.prestataire_nom }} {{ candidature.prestataire_prenoms }}" class="img-fluid">
+                                            </div>
+                                            <div class="col-md-10">
+                                                <div class="card-body">
+                                                    <div class="card-title">
+                                                        <div class="row">
+                                                            <div class="col-10">
+                                                                <h6 class="fz-22 fw-500">
+                                                                    <a href="#">
+                                                                        {{ candidature.prestataire_nom|upper }} {{ candidature.prestataire_prenoms|title }}
+                                                                    </a>
+                                                                </h6>
+                                                                <small class="text-body-secondary fz-14">
                                                                     <span class="rating">
                                                                         <i class="bi bi-star-fill"></i>
                                                                         <i class="bi bi-star-fill"></i>
@@ -96,28 +101,25 @@
                                                                         <i class="bi bi-star"></i>
                                                                         4.5 avis
                                                                     </span>
-                                                                <span class="create-at fz-16">22/07/2024
-                                                                        17:22:59</span>
-                                                            </small>
-                                                        </div>
-                                                        <div class="col-2">
-                                                            <a href="#" class="btn btn-sm btn-main">Embaucher</a>
+                                                                    <span class="create-at fz-16">{{ candidature.createdAt|date('d/m/Y H:i:s') }}</span>
+                                                                </small>
+                                                            </div>
+                                                            {% if projet.statut == 'APPEL' %}
+                                                                <div class="col-2">
+                                                                    <a href="{{ absolute_url(path('app_frontend_demandeur_candidat_offre', {'demandeur': demandeur.code, 'offre': candidature.reference})) }}" class="btn btn btn-sm btn-main">Détails offre</a>
+                                                                </div>
+                                                            {% endif %}
+
                                                         </div>
                                                     </div>
+                                                    <p class="card-text fz-16">{{ candidature.description }}</p>
                                                 </div>
-                                                <p class="card-text fz-16">
-                                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore
-                                                    modi
-                                                    ducimus assumenda, dicta tempore nesciunt iusto non officia
-                                                    minima molestias quo beatae quae repellendus, nulla odit
-                                                    necessitatibus sint ipsum quidem.
-                                                </p>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                {% endfor %}
                             </div>
-                            -->
+
                         </div>
 
                     </div>

@@ -34,6 +34,27 @@ class PostulerRepository extends ServiceEntityRepository
             ->getQuery()->getResult();
     }
 
+    /**
+     * La candidature qui a été validée par le demandeur du projet
+     *
+     * @return mixed
+     */
+    public function findByProjetAndStatutDifferentOfAppel($projet): mixed
+    {
+        return $this->createQueryBuilder('p')
+            ->addSelect('u')
+            ->addSelect('r')
+            ->leftJoin('p.user', 'u')
+            ->leftJoin('p.projet', 'r')
+            ->where('p.statut <> :statut')
+            ->andWhere('r.reference = :projet')
+            ->setParameter('statut', 'APPEL')
+            ->setParameter('projet', $projet)
+            ->getQuery()->getSingleResult()
+            ;
+    }
+
+
     //    /**
     //     * @return Postuler[] Returns an array of Postuler objects
     //     */

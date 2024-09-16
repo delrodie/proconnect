@@ -11,24 +11,24 @@
         <input type="text" class="form-control" value="{{ postuler.projet.reference }}" disabled>
     </div>
     <div class="col-md-6 mt-3">
-        <label for="">Localisation</label>
+        <label for="">Localité de prestation</label>
+        <input type="text" class="form-control" value="{{ postuler.projet.localite.title }}" disabled>
+    </div>
+    <div class="col-md-6 mt-3">
+        <label for="">Adresse géographique</label>
         <input type="text" class="form-control" value="{{ postuler.projet.lieu }}" disabled>
     </div>
     <div class="col-md-6 mt-3">
-        <label for="">Budget</label>
-        <input type="text" class="form-control" value="{{ postuler.projet.lieu }}" disabled>
+        <label for="" >Budget</label>
+        <input type="text" class="form-control" value="{{ postuler.projet.budgetMin ? postuler.projet.budgetMin|number_format(0,'',' ') :  0 }} - {{ postuler.projet.budgetMax ? postuler.projet.budgetMax|number_format(0,'',' ') : 0}} FCFA" disabled>
     </div>
     <div class="col-md-6 mt-3">
-        <label for="">Date limite</label>
-        <input type="text" class="form-control" value="{{ postuler.projet.lieu }}" disabled>
+        <label for="">Date de prestation</label>
+        <input type="text" class="form-control" value="{{ postuler.projet.datePrestation|date('d/m/Y') }}" disabled>
     </div>
     <div class="col-md-6 mt-3">
-        <label for="name" class="form-label">Budget</label>
-        <input type="text" class="form-control form-control-lg" value="{{ postuler.projet.budgetMin ? postuler.projet.budgetMin|number_format(0,'',' ') :  0 }} - {{ postuler.projet.budgetMax ? postuler.projet.budgetMax|number_format(0,'',' ') : 0}} FCFA" disabled>
-    </div>
-    <div class="col-md-6 mt-3">
-        <label for="name" class="form-label">Date limite</label>
-        <input type="text" class="form-control form-control-lg" value="{{ postuler.projet.dateLimite|date('d/m/Y') }}" disabled>
+        <label for="name">Date limite</label>
+        <input type="text" class="form-control" value="{{ postuler.projet.dateLimite|date('d/m/Y') }}" disabled>
     </div>
     <div class="col-md-6 mt-3">
         {{ form_row(form.modeTravail) }}
