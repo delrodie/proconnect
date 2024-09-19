@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Categorie;
+use App\Entity\Localite;
 use App\Entity\Projet;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -83,6 +84,11 @@ class ProjetType extends AbstractType
             ])
             ->add('categorie', EntityType::class, [
                 'class' => Categorie::class,
+                'choice_label' => 'title',
+                'attr' => ['class' => 'form-select select2', 'disabled' => false]
+            ])
+            ->add('localite', EntityType::class, [
+                'class' => Localite::class,
                 'choice_label' => 'title',
                 'attr' => ['class' => 'form-select select2', 'disabled' => false]
             ])
