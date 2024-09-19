@@ -1,0 +1,104 @@
+{% extends 'backend_layout.html.twig' %}
+
+{% block title %}{{ parent() }} Gestion des slides{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="card bg-light-info shadow-none position-relative overflow-hidden">
+            <div class="card-body px-4 py-3">
+                <div class="row align-items-center">
+                    <div class="col-9">
+                        <h4 class="fw-semibold mb-8">Gestion des slides</h4>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a class="text-muted" href="#">Services</a></li>
+                                <li class="breadcrumb-item"><a class="text-muted" href="#">Slides</a></li>
+                                <li class="breadcrumb-item" aria-current="page">Liste</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="col-3">
+                        <div class="text-center mb-n5">
+                            <span class="head-icon"><i class="ti-package"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col"><h5 class="mb-2 fw-semibold fs-4">Liste</h5></div>
+                                <div class="col">
+                                    <div class="action">
+                                        <a href="{{ absolute_url(path('app_backend_slide_new')) }}" class="btn btn-primary"><i class="ti-plus"></i> Ajouter</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row mt-3">
+                            {% for slide in slides %}
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="card rounded-2 overflow-hidden hover-img">
+                                        <div class="position-relative">
+                                            <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#slide-{{ slide.id }}">
+                                                <img src="{{ asset('upload/slide/' ~ slide.media) }}" class="card-img-top rounded-0" alt="...">
+                                            </a>
+                                            <span class="badge {% if slide.statut %} bg-success {% else%} bg-danger {% endif %} text-dark fs-2 rounded-4 lh-sm mb-9 me-9 py-1 px-2 fw-semibold position-absolute bottom-0 end-0">
+                                                {{ slide.statut ? 'ACTIF' : 'INACTIF' }}
+                                            </span>
+                                        </div>
+                                        <div class="card-body p-4">
+                                            <a class="d-block my-4 fs-5 text-dark fw-semibold" href="#" data-bs-toggle="modal" data-bs-target="#slide-{{ slide.id }}">{{ slide.title }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {% for slide in slides %}
+            <div class="modal fade" id="slide-{{ slide.id }}" tabindex="-1"  aria-labelledby="slide-{{ slide.id }}" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header d-flex align-items-center" >
+                            <h4 class="modal-title" id="myLargeModalLabel"> slide N°{{ slide.id}} </h4>
+                            <button
+                                    type="button"
+                                    class="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                            ></button>
+                        </div>
+                        <div class="modal-body">
+                            <h4>{{ slide.title }}</h4>
+                            <p>{{ slide.content|raw }}</p>
+                        </div>
+                        <div class="modal-footer">
+                            <a href="{{ path('app_backend_slide_edit', {'id': slide.id}) }}" class="btn btn-outline-primary">Modifier</a>
+                            <button type="button"  class="btn btn-light-danger text-danger font-medium waves-effect text-start" data-bs-dismiss="modal"
+                            >  Fermer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/vendor/css/prism.min.css')) }}">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ absolute_url(asset('backoffice/vendor/js/prism.js')) }}"></script>
+{% endblock %}

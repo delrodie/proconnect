@@ -33,6 +33,7 @@ services:
         arguments:
             $demandeurDirectory: '%kernel.project_dir%/public/upload/demandeur'
             $prestataireDirectory: '%kernel.project_dir%/public/upload/prestataire'
+            $slideDirectory: '%kernel.project_dir%/public/upload/slide'
 
     App\Service\GestionDocument:
         arguments:
