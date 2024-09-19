@@ -9,6 +9,11 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProjetRepository::class)]
+#[ORM\Table(name: "projet", indexes: [
+    new ORM\Index(
+        name: 'reference_user_localite_categorie_postulers_idx',
+        columns: ['reference', 'user', 'categorie', 'postulers'])])
+]
 class Projet
 {
     #[ORM\Id]

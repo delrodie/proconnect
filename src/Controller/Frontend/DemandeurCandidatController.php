@@ -42,7 +42,7 @@ class DemandeurCandidatController extends AbstractController
         if ($this->isCsrfTokenValid('embauche'.$postuler->getReference(), $request->get('_token'))){
             $postuler->setStatut('EMBAUCHE');
             $postuler->setEmbaucheAt($this->utilities->fuseauGMT());
-            $postuler->getProjet()->setStatut('ENCOURS');
+            $postuler->getProjet()->setStatut('ENCOURS'); dd($postuler);
             //dd($postuler->getProjet());
 
             $this->entityManager->flush();

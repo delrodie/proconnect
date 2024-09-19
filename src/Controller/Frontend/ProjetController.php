@@ -76,7 +76,7 @@ class ProjetController extends AbstractController
             if ($verif){
                 sweetalert()->warning($this->utilities->messageAlert(201), [], "ATTENTION!");
 
-                return $this->redirectToRoute('app_frontend_prestataire_tbord');
+                return $this->redirectToRoute('app_frontend_projet_list');
             }
 
             $postuler->setReference($this->utilities->referencePostuler());

@@ -22,7 +22,9 @@ class PostulerFormType extends AbstractType
         $builder
 //            ->add('reference')
             ->add('facturation', IntegerType::class,[
-                'attr' => ['class' => 'form-control form-control-lg', 'autocomplete' => 'off']
+                'attr' => ['class' => 'form-control form-control-lg money-input', 'autocomplete' => 'off'],
+                'label' => "Montant de la prestation",
+//                'currency' => "XOF"
             ])
             ->add('modeTravail', ChoiceType::class,[
                 'attr' => ['class' => 'form-select', 'placeholder'=>"Mode de travail"],

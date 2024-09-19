@@ -18,7 +18,7 @@
                             <div class="row row-cols-1 projects-items">
 
                                 <div class="col projects-items__content mt-3">
-                                    <a href="projet_details.html">
+                                    <a href="#">
                                         <div class="card h-100">
                                             <div class="card-body">
 
@@ -47,7 +47,7 @@
                                 </div>
 
                                 <div class="col projects-items__content mt-3">
-                                    <a href="projet_details.html">
+                                    <a href="#">
                                         <div class="card h-100">
                                             <div class="card-body">
 
@@ -76,7 +76,7 @@
                                 </div>
 
                                 <div class="col projects-items__content mt-3">
-                                    <a href="projet_details.html">
+                                    <a href="#">
                                         <div class="card h-100">
                                             <div class="card-body">
 
@@ -115,4 +115,24 @@
 
 {% block breadcrumb %}
     <section class="header py-30" id="breadcrumb"> </section>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{#    <script>#}
+{#        document.addEventListener('DOMContentLoaded', function () {#}
+{#            const moneyInput = document.querySelector('.money-input');#}
+
+{#            moneyInput.addEventListener('blur', function () {#}
+{#                const value = parseInt(moneyInput.value, 10);#}
+{#                if (!isNaN(value)) {#}
+{#                    moneyInput.value = value.toLocaleString('fr-FR', { style: 'currency', currency: 'XOF' });#}
+{#                }#}
+{#            });#}
+{#        });#}
+{#    </script>#}
+
+
+
+
 {% endblock %}

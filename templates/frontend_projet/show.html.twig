@@ -18,9 +18,13 @@
                                     {{ projet.createdAt|date('d/m/Y') }} à {{ projet.createdAt|date('H:i:s') }}
                                 </div>
                                 <div class="col-12 col-lg-6 count-down">
-                                    <span class="days">{{ jour_restant(projet.reference) }}</span> jour(s) restant(s) pour soummissionner
+                                    <span class="days">{{ jour_restant(projet.reference) }}</span> {{ projet.reference|jour_restant > 1 ? 'jours restants' : 'jour restant' }} pour soummissionner
                                 </div>
                             </div>
+                            <div class="mt-3">
+                                <span class="fz-16" style="color: var(--color-light-gray)">Date de prestation :</span> <span class="fz-16" style="color:var(--color-main)">{{ projet.datePrestation|date('d/m/Y H:i:s') }}</span>
+                            </div>
+
                             <div class="projects-details__content-text mt-20">
                                 {{ projet.description|raw }}
                             </div>
