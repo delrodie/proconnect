@@ -273,4 +273,20 @@ class AllRepositories
     {
         return $this->postulerRepository->findValideByPrestataire($user);
     }
+
+    /**
+     * Liste de tous les domaines
+     */
+    public function getAllDomaine()
+    {
+        return $this->domaineRepository->findAll();
+    }
+
+    /**
+     * Liste de toutes les localités
+     */
+    public function getAllLocalite()
+    {
+        return $this->localiteRepository->findAll();
+    }
 }
