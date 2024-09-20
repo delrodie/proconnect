@@ -1,0 +1,79 @@
+{% extends 'backend_layout.html.twig' %}
+
+{% block title %}{{ parent() }} Gestion des partenaires{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="card bg-light-info shadow-none position-relative overflow-hidden">
+            <div class="card-body px-4 py-3">
+                <div class="row align-items-center">
+                    <div class="col-9">
+                        <h4 class="fw-semibold mb-8">Gestion des partenaires</h4>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a class="text-muted" href="#">Services</a></li>
+                                <li class="breadcrumb-item"><a class="text-muted" href="#">partenaires</a></li>
+                                <li class="breadcrumb-item" aria-current="page">Liste</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="col-3">
+                        <div class="text-center mb-n5">
+                            <span class="head-icon"><i class="ti-package"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col"><h5 class="mb-2 fw-semibold fs-4">Liste</h5></div>
+                                <div class="col">
+                                    <div class="action">
+                                        <a href="{{ absolute_url(path('app_backend_partenaire_new')) }}" class="btn btn-primary"><i class="ti-plus"></i> Ajouter</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row mt-3">
+                            {% for partenaire in partenaires %}
+                                <div class="col-md-6 col-lg-4">
+                                    <div class="card rounded-2 overflow-hidden hover-img">
+                                        <div class="position-relative">
+                                            <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#partenaire-{{ partenaire.id }}">
+                                                <img src="{{ asset('upload/partenaire/' ~ partenaire.media) }}" class="card-img-top rounded-0" alt="...">
+                                            </a>
+                                        </div>
+                                        <div class="card-body p-4">
+                                            <a class="d-block my-4 fs-5 text-dark fw-semibold" href="#" data-bs-toggle="modal" data-bs-target="#partenaire-{{ partenaire.id }}">{{ partenaire.nom }}</a>
+                                            <div class="d-flex align-items-center gap-4">
+                                                <div class="d-flex align-items-center fs-2 ms-auto">
+                                                    <a href="{{ path('app_backend_partenaire_edit', {'id': partenaire.id}) }}"><i class="ti-edit"></i> Modifier</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    </div>
+{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ absolute_url(asset('backoffice/vendor/css/prism.min.css')) }}">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ absolute_url(asset('backoffice/vendor/js/prism.js')) }}"></script>
+{% endblock %}

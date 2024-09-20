@@ -1,0 +1,16 @@
+{{ form_start(form) }}
+<div class="row form-group">
+    <div class="col-12 mt-3">{{ form_row(form.nom) }}</div>
+    <div class="col-6 mt-3">{{ form_row(form.media) }}</div>
+    <div class="col-6 mt-3">
+        {% if partenaire.media %}
+            <img src="{{ absolute_url(asset('upload/partenaire/' ~ partenaire.media)) }}" alt="{{ partenaire.nom }}" class="img-fluid">
+        {% endif %}
+    </div>
+</div>
+    {{ form_widget(form) }}
+<div class="mt-5 text-end">
+    <a href="{{ absolute_url(path('app_backend_partenaire_index')) }}" class="btn btn-outline-secondary">Annuler</a>
+    <button class="btn btn-primary" id="saveButton">{{ button_label|default('Enregistrer') }}</button>
+</div>
+{{ form_end(form) }}
