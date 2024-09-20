@@ -1,6 +1,6 @@
 {% extends 'backend_layout.html.twig' %}
 
-{% block title %}{{ parent() }} Gestion liste des prestataires{% endblock %}
+{% block title %}{{ parent() }} Gestion liste des actions{% endblock %}
 
 {% block body %}
     <div class="container-fluid">
@@ -8,11 +8,11 @@
             <div class="card-body px-4 py-3">
                 <div class="row align-items-center">
                     <div class="col-9">
-                        <h4 class="fw-semibold mb-8">Gestion des prestataires</h4>
+                        <h4 class="fw-semibold mb-8">Gestion des actions</h4>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a class="text-muted" href="#">Modules</a></li>
-                                <li class="breadcrumb-item"><a class="text-muted" href="#">prestataires</a></li>
+                                <li class="breadcrumb-item"><a class="text-muted" href="#">actions</a></li>
                                 <li class="breadcrumb-item" aria-current="page">Liste</li>
                             </ol>
                         </nav>
@@ -32,7 +32,9 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="col"><h5 class="mb-2 fw-semibold fs-4">Liste</h5></div>
-
+                                <div class="col text-end">
+                                    <a href="{{ absolute_url(path('app_backend_call_to_action_new')) }}" class="btn btn-primary"><i class="ti-plus"></i> Ajouter</a>
+                                </div>
                             </div>
 
                         </div>
@@ -45,48 +47,41 @@
                                     <thead>
                                     <tr>
                                         <th class="text-center text-uppercase">#</th>
-                                        <th class="text-center text-uppercase">Identité</th>
-                                        <th class="text-center text-uppercase">Matricule</th>
-                                        <th class="text-center text-uppercase">Sexe</th>
-                                        <th class="text-center text-uppercase">Email</th>
-                                        <th class="text-center text-uppercase">Telephone</th>
-                                        <th class="text-center text-uppercase">Compétences</th>
+                                        <th class="text-center text-uppercase">Titres</th>
+                                        <th class="text-center text-uppercase">Statut</th>
                                         <th class="text-center text-uppercase">actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {% for prestataire in prestataires %}
+                                    {% for call_to_action in call_to_actions %}
                                         <tr>
                                             <td>{{ loop.index }}</td>
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    <img src="{{ asset('upload/prestataire/' ~ prestataire.media) }}" alt="avatar" class="rounded-circle" width="35" />
+                                                    <img src="{{ asset('upload/action/' ~ call_to_action.media) }}" alt="avatar" class="rounded-circle" width="35" />
                                                     <div class="ms-3">
                                                         <div class="user-meta-info">
-                                                            <h6 class="user-name mb-0" data-name="{{ prestataire.nom }} {{ prestataire.prenoms }}">{{ prestataire.nom }} {{ prestataire.prenoms }}</h6>
-                                                            <span class="user-work fs-3">{{ prestataire.profession }}</span>
+                                                            <h6 class="user-name mb-0" data-name="{{ call_to_action.title }}">{{ call_to_action.title }}</h6>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="text-center">{{ prestataire.sexe }}</td>
-                                            <td class="text-center">{{ prestataire.matricule }}</td>
-                                            <td>{{ prestataire.email}}</td>
-                                            <td>{{ prestataire.telephone }}</td>
-                                            <td>
-                                                {% for competence in prestataire.competence %}
-                                                    <span class="badge text-bg-primary">{{ competence.title }}</span>
-                                                {% endfor %}
+                                            <td class="text-center">
+                                                {% if call_to_action.statut %}
+                                                    <span class="badge bg-primary">ACTIVE</span>
+                                                {% else %}
+                                                    <span class="badge bg-danger">DESACTIVE</span>
+                                                {% endif %}
                                             </td>
                                             <td class="text-center">
-                                                <a href="{{ path('app_backend_prestataire_show', {'id': prestataire.id}) }}"><i class="ti-eye"></i></a>
-                                                {#                                                &nbsp; | &nbsp;#}
-                                                {#                                                <a href="{{ path('app_backend_prestataire_edit', {'id': prestataire.id}) }}"><i class="ti-pencil-alt"></i></a>#}
+                                                <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#slide-{{ call_to_action.id }}"><i class="ti-eye"></i></a>
+                                                &nbsp; | &nbsp;
+                                                <a href="{{ path('app_backend_call_to_action_edit', {'id': call_to_action.id}) }}"><i class="ti-pencil-alt"></i></a>
                                             </td>
                                         </tr>
                                     {% else %}
                                         <tr>
-                                            <td colspan="5">no records found</td>
+                                            <td colspan="4">no records found</td>
                                         </tr>
                                     {% endfor %}
                                     </tbody>
@@ -99,6 +94,41 @@
             </div>
         </section>
 
+        {% for call_to_action in call_to_actions %}
+            <div class="modal fade" id="slide-{{ call_to_action.id }}" tabindex="-1"  aria-labelledby="slide-{{ call_to_action.id }}" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header d-flex align-items-center" >
+{#                            <h4 class="modal-title" id="myLargeModalLabel"> slide N°{{ call_to_action.id}} </h4>#}
+                            <button
+                                    type="button"
+                                    class="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close"
+                            ></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row d-flex align-items-center">
+                                <div class="col-4">
+                                    <img src="{{ asset('upload/action/' ~ call_to_action.media) }}" alt="{{ call_to_action.title }}" class="img-fluid" loading="lazy">
+                                </div>
+                                <div class="col-8">
+                                    <h4>{{ call_to_action.title }}</h4>
+                                    <p>{{ call_to_action.content|raw }}</p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <a href="{{ path('app_backend_call_to_action_edit', {'id': call_to_action.id}) }}" class="btn btn-outline-primary">Modifier</a>
+                            <button type="button"  class="btn btn-light-danger text-danger font-medium waves-effect text-start" data-bs-dismiss="modal"
+                            >  Fermer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}
 {% block stylesheets %}

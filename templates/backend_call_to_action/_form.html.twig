@@ -1,0 +1,20 @@
+{{ form_start(form) }}
+<div class="row form-group">
+    <div class="col-md-4 mt-3">{{ form_row(form.type) }}</div>
+    <div class="col-md-8 mt-3">{{ form_row(form.title) }}</div>
+    <div class="col-12 mt-3">{{ form_row(form.content) }}</div>
+    <div class="col-md-6 mt-3">{{ form_row(form.media) }}</div>
+    <div class="col-md-6 mt-3">
+        {% if call_to_action.media %}
+            <img src="{{ asset('upload/action/' ~ call_to_action.media) }}" alt="{{ call_to_action.title }}" class="img-fluid" loading="lazy">
+        {% endif %}
+    </div>
+    <div class="col-12 mt-3 form-check">{{ form_row(form.statut) }}</div>
+    <div class="col-12 mt-5 text-end">
+        {{ form_widget(form) }}
+        <a href="{{ absolute_url(path('app_backend_call_to_action_index')) }}" class="btn btn-outline-secondary">Annuler</a>
+        <button class="btn btn-primary" id="saveButton">{{ button_label|default('Enregistrer') }}</button>
+    </div>
+</div>
+
+{{ form_end(form) }}

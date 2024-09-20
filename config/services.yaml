@@ -35,6 +35,7 @@ services:
             $prestataireDirectory: '%kernel.project_dir%/public/upload/prestataire'
             $slideDirectory: '%kernel.project_dir%/public/upload/slide'
             $partenaireDirectory: '%kernel.project_dir%/public/upload/partenaire'
+            $actionDirectory: '%kernel.project_dir%/public/upload/action'
 
     App\Service\GestionDocument:
         arguments:
