@@ -123,211 +123,56 @@
                 </div>
             </section>
         {% endif %}
-        <!-- /Section Download mobile Application -->
-        <!-- Section latest projects -->
-        <section class="projects" id="projects">
-            <div class="container my-50">
-                <div class="row projects-head">
-                    <div class="col-md-6 col-xl-7 projects-head__title">
-                        <h4 class="h4 ls-minus-1">Projets ouverts aux appels d'offre</h4>
+
+        {% if projets %}
+            <section class="projects" id="projects">
+                <div class="container my-50">
+                    <div class="row projects-head">
+                        <div class="col-md-6 col-xl-7 projects-head__title">
+                            <h4 class="h4 ls-minus-1">Projets ouverts aux appels d'offre</h4>
+                        </div>
+                        <div class="col-md-6 col-xl-5 projects-head__all-link">
+                            <a href="#" class="h6">Tous les projets</a>
+                        </div>
                     </div>
-                    <div class="col-md-6 col-xl-5 projects-head__all-link">
-                        <a href="#" class="h6">Tous les projets</a>
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 my-5 projects-items">
+
+                        {% for projet in projets|slice(0,6) %}
+                            <div class="col projects-items__content">
+                                <a href="{{ absolute_url(path('app_frontend_projet_show',{"reference": projet.reference})) }}">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+
+                                            <div class="projects-items__content-author">
+                                                {#                                                    <div class="projects-items__content-avatar bg-main-gradient">#}
+                                                {#                                                        <img src="./assets/img/all/3d-render-african-american-worker-woman-with-helmet.png" alt="" class="img-fluid">#}
+                                                {#                                                    </div>#}
+                                                <div class="projects-items__content-infos pl-3">
+                                                    <span class="badge bg-main">{{ projet.categorie }}</span>
+                                                    <h6 class="h6">{{ projet.title }}</h6>
+                                                    <div class="reference fz-16">
+                                                        Par <span class="author fw-500">{{ projet.user }}</span> le {{ projet.created_at|date('d/m/Y')}} à {{ projet.created_at|date('H:i:s') }}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="projects-items__content-details mt-2">
+                                                <div class="location"> <i class="bi bi-geo-alt"></i> {{ projet.localite }}</div>
+                                            </div>
+                                            <div class="projects-items__content-countdown py-5">
+                                                <span class="fz-22 fw-500 px-2">{{ jour_restant(projet.reference)}}</span> jours restants pour postuler.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+
+
                     </div>
                 </div>
-                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 my-5 projects-items">
-
-                    <!-- Projet -->
-                    <div class="col projects-items__content">
-                        <a href="#">
-                            <div class="card h-100">
-                                <div class="card-body">
-
-                                    <div class="projects-items__content-author">
-                                        <div class="projects-items__content-avatar bg-main-gradient">
-                                            <img src="{{ absolute_url(asset('img/all/3d-worker.png')) }}" alt="" class="img-fluid">
-                                        </div>
-                                        <div class="projects-items__content-infos pl-3">
-                                            <span class="badge bg-main">Catégorie</span>
-                                            <h6 class="h6">Menuisier</h6>
-                                            <div class="reference fz-16">
-                                                Par <span class="author fw-500">Delrodie</span> le2024/07/31 à 13:04:00
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="projects-items__content-details mt-2">
-                                        <div class="location"> <i class="bi bi-geo-alt"></i> Abidjan Riviera III </div>
-                                    </div>
-                                    <div class="projects-items__content-countdown py-5">
-                                        <span class="fz-22 fw-500 px-2">2</span> jours restants pour postuler.
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <!-- Projet-->
-
-                    <!-- Projet -->
-                    <div class="col projects-items__content">
-                        <a href="#">
-                            <div class="card h-100">
-                                <div class="card-body">
-
-                                    <div class="projects-items__content-author">
-                                        <div class="projects-items__content-avatar bg-main-gradient">
-                                            <img src="./assets/img/all/3d-render-african-american-worker-woman-with-helmet.png" alt="" class="img-fluid">
-                                        </div>
-                                        <div class="projects-items__content-infos pl-3">
-                                            <span class="badge bg-main">Catégorie</span>
-                                            <h6 class="h6">Menuisier</h6>
-                                            <div class="reference fz-16">
-                                                Par <span class="author fw-500">Delrodie</span> le2024/07/31 à 13:04:00
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="projects-items__content-details mt-2">
-                                        <div class="location"> <i class="bi bi-geo-alt"></i> Abidjan Riviera III </div>
-                                    </div>
-                                    <div class="projects-items__content-countdown py-5">
-                                        <span class="fz-22 fw-500 px-2">2</span> jours restants pour postuler.
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <!-- Projet-->
-
-                    <!-- Projet -->
-                    <div class="col projects-items__content">
-                        <a href="_connexion_projectdetails.html">
-                            <div class="card h-100">
-                                <div class="card-body">
-
-                                    <div class="projects-items__content-author">
-                                        <div class="projects-items__content-avatar bg-main-gradient">
-                                            <img src="./assets/img/all/3d-render-african-american-worker-woman-with-helmet.png" alt="" class="img-fluid">
-                                        </div>
-                                        <div class="projects-items__content-infos pl-3">
-                                            <span class="badge bg-main">Catégorie</span>
-                                            <h6 class="h6">Menuisier</h6>
-                                            <div class="reference fz-16">
-                                                Par <span class="author fw-500">Delrodie</span> le2024/07/31 à 13:04:00
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="projects-items__content-details mt-2">
-                                        <div class="location"> <i class="bi bi-geo-alt"></i> Abidjan Riviera III </div>
-                                    </div>
-                                    <div class="projects-items__content-countdown py-5">
-                                        <span class="fz-22 fw-500 px-2">2</span> jours restants pour postuler.
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <!-- Projet-->
-
-                    <!-- Projet -->
-                    <div class="col projects-items__content">
-                        <a href="_connexion_projectdetails.html">
-                            <div class="card h-100">
-                                <div class="card-body">
-
-                                    <div class="projects-items__content-author">
-                                        <div class="projects-items__content-avatar bg-main-gradient">
-                                            <img src="./assets/img/all/3d-render-african-american-worker-woman-with-helmet.png" alt="" class="img-fluid">
-                                        </div>
-                                        <div class="projects-items__content-infos pl-3">
-                                            <span class="badge bg-main">Catégorie</span>
-                                            <h6 class="h6">Menuisier</h6>
-                                            <div class="reference fz-16">
-                                                Par <span class="author fw-500">Delrodie</span> le2024/07/31 à 13:04:00
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="projects-items__content-details mt-2">
-                                        <div class="location"> <i class="bi bi-geo-alt"></i> Abidjan Riviera III </div>
-                                    </div>
-                                    <div class="projects-items__content-countdown py-5">
-                                        <span class="fz-22 fw-500 px-2">2</span> jours restants pour postuler.
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <!-- Projet-->
-
-                    <!-- Projet -->
-                    <div class="col projects-items__content">
-                        <a href="_connexion_projectdetails.html">
-                            <div class="card h-100">
-                                <div class="card-body">
-
-                                    <div class="projects-items__content-author">
-                                        <div class="projects-items__content-avatar bg-main-gradient">
-                                            <img src="./assets/img/all/3d-render-african-american-worker-woman-with-helmet.png" alt="" class="img-fluid">
-                                        </div>
-                                        <div class="projects-items__content-infos pl-3">
-                                            <span class="badge bg-main">Catégorie</span>
-                                            <h6 class="h6">Menuisier</h6>
-                                            <div class="reference fz-16">
-                                                Par <span class="author fw-500">Delrodie</span> le2024/07/31 à 13:04:00
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="projects-items__content-details mt-2">
-                                        <div class="location"> <i class="bi bi-geo-alt"></i> Abidjan Riviera III </div>
-                                    </div>
-                                    <div class="projects-items__content-countdown py-5">
-                                        <span class="fz-22 fw-500 px-2">2</span> jours restants pour postuler.
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <!-- Projet-->
-
-                    <!-- Projet -->
-                    <div class="col projects-items__content">
-                        <a href="_connexion_projectdetails.html">
-                            <div class="card h-100">
-                                <div class="card-body">
-
-                                    <div class="projects-items__content-author">
-                                        <div class="projects-items__content-avatar bg-main-gradient">
-                                            <img src="./assets/img/all/3d-render-african-american-worker-woman-with-helmet.png" alt="" class="img-fluid">
-                                        </div>
-                                        <div class="projects-items__content-infos pl-3">
-                                            <span class="badge bg-main">Catégorie</span>
-                                            <h6 class="h6">Menuisier</h6>
-                                            <div class="reference fz-16">
-                                                Par <span class="author fw-500">Delrodie</span> le2024/07/31 à 13:04:00
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="projects-items__content-details mt-2">
-                                        <div class="location"> <i class="bi bi-geo-alt"></i> Abidjan Riviera III </div>
-                                    </div>
-                                    <div class="projects-items__content-countdown py-5">
-                                        <span class="fz-22 fw-500 px-2">2</span> jours restants pour postuler.
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <!-- Projet-->
-
-
-                </div>
-            </div>
-        </section>
-        <!-- /Section latest projects -->
+            </section>
+        {% endif %}
     </main>
 {% endblock %}
 

@@ -29,7 +29,8 @@ class HomeController extends AbstractController
             'action_demandeur' => $this->allRepositories->getOneCallToAction('DEMANDEUR'),
             'action_prestataire' => $this->allRepositories->getOneCallToAction('PRESTATAIRE'),
             'domaines' => $this->allRepositories->getAllDomaine(),
-            'parallax' => $this->allRepositories->getOneParallax()
+            'parallax' => $this->allRepositories->getOneParallax(),
+            'projets' => $this->allRepositories->findAllProjetByStatut("APPEL")
         ]);
     }
 }
