@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Repository\CallToActionRepository;
 use App\Repository\CategorieRepository;
 use App\Repository\CompetenceRepository;
 use App\Repository\DemandeurRepository;
@@ -27,7 +28,8 @@ class AllRepositories
         private PostulerRepository    $postulerRepository,
         private LocaliteRepository $localiteRepository,
         private SlideRepository $slideRepository,
-        private PartenaireRepository $partenaireRepository
+        private PartenaireRepository $partenaireRepository,
+        private CallToActionRepository $callToActionRepository
     )
     {
     }
@@ -115,6 +117,13 @@ class AllRepositories
     public function getOneSlide()
     {
         return $this->slideRepository->findOneBy(['statut' => true],['id' => 'DESC']);
+    }
+
+    public function getOneCallToAction(string $type = null)
+    {
+        if ($type) return $this->callToActionRepository->findOneBy(['type' => $type, 'statut' => true], ['id' => 'DESC']);
+
+        return $this->callToActionRepository->findOneBy(['statut' => true], ['id' => 'DESC']);
     }
 
     public function findProjetsByUser($user)

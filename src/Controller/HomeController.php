@@ -25,7 +25,10 @@ class HomeController extends AbstractController
 
         return $this->render('frontend/home.html.twig',[
             'slide' => $this->allRepositories->getOneSlide(),
-            'partenaires' => $this->allRepositories->getAllPartenaire()
+            'partenaires' => $this->allRepositories->getAllPartenaire(),
+            'action_demandeur' => $this->allRepositories->getOneCallToAction('DEMANDEUR'),
+            'action_prestataire' => $this->allRepositories->getOneCallToAction('PRESTATAIRE'),
+            'domaines' => $this->allRepositories->getAllDomaine()
         ]);
     }
 }
