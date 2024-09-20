@@ -9,6 +9,7 @@ use App\Repository\DemandeurRepository;
 use App\Repository\DomaineRepository;
 use App\Repository\LocaliteRepository;
 use App\Repository\MaintenanceRepository;
+use App\Repository\ParallaxRepository;
 use App\Repository\PartenaireRepository;
 use App\Repository\PostulerRepository;
 use App\Repository\PrestataireRepository;
@@ -29,7 +30,8 @@ class AllRepositories
         private LocaliteRepository $localiteRepository,
         private SlideRepository $slideRepository,
         private PartenaireRepository $partenaireRepository,
-        private CallToActionRepository $callToActionRepository
+        private CallToActionRepository $callToActionRepository,
+        private ParallaxRepository $parallaxRepository
     )
     {
     }
@@ -124,6 +126,11 @@ class AllRepositories
         if ($type) return $this->callToActionRepository->findOneBy(['type' => $type, 'statut' => true], ['id' => 'DESC']);
 
         return $this->callToActionRepository->findOneBy(['statut' => true], ['id' => 'DESC']);
+    }
+
+    public function getOneParallax()
+    {
+        return $this->parallaxRepository->findOneBy(['statut' => true], ['id' => 'DESC']);
     }
 
     public function findProjetsByUser($user)

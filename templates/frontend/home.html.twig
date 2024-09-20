@@ -90,39 +90,39 @@
             </section>
         {% endif %}
 
-        <section class="mobile-app" id="mobileApp">
-            <div class="container py-15">
-                <div class="row mobile-app-inner">
-                    <div class="col-md-4 col-lg-5 mobile-app-inner__illustration">
-                        <img src="{{ absolute_url(asset('img/all/mobile.png')) }}" alt="" class="img-fluid animation-scrollTop">
-                    </div>
-                    <div class="col-md-8 col-lg-7 mobile-app-inner__content">
-                        <h4 class="h4 title ls-minus-1 pb-10">Téléchargez notre application mobile</h4>
-                        <div class="text">
-                            <p>
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sit minus reprehenderit debitis enim, totam quod ad ducimus. Debitis fuga quo perspiciatis vitae aspernatur! Iusto voluptatibus, fuga quis suscipit blanditiis delectus?
-                            </p>
+        {% if parallax %}
+            <section class="mobile-app" id="mobileApp">
+                <div class="container py-15">
+                    <div class="row mobile-app-inner">
+                        <div class="col-md-4 col-lg-5 mobile-app-inner__illustration">
+                            <img src="{{ absolute_url(asset('upload/parallax/' ~ parallax.media)) }}" alt="{{ parallax.title }}" class="img-fluid animation-scrollTop" loading="lazy">
                         </div>
-                        <div class="btn-download-group pt-20">
-                            <a href="#" class="btn btn-black btn-download px-7">
-                                <div class="btn-download__icon fz-36 pr-3"><i class="bi bi-apple"></i></div>
-                                <div class="btn-download__content">
-                                    <div class="btn-download__content-text fw-500 fz-12">Téléchargez sur</div>
-                                    <div class="btn-download__content-store fw-600 fz-16">Apple Store</div>
-                                </div>
-                            </a>
-                            <a href="#" class="btn btn-black btn-download px-7">
-                                <div class="btn-download__icon fz-36 pr-3"><i class="bi bi-google-play"></i></div>
-                                <div class="btn-download__content">
-                                    <div class="btn-download__content-text fw-500 fz-12">Télécharger sur </div>
-                                    <div class="btn-download__content-store fw-600 fz-16">Google Play</div>
-                                </div>
-                            </a>
+                        <div class="col-md-8 col-lg-7 mobile-app-inner__content">
+                            <h4 class="h4 title ls-minus-1 pb-10">{{ parallax.title }}</h4>
+                            <div class="text">
+                                <p>{{ parallax.content|raw }}</p>
+                            </div>
+                            <div class="btn-download-group pt-20">
+                                <a href="{{ parallax.apple }}" class="btn btn-black btn-download px-7">
+                                    <div class="btn-download__icon fz-36 pr-3"><i class="bi bi-apple"></i></div>
+                                    <div class="btn-download__content">
+                                        <div class="btn-download__content-text fw-500 fz-12">Téléchargez sur</div>
+                                        <div class="btn-download__content-store fw-600 fz-16">Apple Store</div>
+                                    </div>
+                                </a>
+                                <a href="{{ parallax.google }}" class="btn btn-black btn-download px-7">
+                                    <div class="btn-download__icon fz-36 pr-3"><i class="bi bi-google-play"></i></div>
+                                    <div class="btn-download__content">
+                                        <div class="btn-download__content-text fw-500 fz-12">Télécharger sur </div>
+                                        <div class="btn-download__content-store fw-600 fz-16">Google Play</div>
+                                    </div>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        {% endif %}
         <!-- /Section Download mobile Application -->
         <!-- Section latest projects -->
         <section class="projects" id="projects">
