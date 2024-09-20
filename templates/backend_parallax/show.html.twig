@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Parallax{% endblock %}
+
+{% block body %}
+    <h1>Parallax</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ parallax.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ parallax.title }}</td>
+            </tr>
+            <tr>
+                <th>Content</th>
+                <td>{{ parallax.content }}</td>
+            </tr>
+            <tr>
+                <th>Media</th>
+                <td>{{ parallax.media }}</td>
+            </tr>
+            <tr>
+                <th>Apple</th>
+                <td>{{ parallax.apple }}</td>
+            </tr>
+            <tr>
+                <th>Google</th>
+                <td>{{ parallax.google }}</td>
+            </tr>
+            <tr>
+                <th>Statut</th>
+                <td>{{ parallax.statut ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_backend_parallax_index') }}">back to list</a>
+
+    <a href="{{ path('app_backend_parallax_edit', {'id': parallax.id}) }}">edit</a>
+
+    {{ include('backend_parallax/_delete_form.html.twig') }}
+{% endblock %}

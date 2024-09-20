@@ -1,0 +1,21 @@
+{{ form_start(form) }}
+<div class="row form-group">
+    <div class="col-md-12 mt-3">{{ form_row(form.title) }}</div>
+    <div class="col-md-12 mt-3">{{ form_row(form.content) }}</div>
+    <div class="col-md-6 mt-3">{{ form_row(form.media) }}</div>
+    <div class="col-md-6 mt-3">
+        {% if parallax.media %}
+            <img src="{{ absolute_url(asset('upload/parallax/' ~ parallax.media)) }}" alt="{{ parallax.title }}" class="img-fluid" loading="lazy">
+        {% endif %}
+    </div>
+    <div class="col-md-6 mt-3">{{ form_row(form.apple) }}</div>
+    <div class="col-md-6 mt-3">{{ form_row(form.google) }}</div>
+    <div class="col-md-12 mt-3 form-check">{{ form_row(form.statut) }}</div>
+    <div class="col-md-12 mt-5 text-end">
+        {{ form_widget(form) }}
+        <a href="{{ absolute_url(path('app_backend_parallax_index')) }}" class="btn btn-outline-secondary">Annuler</a>
+        <button class="btn btn-primary" id="saveButton">{{ button_label|default('Enregistrer') }}</button>
+    </div>
+</div>
+    
+{{ form_end(form) }}
