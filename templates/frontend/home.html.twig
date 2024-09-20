@@ -478,15 +478,22 @@
         <div class="container slide-inner">
             <div class="row">
                 <div class="col-lg-7 col-xl-6 slide-inner__content py-10" data-aos="fade-up">
-                    <h1 class="h1 fw-600">Vous avez du talent? Rencontrez l'opportunité.</h1>
-                    <div class="slide-inner__content-text fz-20 py-10">
-                        <p>
-                            Curabitur fringilla maximus ex in laoreet. Praesent cursus semper nunc eu condimentum.
-                            Suspendisse at dui eget turpis pulvinar sodales fermentum pharetra dolor. Mauris molestie neque vel massa laoreet dictum.
-                            Ut id ex non nisi tincidunt convallis eget id nibh. Mauris non luctus velit. Sed accumsan, libero sed convallis porta,
-                            turpis magna ultricies enim, ut rhoncus risus arcu a velit
-                        </p>
-                    </div>
+                    {% if slide %}
+                        <h1 class="h1 fw-600">{{ slide.title }}</h1>
+                        <div class="slide-inner__content-text fz-20 py-10">
+                            <p>{{ slide.content|raw }}</p>
+                        </div>
+                    {% else %}
+                        <h1 class="h1 fw-600">Vous avez du talent? Rencontrez l'opportunité.</h1>
+                        <div class="slide-inner__content-text fz-20 py-10">
+                            <p>
+                                Curabitur fringilla maximus ex in laoreet. Praesent cursus semper nunc eu condimentum.
+                                Suspendisse at dui eget turpis pulvinar sodales fermentum pharetra dolor. Mauris molestie neque vel massa laoreet dictum.
+                                Ut id ex non nisi tincidunt convallis eget id nibh. Mauris non luctus velit. Sed accumsan, libero sed convallis porta,
+                                turpis magna ultricies enim, ut rhoncus risus arcu a velit
+                            </p>
+                        </div>
+                    {% endif %}
 
                     <div class="input-group slide-inner__content-input py-20">
                         <input type="text" class="form-control form-control-lg input-rounded" placeholder="Qui cherchez-vous?">
@@ -511,7 +518,11 @@
                         <div class="atropos-scale">
                             <div class="atropos-rotate">
                                 <div class="atropos-inner">
-                                    <img src="{{ absolute_url(asset('img/all/Firefly_Under_a_transparent_background__generate_an_image_of_a_black_construction_worker_looking_at.png')) }}" alt="" class="img-fluid" loading="lazy">
+                                    {% if slide %}
+                                        <img src="{{ absolute_url(asset('upload/slide/' ~ slide.media)) }}" alt="{{ slide.title }}" class="img-fluid" loading="lazy">
+                                    {% else %}
+                                        <img src="{{ absolute_url(asset('img/all/Firefly_Under_a_transparent_background__generate_an_image_of_a_black_construction_worker_looking_at.png')) }}" alt="" class="img-fluid" loading="lazy">
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>

@@ -69,6 +69,9 @@ class BackendSlideController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Gestion des medias
+            $this->gestionMedia->media($form, $slide, 'slide');
+
             $entityManager->flush();
 
             return $this->redirectToRoute('app_backend_slide_index', [], Response::HTTP_SEE_OTHER);

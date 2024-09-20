@@ -11,6 +11,7 @@ use App\Repository\MaintenanceRepository;
 use App\Repository\PostulerRepository;
 use App\Repository\PrestataireRepository;
 use App\Repository\ProjetRepository;
+use App\Repository\SlideRepository;
 
 class AllRepositories
 {
@@ -24,6 +25,7 @@ class AllRepositories
         private PrestataireRepository $prestataireRepository,
         private PostulerRepository    $postulerRepository,
         private LocaliteRepository $localiteRepository,
+        private SlideRepository $slideRepository
     )
     {
     }
@@ -106,6 +108,11 @@ class AllRepositories
     public function getOneLocalite(string $slug = null)
     {
         return $this->localiteRepository->findOneBy(['slug' => $slug]);
+    }
+
+    public function getOneSlide()
+    {
+        return $this->slideRepository->findOneBy(['statut' => true],['id' => 'DESC']);
     }
 
     public function findProjetsByUser($user)
