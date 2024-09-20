@@ -8,6 +8,7 @@ use App\Repository\DemandeurRepository;
 use App\Repository\DomaineRepository;
 use App\Repository\LocaliteRepository;
 use App\Repository\MaintenanceRepository;
+use App\Repository\PartenaireRepository;
 use App\Repository\PostulerRepository;
 use App\Repository\PrestataireRepository;
 use App\Repository\ProjetRepository;
@@ -25,7 +26,8 @@ class AllRepositories
         private PrestataireRepository $prestataireRepository,
         private PostulerRepository    $postulerRepository,
         private LocaliteRepository $localiteRepository,
-        private SlideRepository $slideRepository
+        private SlideRepository $slideRepository,
+        private PartenaireRepository $partenaireRepository
     )
     {
     }
@@ -295,5 +297,10 @@ class AllRepositories
     public function getAllLocalite()
     {
         return $this->localiteRepository->findAll();
+    }
+
+    public function getAllPartenaire()
+    {
+        return $this->partenaireRepository->findAll();
     }
 }

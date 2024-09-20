@@ -502,14 +502,20 @@
                     </div>
 
                     <div class="slide-inner__content-partners my-10">
-                        <h5 class="h5">Ils nous font confiance:</h5>
-                        <div class="row row-cols-5 my-3 list" data-cues="bounceInLeft">
-                            <div class="col"><img src="{{ absolute_url(asset('assets/img/partner/01.png')) }}" alt="" class="img-fluid" loading="lazy"></div>
-                            <div class="col"><img src="{{ absolute_url(asset('assets/img/partner/02.png')) }}" alt="" class="img-fluid" loading="lazy"></div>
-                            <div class="col"><img src="{{ absolute_url(asset('assets/img/partner/03.png')) }}" alt="" class="img-fluid" loading="lazy"></div>
-                            <div class="col"><img src="{{ absolute_url(asset('assets/img/partner/04.png')) }}" alt="" class="img-fluid" loading="lazy"></div>
-                            <div class="col"><img src="{{ absolute_url(asset('assets/img/partner/05.png')) }}" alt="" class="img-fluid" loading="lazy"></div>
-                        </div>
+                        {% if partenaires %}
+                            <h5 class="h5">Ils nous font confiance :</h5>
+                            <div class="row row-cols-5 my-3 list" data-cues="bounceInLeft">
+                                {% for partenaire in partenaires %}
+                                    <div class="col"><img src="{{ absolute_url(asset('upload/partenaire/' ~ partenaire.media)) }}" alt="{{ partenaire.nom }}" class="img-fluid" loading="lazy"></div>
+                                {% endfor %}
+
+{#                                <div class="col"><img src="{{ absolute_url(asset('assets/img/partner/02.png')) }}" alt="" class="img-fluid" loading="lazy"></div>#}
+{#                                <div class="col"><img src="{{ absolute_url(asset('assets/img/partner/03.png')) }}" alt="" class="img-fluid" loading="lazy"></div>#}
+{#                                <div class="col"><img src="{{ absolute_url(asset('assets/img/partner/04.png')) }}" alt="" class="img-fluid" loading="lazy"></div>#}
+{#                                <div class="col"><img src="{{ absolute_url(asset('assets/img/partner/05.png')) }}" alt="" class="img-fluid" loading="lazy"></div>#}
+                            </div>
+                        {% endif %}
+
                     </div>
                 </div>
                 <div class="col-lg-5 col-xl-6 slide-inner__illustration" data-aos="zoom-in">

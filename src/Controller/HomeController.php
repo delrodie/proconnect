@@ -24,7 +24,8 @@ class HomeController extends AbstractController
             return $this->redirectToRoute('app_maintenance');
 
         return $this->render('frontend/home.html.twig',[
-            'slide' => $this->allRepositories->getOneSlide()
+            'slide' => $this->allRepositories->getOneSlide(),
+            'partenaires' => $this->allRepositories->getAllPartenaire()
         ]);
     }
 }
