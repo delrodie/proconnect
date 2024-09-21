@@ -329,4 +329,9 @@ class AllRepositories
     {
         return $this->prestataireRepository->findByMatricule($matricule);
     }
+
+    public function getProjetByUserAndCandidatureStatut($user, $statutProjet, $statutCandidature)
+    {
+        return $this->postulerRepository->findProjetByUserAndCandidatureStatut($user, $statutProjet, $statutCandidature);
+    }
 }

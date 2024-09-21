@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Frontend;
 
 use App\Service\AllRepositories;
+use App\Service\Utilities;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -14,7 +15,8 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class ProfessionnelController extends AbstractController
 {
     public function __construct(
-        private AllRepositories $allRepositories
+        private AllRepositories $allRepositories,
+        private Utilities $utilities
     )
     {
     }
@@ -35,7 +37,8 @@ class ProfessionnelController extends AbstractController
         return $this->render('frontend/professionnel_show.html.twig',[
             'prestataire' => $prestataire,
             'candidature' => $this->allRepositories->findPostulerByUser($prestataire->getUser()),
-            'projets' => []
+            'projet_realises' => $this->allRepositories->getProjetByUserAndCandidatureStatut($prestataire->getUser(), $this->utilities::PROJET_REALISE, $this->utilities::POSTULER_EMBAUCHE),
+            'projet_encours' => $this->allRepositories->getProjetByUserAndCandidatureStatut($prestataire->getUser(), $this->utilities::PROJET_ENCOURS, $this->utilities::POSTULER_EMBAUCHE),
         ]);
     }
 }

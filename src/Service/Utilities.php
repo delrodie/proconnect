@@ -16,7 +16,11 @@ use Symfony\Component\String\Slugger\AsciiSlugger;
 class Utilities
 {
     use TargetPathTrait;
-//    use Securi
+    const PROJET_REALISE = 'TERMINE';
+    const PROJET_ENCOURS = 'ENCOURS';
+    const PROJET_APPEL = 'APPEL';
+    const POSTULER_EMBAUCHE = 'EMBAUCHE';
+    const POSTULER_SOUMIS = 'SOUMIS';
 
     public function __construct(
         private EntityManagerInterface $entityManager,

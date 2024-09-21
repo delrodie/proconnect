@@ -50,7 +50,7 @@
                                 <div class="col" data-aos="fade-up" data-aos-duration="2500">
                                     <div class="card h-100">
                                         <div class="card-header">
-                                            <h3 class="h3 fw-700 text-center">0</h3>
+                                            <h3 class="h3 fw-700 text-center">{{ projet_realises|length > 0 ? projet_realises|length ~ '+' : projet_realises|length }}</h3>
                                         </div>
                                         <div class="card-body fz-20 fw-500 text-center">
                                             Total projets réalisés
@@ -60,7 +60,7 @@
                                 <div class="col" data-aos="fade-up" data-aos-duration="3000">
                                     <div class="card h-100">
                                         <div class="card-header">
-                                            <h3 class="h3 fw-700 text-center">1</h3>
+                                            <h3 class="h3 fw-700 text-center">{{ projet_encours|length > 0 ? projet_encours|length ~ '+' : projet_encours|length }}</h3>
                                         </div>
                                         <div class="card-body fw-500 text-center">
                                             Total projet encours
@@ -74,8 +74,8 @@
                             <p>{{ prestataire.biographie|raw }}</p>
                         </div>
                         <div class="projects mt-30" data-aos="fade-up">
-                            <h4 class="h4 fw-500 my-3">{{ projets|length > 0 ? "Les projets réalisés" : "Aucun projet réalisé" }}</h4>
-                            {% if projets %}
+                            <h4 class="h4 fw-500 my-3">{{ projet_realises|length > 0 ? "Les projets réalisés" : "Aucun projet réalisé" }}</h4>
+                            {% if projet_realises %}
                                 <div class="row row-cols-1 row-cols-md-2 g-4 projects-items">
 
                                     <!-- Projet -->

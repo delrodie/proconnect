@@ -76,6 +76,24 @@ class PostulerRepository extends ServiceEntityRepository
             ;
     }
 
+    public function findProjetByUserAndCandidatureStatut($user, $statutProjet, $statutCandidature)
+    {
+        return $this->createQueryBuilder('p')
+            ->addSelect('u')
+            ->addSelect('r')
+            ->leftJoin('p.user', 'u')
+            ->leftJoin('p.projet', 'r')
+            ->where('p.statut = :statutCandidature')
+            ->andWhere('p.user = :user')
+            ->andWhere('r.statut = :statutProjet')
+            ->setParameter('statutCandidature', $statutCandidature)
+            ->setParameter('statutProjet', $statutProjet)
+            ->setParameter('user', $user)
+            ->orderBy('p.embaucheAt', 'DESC')
+            ->getQuery()->getResult()
+            ;
+    }
+
 
     //    /**
     //     * @return Postuler[] Returns an array of Postuler objects
