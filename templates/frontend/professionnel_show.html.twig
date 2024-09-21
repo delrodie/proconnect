@@ -1,0 +1,199 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Liste des projets {% endblock %}
+{% block body %}
+    <main>
+        <section class="providers" id="providers">
+            <div class="container">
+                <div class="row providers-profile__info">
+                    <div class="col-lg-8 providers-profile__info-content">
+                        <div class="identity" data-aos="zoom-in">
+                            <div class="identity__content">
+                                <div class="identity__content-avatar">
+                                    <figure>
+                                        {% if prestataire.media %}
+                                            <img src="{{ absolute_url(asset('upload/prestataire/' ~ prestataire.media)) }}" alt="{{ prestataire.nom }} {{ prestataire.prenoms }}" class="img-fluid avatar">
+                                        {% else %}
+                                            <img src="{{ absolute_url(asset('assets/img/all/prestataire-01.png')) }}" alt="{{ prestataire.nom }} {{ prestataire.prenoms }}" class="img-fluid avatar">
+                                        {% endif %}
+                                    </figure>
+
+                                </div>
+                                <div class="identity__content-infos">
+                                    <h3 class="name fw-600 fz-24">{{ prestataire.nom|upper }} {{ prestataire.prenoms|upper }}</h3>
+                                    <div class="profession fw-500">{{ prestataire.profession }}</div>
+                                    <div class="location">{{ prestataire.localite.title }}, {{ prestataire.adresse }}</div>
+                                    <div class="registrated"> <span class="fz-14">Inscris le : </span> <strong> {{ prestataire.createdAt|date('d/m/Y H:i:s') }}</strong></div>
+{#                                    <div class="rating fz-14">#}
+{#                                        <i class="bi bi-star-fill"></i>#}
+{#                                        <i class="bi bi-star-fill"></i>#}
+{#                                        <i class="bi bi-star-fill"></i>#}
+{#                                        <i class="bi bi-star-half"></i>#}
+{#                                        <i class="bi bi-star"></i>#}
+{#                                        3.5 avis#}
+{#                                    </div>#}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="statistics my-5">
+                            <div class="row row-cols-1 row-cols-md-3 gap-m2">
+                                <div class="col" data-aos="fade-up" data-aos-duration="2000">
+                                    <div class="card h-100">
+                                        <div class="card-header">
+                                            <h3 class="h3 fw-700 text-center">{{ candidature|length > 0 ? candidature|length ~ '+' : candidature|length }}</h3>
+                                        </div>
+                                        <div class="card-body fz-20 fw-500 text-center">
+                                            {{ candidature|length > 0 ? "Total projets postulés" : "Aucune candidature"}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col" data-aos="fade-up" data-aos-duration="2500">
+                                    <div class="card h-100">
+                                        <div class="card-header">
+                                            <h3 class="h3 fw-700 text-center">0</h3>
+                                        </div>
+                                        <div class="card-body fz-20 fw-500 text-center">
+                                            Total projets réalisés
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col" data-aos="fade-up" data-aos-duration="3000">
+                                    <div class="card h-100">
+                                        <div class="card-header">
+                                            <h3 class="h3 fw-700 text-center">1</h3>
+                                        </div>
+                                        <div class="card-body fw-500 text-center">
+                                            Total projet encours
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="biography" data-aos="fade-up">
+                            <h4 class="h4 fw-500">A propos de moi</h4>
+                            <p>{{ prestataire.biographie|raw }}</p>
+                        </div>
+                        <div class="projects mt-30" data-aos="fade-up">
+                            <h4 class="h4 fw-500 my-3">{{ projets|length > 0 ? "Les projets réalisés" : "Aucun projet réalisé" }}</h4>
+                            {% if projets %}
+                                <div class="row row-cols-1 row-cols-md-2 g-4 projects-items">
+
+                                    <!-- Projet -->
+                                    <div class="col projects-items__content">
+                                        <a href="_connexion_projectdetails.html">
+                                            <div class="card h-100">
+                                                <div class="card-body">
+
+                                                    <div class="projects-items__content-author">
+                                                        <div class="projects-items__content-avatar bg-main-gradient">
+                                                            <img src="./assets/img/all/3d-render-african-american-worker-woman-with-helmet.png"
+                                                                 alt="" class="img-fluid">
+                                                        </div>
+                                                        <div class="projects-items__content-infos pl-3">
+                                                            <span class="badge bg-main">Catégorie</span>
+                                                            <h6 class="h6">Menuisier</h6>
+                                                            <div class="reference fz-16">
+                                                                Par <span class="author fw-500">Delrodie</span> le2024/07/31 à 13:04:00
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="projects-items__content-details mt-2">
+                                                        <div class="location"> <i class="bi bi-geo-alt"></i> Abidjan Riviera III </div>
+                                                    </div>
+                                                    <div class="projects-items__content-countdown py-5">
+                                                        <span class="fz-22 fw-500 px-2">2</span> jours restants pour postuler.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <!-- Projet-->
+
+                                    <!-- Projet -->
+                                    <div class="col projects-items__content">
+                                        <a href="_connexion_projectdetails.html">
+                                            <div class="card h-100">
+                                                <div class="card-body">
+
+                                                    <div class="projects-items__content-author">
+                                                        <div class="projects-items__content-avatar bg-main-gradient">
+                                                            <img src="./assets/img/all/3d-render-african-american-worker-woman-with-helmet.png"
+                                                                 alt="" class="img-fluid">
+                                                        </div>
+                                                        <div class="projects-items__content-infos pl-3">
+                                                            <span class="badge bg-main">Catégorie</span>
+                                                            <h6 class="h6">Menuisier</h6>
+                                                            <div class="reference fz-16">
+                                                                Par <span class="author fw-500">Delrodie</span> le2024/07/31 à 13:04:00
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="projects-items__content-details mt-2">
+                                                        <div class="location"> <i class="bi bi-geo-alt"></i> Abidjan Riviera III </div>
+                                                    </div>
+                                                    <div class="projects-items__content-countdown py-5">
+                                                        <span class="fz-22 fw-500 px-2">2</span> jours restants pour postuler.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <!-- Projet-->
+
+                                </div>
+                                <div class="all-projects text-end my-3 fw-500 fst-italic">
+                                    <a href="#">Voir tous mes projets réalisés <i class="bi bi-arrow-right"></i></a>
+                                </div>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                    <div class="col-lg-4 providers-profile__info-additional" data-aos="fade-up">
+                        <div class="d-grid gap-0 ">
+                            <a href="#" class="btn btn-main btn-no-rounded py-10 fz-24 fw-500">Engagez moi</a>
+                        </div>
+
+                        <div class="skills my-20">
+                            <h3 class="skills-title fw-600 fz-28 mb-7">Mes compétences</h3>
+                            <div class="skills-items">
+                                {% for competence in prestataire.competence %}
+                                    <div class="item fw-500 fz-16">{{ competence.title }}</div>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+
+                        <div class="contact my-20" id="contact">
+                            <h3 class="title fw-600 fz-28 mb-7">Contactez-moi</h3>
+                            <form action="#" class="contact-form" id="contactForm">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title fz-24 fw-600 text-center">Formulaire</h5>
+                                        <div class="form-group mt-3">
+                                            <input type="text" class="form-control form-control-lg" placeholder="Votre nom">
+                                        </div>
+                                        <div class="form-group mt-3">
+                                            <input type="text" class="form-control form-control-lg" placeholder="L'objet de votre message">
+                                        </div>
+                                        <div class="form-group mt-3">
+                                            <textarea class="form-control form-control-lg" placeholder="Votre message"></textarea>
+                                        </div>
+                                        <div class="text-end mt-3">
+                                            <button type="submit" class="btn btn-main btn-no-rounded">Envoyer</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
+{% block breadcrumb %}
+    <section class="header py-30" id="breadcrumb"> </section>
+{% endblock %}

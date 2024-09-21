@@ -319,4 +319,14 @@ class AllRepositories
     {
         return $this->partenaireRepository->findAll();
     }
+
+    public function getAllPrestataire()
+    {
+        return $this->prestataireRepository->findAllPrestataire();
+    }
+
+    public function getPrestataireByMatricule($matricule)
+    {
+        return $this->prestataireRepository->findByMatricule($matricule);
+    }
 }

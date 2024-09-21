@@ -65,7 +65,10 @@
                                     >Projets</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Prestataires</a>
+                                    <a class="nav-link {{ menu_active('app_frontend_professionnel_list') }}"
+                                       href="{{ absolute_url(path('app_frontend_professionnel_list')) }}">
+                                        Prestataires
+                                    </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">Contact</a>

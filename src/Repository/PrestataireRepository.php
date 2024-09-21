@@ -27,6 +27,31 @@ class PrestataireRepository extends ServiceEntityRepository
             ;
     }
 
+    public function findAllPrestataire()
+    {
+        return $this->querySelect()->getQuery()->getResult();
+    }
+
+    public function findByMatricule($matricule)
+    {
+        return $this->querySelect()
+            ->where('p.matricule = :matricule')
+            ->setParameter('matricule', $matricule)
+            ->getQuery()->getOneOrNullResult()
+            ;
+    }
+
+    public function querySelect()
+    {
+        return $this->createQueryBuilder('p')
+            ->addSelect('u')
+            ->addSelect('l')
+            ->addSelect('c')
+            ->leftJoin('p.user', 'u')
+            ->leftJoin('p.localite', 'l')
+            ->leftJoin('p.competence', 'c');
+    }
+
     //    /**
     //     * @return Prestataire[] Returns an array of Prestataire objects
     //     */

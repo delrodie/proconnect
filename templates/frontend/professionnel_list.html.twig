@@ -1,0 +1,103 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Liste des projets {% endblock %}
+{% block body %}
+    <main>
+        <section class="providers" id="providers">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3" data-aos="fade-up" data-aos-duration="2000">
+                        {{ render(url('app_frontend_filtre_box')) }}
+                    </div>
+                    <div class="col-lg-9" data-aos="fade-up">
+                        <!-- Select filter -->
+                        <div class="row mb-3">
+
+                            <div class="col">
+                                <!--Affichage des resultats 1 - 6 sur 20-->
+                            </div>
+
+                            <div class="col text-end filter-select">
+                                <form action="{{ absolute_url(path('app_frontend_projet_list')) }}" id="filterForm">
+                                    <select name="filter" id="filtre" class="form-select" onchange="document.getElementById('filterForm').submit();">
+                                        <option value="">-- Filtrer --</option>
+                                        <option value="ALL">Toutes les projets</option>
+                                        <option value="DATE">Par date</option>
+                                        <option value="BUDGET">Par Budget</option>
+                                    </select>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 providers-items">
+
+                            {% for prestataire in prestataires %}
+                                <div class="col providers-items__content">
+                                    <div class="card h-100">
+                                        <div class="card-body">
+                                            <div class="providers-items__content-profile text-center">
+                                                <img src="{{ absolute_url(asset('upload/prestataire/'~ prestataire.media)) }}"
+                                                     alt="{{ prestataire.nom }} {{ prestataire.prenoms }}"
+                                                     class="img-fluid avatar">
+                                                <h6 class="fz-22 fw-500 name text-center">{{ prestataire.nom|upper }} {{ prestataire.prenoms|title }}</h6>
+                                                <div class="fonction text-center fz-16">{{ prestataire.profession }}</div>
+                                                <div class="location text-center fz-18">
+                                                    <i class="bi bi-geo-alt-fill"></i> {{ prestataire.localite.title }}
+                                                </div>
+                                                <div class="skills">
+                                                    {% for competence in prestataire.competence %}
+                                                        <span class="badge bg-main">{{ competence.title }}</span>
+                                                    {% endfor %}
+                                                </div>
+{#                                                <div class="rating text-end fz-14">#}
+{#                                                    <i class="bi bi-star-fill"></i>#}
+{#                                                    <i class="bi bi-star-fill"></i>#}
+{#                                                    <i class="bi bi-star-fill"></i>#}
+{#                                                    <i class="bi bi-star-half"></i>#}
+{#                                                    <i class="bi bi-star"></i>#}
+{#                                                    3.5 avis#}
+{#                                                </div>#}
+                                            </div>
+                                            <div class="providers-items__conntent-completed text-center fz-26 fw-500 py-10">
+                                                <span class="fw-800">0</span> projet réalisé
+                                            </div>
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="row">
+                                                <div class="col d-grid gap-0">
+                                                    <a href="{{ absolute_url(path('app_frontend_professionnel_show', {'matricule': prestataire.matricule})) }}" class="btn btn-sm btn-outline-main">Voir le profile</a>
+                                                </div>
+                                                <div class="col d-grid gap-0">
+                                                    <a href="{{ absolute_url(path('app_frontend_professionnel_show', {'matricule': prestataire.matricule})) }}#contact" class="btn btn-sm btn-main">Contacter</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+
+
+
+                        </div>
+                        <!-- Pagination
+                        <div class="marketplace" data-aos="fade-up">
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination">
+                                    <li class="page-item"><a class="page-link" href="#"><span aria-hidden="true">&laquo;</span></a></li>
+                                    <li class="page-item"><a class="page-link active" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="#"><span aria-hidden="true">&raquo;</span></a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                        -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
+{% block breadcrumb %}
+    <section class="header py-30" id="breadcrumb"> </section>
+{% endblock %}
