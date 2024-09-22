@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -53,9 +54,10 @@ class PrestataireFormType extends AbstractType
             ->add('adresse', TextType::class,[
                 'attr' => ['class' => 'form-control form-control-lg', 'placeholder' => 'Adresse géographique', 'autocomplete'=>'off']
             ])
-//            ->add('geolocalisation', TextType::class,[
-//                'attr' => ['class' => 'form-control form-control-lg', 'placeholder' => 'Géolocalisation', 'autocomplete'=>'off']
-//            ])
+            ->add('biographie', TextareaType::class,[
+                'attr' => ['class' => 'form-control', 'rows' => '7', 'placeholder' => "A propos de moi"],
+                'label' => 'Biographie'
+            ])
             ->add('niveau', TextType::class,[
                 'attr' => ['class' => 'form-control form-control-lg', 'placeholder' => 'Niveau', 'autocomplete'=>'off']
             ])

@@ -30,7 +30,7 @@
                                             <td class="text-end">{{ valide.facturation|number_format(0,'',' ')}} FCFA</td>
                                             <td class="text-center">{{ valide.projet.datePrestation|date('d/m/Y H:i:s') }}</td>
                                             <td class="text-center"><span
-                                                        class="badge text-bg-primary">{{ valide.projet.statut|statut_label }}</span></td>
+                                                        class="badge {{ valide.projet.statut|stick_css_class }}">{{ valide.projet.statut|statut_label }}</span></td>
                                             <td class="text-center">
                                                 {% if valide.projet.statut == 'APPEL' %}
                                                     <a href="{{ path('app_frontend_prestataire_projet_modif', {'prestataire': prestataire.matricule, 'reference': valide.reference}) }}">Modifier</a> &nbsp; | &nbsp;

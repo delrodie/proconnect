@@ -62,7 +62,9 @@
                                                         <h6>Desription:</h6>
                                                         <p class="fz-20">{{ offre.description|raw }}</p>
                                                     </div>
-                                                    <div class="col-md-6 mt-3"></div>
+                                                    <div class="col-md-6 mt-3">
+                                                        <h6>Statut : <span class="badge {{ offre.statut|postuler_css_class }}">{{ offre.statut|postuler_statut_label }}</span></h6>
+                                                    </div>
                                                 </div>
 
                                             </div>
