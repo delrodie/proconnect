@@ -47,6 +47,9 @@ class Postuler
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $embaucheAt = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $reponse = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -180,6 +183,18 @@ class Postuler
     public function setEmbaucheAt(?\DateTimeInterface $embaucheAt): static
     {
         $this->embaucheAt = $embaucheAt;
+
+        return $this;
+    }
+
+    public function getReponse(): ?string
+    {
+        return $this->reponse;
+    }
+
+    public function setReponse(?string $reponse): static
+    {
+        $this->reponse = $reponse;
 
         return $this;
     }

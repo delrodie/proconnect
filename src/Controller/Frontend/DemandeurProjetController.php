@@ -7,6 +7,7 @@ namespace App\Controller\Frontend;
 use App\Entity\Projet;
 use App\Form\ProjetFormType;
 use App\Service\AllRepositories;
+use App\Service\Messages;
 use App\Service\Utilities;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -107,8 +108,14 @@ class DemandeurProjetController extends AbstractController
     {
         $projet = $this->allRepositories->getOneProjet($reference);
         if ($this->isCsrfTokenValid('delete'.$projet->getId(), $request->getPayload()->getString('_token'))) {
+            if ($projet->getStatut() === Utilities::PROJET_DEMANDE){
+                $candidature = $this->allRepositories->getDemandePrestationByProjet($projet);
+                $this->entityManager->remove($candidature);
+            }
             $this->entityManager->remove($projet);
             $this->entityManager->flush();
+
+            notyf()->success(Messages::PROJET_DEMANDE_SUPPRIME, [], 'SUCCES!');
         }
 
         return $this->redirectToRoute('app_frontend_demandeur_projet_index',[

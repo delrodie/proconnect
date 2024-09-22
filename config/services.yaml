@@ -37,6 +37,7 @@ services:
             $partenaireDirectory: '%kernel.project_dir%/public/upload/partenaire'
             $actionDirectory: '%kernel.project_dir%/public/upload/action'
             $parallaxDirectory: '%kernel.project_dir%/public/upload/parallax'
+            $projetDirectory: '%kernel.project_dir%/public/upload/projets'
 
     App\Service\GestionDocument:
         arguments:

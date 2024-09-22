@@ -16,7 +16,18 @@ class StatutStickRuntime implements RuntimeExtensionInterface
         return match ($value){
             'TERMINE' => 'text-bg-success',
             'ENCOURS' => 'text-bg-warning',
+            'DEMANDE' => 'text-bg-danger',
             default => 'text-bg-info'
+        };
+    }
+
+    public function postulerCssClass($value)
+    {
+        return match ($value){
+            'EMBAUCHE' => 'text-bg-success',
+            'SOUMIS' => 'text-bg-warning',
+            'DECLINE' => 'text-bg-secondary',
+            default => 'text-bg-outline-info'
         };
     }
 }

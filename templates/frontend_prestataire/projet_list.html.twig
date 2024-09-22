@@ -20,20 +20,30 @@
                                         <th class="text-center">Budget</th>
                                         <th class="text-center">Candidatures</th>
                                         <th class="text-center">Statut</th>
+                                        <th class="text-center">Etat Projet</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     {% for soumission in soumissions %}
                                         <tr>
-                                            <td>{{ soumission.projet.title }}</td>
+                                            <td>
+                                                {{ soumission.projet.title }}
+                                            </td>
                                             <td class="text-end">{{ soumission.facturation|number_format(0,'',' ')}} FCFA</td>
                                             <td class="text-center">{{ soumission.projet.postulers|length }}</td>
-                                            <td class="text-center"><span
-                                                        class="badge text-bg-primary">{{ soumission.projet.statut|statut_label }}</span></td>
+                                            <td class="text-center">
+                                                <span class="badge {{ soumission.statut|postuler_css_class }}">{{ soumission.statut|postuler_statut_label }}</span>
+                                            </td>
+                                            <td class="text-center">
+                                                <span class="badge {{ soumission.projet.statut|stick_css_class }}">{{ soumission.projet.statut|statut_label }}</span>
+                                            </td>
                                             <td class="text-center">
                                                 {% if soumission.projet.statut == 'APPEL' %}
                                                     <a href="{{ path('app_frontend_prestataire_projet_modif', {'prestataire': prestataire.matricule, 'reference': soumission.reference}) }}">Modifier</a> &nbsp; | &nbsp;
+                                                {% endif %}
+                                                {% if soumission.projet.statut == 'DEMANDE' %}
+                                                    <a href="{{ path('app_frontend_professionnel_reponse', {'matricule': prestataire.matricule, 'reference_projet': soumission.projet.reference}) }}">Repondre</a> &nbsp; | &nbsp;
                                                 {% endif %}
                                                 <a href="{{ absolute_url(path('app_frontend_projet_show', {'reference': soumission.projet.reference})) }}" class="">Détails</a>
                                             </td>

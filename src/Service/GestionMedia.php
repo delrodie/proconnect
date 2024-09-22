@@ -14,10 +14,11 @@ class GestionMedia
     private $mediaPartenaire;
     private $mediaAction;
     private $mediaParallax;
+    private $mediaProjet;
 
     public function __construct(
         $demandeurDirectory, $prestataireDirectory, $slideDirectory, $partenaireDirectory,
-        $actionDirectory, $parallaxDirectory
+        $actionDirectory, $parallaxDirectory, $projetDirectory
     )
     {
         $this->mediaDemandeur = $demandeurDirectory;
@@ -26,6 +27,7 @@ class GestionMedia
         $this->mediaPartenaire = $partenaireDirectory;
         $this->mediaAction = $actionDirectory;
         $this->mediaParallax = $parallaxDirectory;
+        $this->mediaProjet = $projetDirectory;
     }
 
     /**
@@ -41,9 +43,9 @@ class GestionMedia
         if ($mediaFile){
             $media = $this->upload($mediaFile, $entityName);
 
-            if ($entity->getMedia()){
-                $this->removeUpload($entity->getMedia(), $entityName);
-            }
+//            if ($entity->getMedia()){
+//                $this->removeUpload($entity->getMedia(), $entityName);
+//            }
 
             $entity->setMedia($media);
         }
@@ -72,6 +74,7 @@ class GestionMedia
             elseif ($media === 'partenaire') $file->move($this->mediaPartenaire, $newFilename);
             elseif ($media === 'action') $file->move($this->mediaAction, $newFilename);
             elseif ($media === 'parallax') $file->move($this->mediaParallax, $newFilename);
+            elseif ($media === 'projet') $file->move($this->mediaProjet, $newFilename);
             else $file->move($this->mediaDemandeur, $newFilename);
         }catch (FileException $e){
 
@@ -95,6 +98,7 @@ class GestionMedia
         elseif ($media === 'partenaire') unlink($this->mediaPartenaire.'/'.$ancienMedia);
         elseif ($media === 'action') unlink($this->mediaAction.'/'.$ancienMedia);
         elseif ($media === 'parallax') unlink($this->mediaParallax.'/'.$ancienMedia);
+        elseif ($media === 'projet') unlink($this->mediaProjet.'/'.$ancienMedia);
         else return false;
 
         return true;

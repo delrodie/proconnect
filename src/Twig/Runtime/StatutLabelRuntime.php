@@ -16,7 +16,17 @@ class StatutLabelRuntime implements RuntimeExtensionInterface
         return match($value){
             'TERMINE' =>  'Projet réalisé',
             'ENCOURS' => 'En réalisation',
+            'DEMANDE' => 'Demande de prestation',
             default => "En appel"
+        };
+    }
+    public function PostulerStatutLabel($value): string
+    {
+        return match ($value){
+            'EMBAUCHE' => 'Candidature validée',
+            'SOUMIS' => 'Candidature soumise',
+            'DECLINE' => 'Offre déclinée',
+            default => 'Candidature refusée'
         };
     }
 }

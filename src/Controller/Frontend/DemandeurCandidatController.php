@@ -42,7 +42,7 @@ class DemandeurCandidatController extends AbstractController
         if ($this->isCsrfTokenValid('embauche'.$postuler->getReference(), $request->get('_token'))){
             $postuler->setStatut('EMBAUCHE');
             $postuler->setEmbaucheAt($this->utilities->fuseauGMT());
-            $postuler->getProjet()->setStatut('ENCOURS'); dd($postuler);
+            $postuler->getProjet()->setStatut('ENCOURS'); //dd($postuler);
             //dd($postuler->getProjet());
 
             $this->entityManager->flush();
@@ -62,7 +62,7 @@ class DemandeurCandidatController extends AbstractController
     }
 
     #[Route('/{offre}/embaucher', name: 'app_frontend_demandeur_candidat_embaucher', methods: ['GET'])]
-    public function embaucher($offre, $demandeur)
+    public function embaucher($offre, $demandeur): Response
     {
         $postuler = $this->allRepositories->getOnePostuler($offre);
 

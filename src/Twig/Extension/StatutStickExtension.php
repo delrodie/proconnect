@@ -16,6 +16,7 @@ class StatutStickExtension extends AbstractExtension
             // parameter: ['is_safe' => ['html']]
             // Reference: https://twig.symfony.com/doc/3.x/advanced.html#automatic-escaping
             new TwigFilter('stick_css_class', [StatutStickRuntime::class, 'stickCssClass']),
+            new TwigFilter('postuler_css_class', [StatutStickRuntime::class, 'PostulerCssClass']),
         ];
     }
 
@@ -23,6 +24,7 @@ class StatutStickExtension extends AbstractExtension
     {
         return [
             new TwigFunction('stick_css_class', [StatutStickRuntime::class, 'stickCssClass']),
+            new TwigFunction('postuler_css_class', [StatutStickRuntime::class, 'PostulerCssClass']),
         ];
     }
 }

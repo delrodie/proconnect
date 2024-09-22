@@ -16,6 +16,7 @@ class StatutLabelExtension extends AbstractExtension
             // parameter: ['is_safe' => ['html']]
             // Reference: https://twig.symfony.com/doc/3.x/advanced.html#automatic-escaping
             new TwigFilter('statut_label', [StatutLabelRuntime::class, 'statutLabel']),
+            new TwigFilter('postuler_statut_label', [StatutLabelRuntime::class, 'postulerStatutLabel']),
         ];
     }
 
@@ -23,6 +24,7 @@ class StatutLabelExtension extends AbstractExtension
     {
         return [
             new TwigFunction('statut_label', [StatutLabelRuntime::class, 'statutLabel']),
+            new TwigFunction('postuler_statut_label', [StatutLabelRuntime::class, 'postulerStatutLabel']),
         ];
     }
 }

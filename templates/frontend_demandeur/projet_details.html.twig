@@ -47,7 +47,7 @@
                                                 </a>
                                             </div>
                                             <div class="col-12">
-                                                Budget final: 20.000 FCFA
+                                                Budget final: 0 FCFA
                                             </div>
                                         {% endif %}
 
@@ -56,9 +56,17 @@
                                 <div class="card-footer text-end">
                                     <div class="row">
                                         {% if candidatures|length > 0  %}
-                                            <div class="col-6 col-md-2 offset-md-10 d-grid gap-2 text-end">
-                                                <a href="{{ absolute_url(path('app_frontend_demandeur_projet_modif', {'demandeur': demandeur.code, 'reference': projet.reference})) }}" class="btn btn-main btn-sm float-end">Modifier</a>
-                                            </div>
+                                            {% if projet.statut == 'DEMANDE' %}
+                                                <div class="col-6 col-md-2 offset-md-8 d-grid gap-2">{{ include('frontend_demandeur/_form_delete_projet.html.twig') }}</div>
+
+                                                <div class="col-6 col-md-2 d-grid gap-2 text-end">
+                                                    <a href="{{ absolute_url(path('app_frontend_demandeur_projet_modif', {'demandeur': demandeur.code, 'reference': projet.reference})) }}" class="btn btn-main btn-sm float-end">Modifier</a>
+                                                </div>
+                                            {% else %}
+                                                <div class="col-6 col-md-2 offset-md-10 d-grid gap-2 text-end">
+                                                    <a href="{{ absolute_url(path('app_frontend_demandeur_projet_modif', {'demandeur': demandeur.code, 'reference': projet.reference})) }}" class="btn btn-main btn-sm float-end">Modifier</a>
+                                                </div>
+                                            {% endif %}
                                         {% else %}
                                             <div class="col-6 col-md-2 offset-md-8 d-grid gap-2">{{ include('frontend_demandeur/_form_delete_projet.html.twig') }}</div>
 

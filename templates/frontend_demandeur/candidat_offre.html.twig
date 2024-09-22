@@ -44,11 +44,11 @@
                                                     </div>
                                                     <div class="col-md-6 mt-3">
                                                         <div>Mode de travail</div>
-                                                        <h6><span class="fz-20 fw-600">{{ offre.modeTravail|mode_travail }}</span></h6>
+                                                        <h6><span class="fz-20 fw-600">{{ offre.modeTravail ? offre.modeTravail|mode_travail : prestataire.modeTravail|mode_travail }}</span></h6>
                                                     </div>
                                                     <div class="col-md-6 mt-3">
                                                         <div>Garantie</div>
-                                                        <h6><span class="fz-20 fw-600">{{ offre.garantie }}</span></h6>
+                                                        <h6><span class="fz-20 fw-600">{{ offre.garantie ? offre.garantie : prestataire.garantie }}</span></h6>
                                                     </div>
                                                     <div class="col-md-6 mt-3">
                                                         <div>Date d'achevement des travaux : </div>

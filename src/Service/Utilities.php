@@ -19,8 +19,11 @@ class Utilities
     const PROJET_REALISE = 'TERMINE';
     const PROJET_ENCOURS = 'ENCOURS';
     const PROJET_APPEL = 'APPEL';
+    const PROJET_DEMANDE = "DEMANDE";
     const POSTULER_EMBAUCHE = 'EMBAUCHE';
     const POSTULER_SOUMIS = 'SOUMIS';
+    const POSTULER_ACCEPTE = 'ACCEPTE';
+    const POSTULER_DECLINE = 'DECLINE';
 
     public function __construct(
         private EntityManagerInterface $entityManager,

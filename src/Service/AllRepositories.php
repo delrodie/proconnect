@@ -334,4 +334,9 @@ class AllRepositories
     {
         return $this->postulerRepository->findProjetByUserAndCandidatureStatut($user, $statutProjet, $statutCandidature);
     }
+
+    public function getDemandePrestationByProjet($projet)
+    {
+        return $this->postulerRepository->findOneBy(['projet' => $projet]);
+    }
 }
