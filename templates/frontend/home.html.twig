@@ -3,177 +3,179 @@
 {% block title %}{{ parent() }} : Plateforme de mise en relation des professionnels {% endblock %}
 
 {% block body %}
-    <main>
-        <section class="action" id="actionCall">
-            <div class="container">
-                <div class="row g-0">
-                    <div class="col-lg-6 action-inner animation-hover py-20" data-aos="fade-up" data-aos-duration="2000">
-                        {% if action_demandeur %}
-                            <div class="row">
-                                <div class="col-lg-8 action-inner__content pr-5">
-                                    <h5 class="h5 action-inner__content-title py-10">{{ action_demandeur.title }}</h5>
-                                    <div class="action-inner__content-text pb-10">
-                                        <p>{{ action_demandeur.content|raw }}</p>
-                                    </div>
-                                    <div class="d-grid gap-2">
-                                        <a href="#" class="btn btn-main btn-rounded py-5">Publiez des offres gratuitement</a>
-                                    </div>
+    <turbo-frame id="main">
+        <main id="main" data-turbo-frame="main">
+            <section class="action" id="actionCall">
+                <div class="container">
+                    <div class="row g-0">
+                        <div class="col-lg-6 action-inner animation-hover py-20" data-aos="fade-up" data-aos-duration="2000">
+                            {% if action_demandeur %}
+                                <div class="row">
+                                    <div class="col-lg-8 action-inner__content pr-5">
+                                        <h5 class="h5 action-inner__content-title py-10">{{ action_demandeur.title }}</h5>
+                                        <div class="action-inner__content-text pb-10">
+                                            <p>{{ action_demandeur.content|raw }}</p>
+                                        </div>
+                                        <div class="d-grid gap-2">
+                                            <a href="#" class="btn btn-main btn-rounded py-5">Publiez des offres gratuitement</a>
+                                        </div>
 
-                                </div>
-                                <div class="col-lg-4 action-inner__illustration">
-                                    <img src="{{ absolute_url(asset('upload/action/' ~ action_demandeur.media)) }}" alt="{{ action_demandeur.title }}" class="img-fluid" loading="lazy">
-                                </div>
-                            </div>
-                        {% endif %}
-                        
-                    </div>
-                    <div class="col-lg-6 action-inner animation-hover py-20 pl-5" data-aos="fade-up" data-aos-duration="3000">
-                        {% if action_prestataire %}
-                            <div class="row">
-                                <div class="col-lg-8 action-inner__content">
-                                    <h5 class="h5 action-inner__content-title py-10">{{ action_prestataire.title }}</h5>
-                                    <div class="action-inner__content-text pb-10">
-                                        <p>{{ action_prestataire.content|raw }}</p>
                                     </div>
-                                    <div class="d-grid gap-2">
-                                        <a href="#" class="btn btn-main btn-rounded py-5">Postulez aux offres</a>
+                                    <div class="col-lg-4 action-inner__illustration">
+                                        <img src="{{ absolute_url(asset('upload/action/' ~ action_demandeur.media)) }}" alt="{{ action_demandeur.title }}" class="img-fluid" loading="lazy">
                                     </div>
-
                                 </div>
-                                <div class="col-lg-4 action-inner__illustration">
-                                    <img src="{{ absolute_url(asset('upload/action/' ~ action_prestataire.media)) }}" alt="{{ action_prestataire.title }}" class="img-fluid" loading="lazy">
-                                </div>
-                            </div>
-                        {% endif %}
+                            {% endif %}
 
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        {% if domaines %}
-            <section class="categories" id="categories">
-                <div class="container my-50" data-aos="fade-up">
-                    <div class="row categories-head">
-                        <div class="col-md-6 col-xl-7 categories-head__title">
-                            <h4 class="h4 ls-minus-1">Parcourir les prestataires par catégorie</h4>
                         </div>
-                        <div class="col-md-6 col-xl-5 categories-head__all-link">
-                            <a href="#" class="h6">Toutes les categories</a>
-                        </div>
-                    </div>
-                    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-0 my-5 categories-items">
+                        <div class="col-lg-6 action-inner animation-hover py-20 pl-5" data-aos="fade-up" data-aos-duration="3000">
+                            {% if action_prestataire %}
+                                <div class="row">
+                                    <div class="col-lg-8 action-inner__content">
+                                        <h5 class="h5 action-inner__content-title py-10">{{ action_prestataire.title }}</h5>
+                                        <div class="action-inner__content-text pb-10">
+                                            <p>{{ action_prestataire.content|raw }}</p>
+                                        </div>
+                                        <div class="d-grid gap-2">
+                                            <a href="#" class="btn btn-main btn-rounded py-5">Postulez aux offres</a>
+                                        </div>
 
-                        {% for domaine in domaines|slice(0,8) %}
-                            <div class="col categories-items__content">
-                                <a href="#">
-                                    <div class="card h-100 animation-hover">
-                                        <div class="card-head">
-                                            <i class="bi bi-boxes"></i>
-                                        </div>
-                                        <div class="card-body">
-                                            <h6 class="card-title h6">{{ domaine.title }}</h6>
-                                        </div>
-                                        <div class="card-label fz-20">
-                                            8 prestataires
-                                        </div>
-                                        <div class="card-text">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam repellendus aut, voluptatum, vel deleniti aliquam illum laboriosam a nobis maiores placeat fugiat maxime atque iusto officia et ullam officiis illo?
-                                        </div>
                                     </div>
-                                </a>
-                            </div>
-                        {% endfor %}
+                                    <div class="col-lg-4 action-inner__illustration">
+                                        <img src="{{ absolute_url(asset('upload/action/' ~ action_prestataire.media)) }}" alt="{{ action_prestataire.title }}" class="img-fluid" loading="lazy">
+                                    </div>
+                                </div>
+                            {% endif %}
 
-                    </div>
-                </div>
-            </section>
-        {% endif %}
-
-        {% if parallax %}
-            <section class="mobile-app" id="mobileApp">
-                <div class="container py-15">
-                    <div class="row mobile-app-inner">
-                        <div class="col-md-4 col-lg-5 mobile-app-inner__illustration">
-                            <img src="{{ absolute_url(asset('upload/parallax/' ~ parallax.media)) }}" alt="{{ parallax.title }}" class="img-fluid animation-scrollTop" loading="lazy">
-                        </div>
-                        <div class="col-md-8 col-lg-7 mobile-app-inner__content">
-                            <h4 class="h4 title ls-minus-1 pb-10">{{ parallax.title }}</h4>
-                            <div class="text">
-                                <p>{{ parallax.content|raw }}</p>
-                            </div>
-                            <div class="btn-download-group pt-20">
-                                <a href="{{ parallax.apple }}" class="btn btn-black btn-download px-7">
-                                    <div class="btn-download__icon fz-36 pr-3"><i class="bi bi-apple"></i></div>
-                                    <div class="btn-download__content">
-                                        <div class="btn-download__content-text fw-500 fz-12">Téléchargez sur</div>
-                                        <div class="btn-download__content-store fw-600 fz-16">Apple Store</div>
-                                    </div>
-                                </a>
-                                <a href="{{ parallax.google }}" class="btn btn-black btn-download px-7">
-                                    <div class="btn-download__icon fz-36 pr-3"><i class="bi bi-google-play"></i></div>
-                                    <div class="btn-download__content">
-                                        <div class="btn-download__content-text fw-500 fz-12">Télécharger sur </div>
-                                        <div class="btn-download__content-store fw-600 fz-16">Google Play</div>
-                                    </div>
-                                </a>
-                            </div>
                         </div>
                     </div>
                 </div>
             </section>
-        {% endif %}
 
-        {% if projets %}
-            <section class="projects" id="projects">
-                <div class="container my-50">
-                    <div class="row projects-head">
-                        <div class="col-md-6 col-xl-7 projects-head__title">
-                            <h4 class="h4 ls-minus-1">Projets ouverts aux appels d'offre</h4>
+            {% if domaines %}
+                <section class="categories" id="categories">
+                    <div class="container my-50" data-aos="fade-up">
+                        <div class="row categories-head">
+                            <div class="col-md-6 col-xl-7 categories-head__title">
+                                <h4 class="h4 ls-minus-1">Parcourir les prestataires par catégorie</h4>
+                            </div>
+                            <div class="col-md-6 col-xl-5 categories-head__all-link">
+                                <a href="#" class="h6">Toutes les categories</a>
+                            </div>
                         </div>
-                        <div class="col-md-6 col-xl-5 projects-head__all-link">
-                            <a href="#" class="h6">Tous les projets</a>
+                        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-0 my-5 categories-items">
+
+                            {% for domaine in domaines|slice(0,8) %}
+                                <div class="col categories-items__content">
+                                    <a href="#">
+                                        <div class="card h-100 animation-hover">
+                                            <div class="card-head">
+                                                <i class="bi bi-boxes"></i>
+                                            </div>
+                                            <div class="card-body">
+                                                <h6 class="card-title h6">{{ domaine.title }}</h6>
+                                            </div>
+                                            <div class="card-label fz-20">
+                                                8 prestataires
+                                            </div>
+                                            <div class="card-text">
+                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam repellendus aut, voluptatum, vel deleniti aliquam illum laboriosam a nobis maiores placeat fugiat maxime atque iusto officia et ullam officiis illo?
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            {% endfor %}
+
                         </div>
                     </div>
-                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 my-5 projects-items">
+                </section>
+            {% endif %}
 
-                        {% for projet in projets|slice(0,6) %}
-                            <div class="col projects-items__content">
-                                <a href="{{ absolute_url(path('app_frontend_projet_show',{"reference": projet.reference})) }}">
-                                    <div class="card h-100">
-                                        <div class="card-body">
+            {% if parallax %}
+                <section class="mobile-app" id="mobileApp">
+                    <div class="container py-15">
+                        <div class="row mobile-app-inner">
+                            <div class="col-md-4 col-lg-5 mobile-app-inner__illustration">
+                                <img src="{{ absolute_url(asset('upload/parallax/' ~ parallax.media)) }}" alt="{{ parallax.title }}" class="img-fluid animation-scrollTop" loading="lazy">
+                            </div>
+                            <div class="col-md-8 col-lg-7 mobile-app-inner__content">
+                                <h4 class="h4 title ls-minus-1 pb-10">{{ parallax.title }}</h4>
+                                <div class="text">
+                                    <p>{{ parallax.content|raw }}</p>
+                                </div>
+                                <div class="btn-download-group pt-20">
+                                    <a href="{{ parallax.apple }}" class="btn btn-black btn-download px-7">
+                                        <div class="btn-download__icon fz-36 pr-3"><i class="bi bi-apple"></i></div>
+                                        <div class="btn-download__content">
+                                            <div class="btn-download__content-text fw-500 fz-12">Téléchargez sur</div>
+                                            <div class="btn-download__content-store fw-600 fz-16">Apple Store</div>
+                                        </div>
+                                    </a>
+                                    <a href="{{ parallax.google }}" class="btn btn-black btn-download px-7">
+                                        <div class="btn-download__icon fz-36 pr-3"><i class="bi bi-google-play"></i></div>
+                                        <div class="btn-download__content">
+                                            <div class="btn-download__content-text fw-500 fz-12">Télécharger sur </div>
+                                            <div class="btn-download__content-store fw-600 fz-16">Google Play</div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            {% endif %}
 
-                                            <div class="projects-items__content-author">
-                                                {#                                                    <div class="projects-items__content-avatar bg-main-gradient">#}
-                                                {#                                                        <img src="./assets/img/all/3d-render-african-american-worker-woman-with-helmet.png" alt="" class="img-fluid">#}
-                                                {#                                                    </div>#}
-                                                <div class="projects-items__content-infos pl-3">
-                                                    <span class="badge bg-main">{{ projet.categorie }}</span>
-                                                    <h6 class="h6">{{ projet.title }}</h6>
-                                                    <div class="reference fz-16">
-                                                        Par <span class="author fw-500">{{ projet.user }}</span> le {{ projet.created_at|date('d/m/Y')}} à {{ projet.created_at|date('H:i:s') }}
+            {% if projets %}
+                <section class="projects" id="projects">
+                    <div class="container my-50">
+                        <div class="row projects-head">
+                            <div class="col-md-6 col-xl-7 projects-head__title">
+                                <h4 class="h4 ls-minus-1">Projets ouverts aux appels d'offre</h4>
+                            </div>
+                            <div class="col-md-6 col-xl-5 projects-head__all-link">
+                                <a href="#" class="h6">Tous les projets</a>
+                            </div>
+                        </div>
+                        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 my-5 projects-items">
+
+                            {% for projet in projets|slice(0,6) %}
+                                <div class="col projects-items__content">
+                                    <a href="{{ absolute_url(path('app_frontend_projet_show',{"reference": projet.reference})) }}" data-turbo="false">
+                                        <div class="card h-100">
+                                            <div class="card-body">
+
+                                                <div class="projects-items__content-author">
+                                                    {#                                                    <div class="projects-items__content-avatar bg-main-gradient">#}
+                                                    {#                                                        <img src="./assets/img/all/3d-render-african-american-worker-woman-with-helmet.png" alt="" class="img-fluid">#}
+                                                    {#                                                    </div>#}
+                                                    <div class="projects-items__content-infos pl-3">
+                                                        <span class="badge bg-main">{{ projet.categorie }}</span>
+                                                        <h6 class="h6">{{ projet.title }}</h6>
+                                                        <div class="reference fz-16">
+                                                            Par <span class="author fw-500">{{ projet.user }}</span> le {{ projet.created_at|date('d/m/Y')}} à {{ projet.created_at|date('H:i:s') }}
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="projects-items__content-details mt-2">
-                                                <div class="location"> <i class="bi bi-geo-alt"></i> {{ projet.localite }}</div>
-                                            </div>
-                                            <div class="projects-items__content-countdown py-5">
-                                                <span class="fz-22 fw-500 px-2">{{ jour_restant(projet.reference)}}</span> jours restants pour postuler.
+                                                <div class="projects-items__content-details mt-2">
+                                                    <div class="location"> <i class="bi bi-geo-alt"></i> {{ projet.localite }}</div>
+                                                </div>
+                                                <div class="projects-items__content-countdown py-5">
+                                                    <span class="fz-22 fw-500 px-2">{{ jour_restant(projet.reference)}}</span> jours restants pour postuler.
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </a>
-                            </div>
-                        {% endfor %}
+                                    </a>
+                                </div>
+                            {% endfor %}
 
 
+                        </div>
                     </div>
-                </div>
-            </section>
-        {% endif %}
-    </main>
+                </section>
+            {% endif %}
+        </main>
+    </turbo-frame>
 {% endblock %}
 
 {% block breadcrumb %}

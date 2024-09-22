@@ -64,10 +64,10 @@
                                         <div class="card-footer">
                                             <div class="row">
                                                 <div class="col d-grid gap-0">
-                                                    <a href="{{ absolute_url(path('app_frontend_professionnel_show', {'matricule': prestataire.matricule})) }}" class="btn btn-sm btn-outline-main">Voir le profile</a>
+                                                    <a href="{{ absolute_url(path('app_frontend_professionnel_show', {'matricule': prestataire.matricule})) }}" class="btn btn-sm btn-outline-main" data-turbo="false">Voir le profile</a>
                                                 </div>
                                                 <div class="col d-grid gap-0">
-                                                    <a href="{{ absolute_url(path('app_frontend_professionnel_show', {'matricule': prestataire.matricule})) }}#contact" class="btn btn-sm btn-main">Contacter</a>
+                                                    <a href="{{ absolute_url(path('app_frontend_professionnel_show', {'matricule': prestataire.matricule})) }}#contact" class="btn btn-sm btn-main" data-turbo="false">Contacter</a>
                                                 </div>
                                             </div>
                                         </div>

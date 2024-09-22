@@ -31,7 +31,16 @@
 
         {% block stylesheets %}
 {#            <link rel="stylesheet" href="{{ absolute_url(asset('vendor/scrollcue/scrollCue.css')) }}">#}
-            <link rel="stylesheet" href="{{ absolute_url(asset('styles/style.css')) }}">
+{#            <link rel="stylesheet" href="{{ absolute_url(asset('styles/style.css')) }}">#}
+        {% endblock %}
+        {% block javascripts %}
+            {% block importmap %}{{ importmap('app') }}{% endblock %}
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+            <script src="{{ absolute_url(asset('vendor/atropos/atropos.min.js')) }}"></script>
+            <script src="{{ absolute_url(asset('vendor/scrollcue/scrollCue.min.js')) }}"></script>
+            <script src="{{ absolute_url(asset('vendor/venobox/venobox.min.js')) }}"></script>
+            <script src="{{ absolute_url(asset('js/app.js')) }}"></script>
         {% endblock %}
     </head>
     <body>
@@ -40,7 +49,7 @@
         <header>
             <nav class="navbar navbar-expand-lg sticky-top">
                 <div class="container">
-                    <a class="navbar-brand" href="{{ absolute_url(path('app_home_index')) }}">
+                    <a class="navbar-brand" href="{{ absolute_url(path('app_home_index')) }}" data-turbo="false">
                         <img src="{{ absolute_url(asset('img/logo-white.png')) }}" alt="Logo" class="img-fluid">
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,22 +65,24 @@
                         <div class="offcanvas-body">
                             <ul class="navbar-nav">
                                 <li class="nav-item">
-                                    <a class="nav-link {{ menu_active('app_home_index') }}" href="{{ absolute_url(path('app_home_index')) }}">Accueil</a>
+                                    <a class="nav-link {{ menu_active('app_home_index') }}" href="{{ absolute_url(path('app_home_index')) }}" data-turbo="false">Accueil</a>
                                 </li>
                                 <li class="nav-item">
                                     <a
                                             class="nav-link {{ menu_active('app_frontend_projet_list') }} {{ menu_active('app_frontend_projet_show') }} {{ menu_active('app_frontend_projet_postuler') }}"
                                             href="{{ absolute_url(path('app_frontend_projet_list')) }}"
+                                            data-turbo="false"
                                     >Projets</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link {{ menu_active('app_frontend_professionnel_list') }}"
-                                       href="{{ absolute_url(path('app_frontend_professionnel_list')) }}">
+                                       href="{{ absolute_url(path('app_frontend_professionnel_list')) }}"
+                                    data-turbo="false">
                                         Prestataires
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Contact</a>
+                                    <a class="nav-link" href="#" data-turbo="false">Contact</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="#" class="nav-link"><i class="bi bi-search"></i></a>
@@ -96,15 +107,15 @@
                                             {% else %}
                                                 <li><a class="dropdown-item" href="{{ absolute_url(account_path) }}">Mon compte</a></li>
                                             {% endif %}
-                                            <li><a class="dropdown-item" href="{{ absolute_url(path('app_logout')) }}">Deconnexion</a></li>
+                                            <li><a class="dropdown-item" href="{{ absolute_url(path('app_logout')) }}" data-turbo="false">Déconnexion</a></li>
                                         </ul>
 
                                     </div>
                                 </div>
                             {% else %}
                                 <div class="navbar-account">
-                                    <a href="{{ absolute_url(path('app_register')) }}" class="px-3"><i class="bi bi-person-fill-lock"></i> Inscription</a>
-                                    <a href="{{ absolute_url(path('app_login')) }}" class="connexion px-3"><i class="bi bi-lock-fill"></i> Connexion</a>
+                                    <a href="{{ absolute_url(path('app_register')) }}" class="px-3" data-turbo="false"><i class="bi bi-person-fill-lock"></i> Inscription</a>
+                                    <a href="{{ absolute_url(path('app_login')) }}" class="connexion px-3" data-turbo="false"><i class="bi bi-lock-fill"></i> Connexion</a>
                                 </div>
                             {% endif %}
 
@@ -214,14 +225,6 @@
 
 
 
-        {% block javascripts %}
-            {#            {% block importmap %}{{ importmap('app') }}{% endblock %}#}
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-            <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-            <script src="{{ absolute_url(asset('vendor/atropos/atropos.min.js')) }}"></script>
-            <script src="{{ absolute_url(asset('vendor/scrollcue/scrollCue.min.js')) }}"></script>
-            <script src="{{ absolute_url(asset('vendor/venobox/venobox.min.js')) }}"></script>
-            <script src="{{ absolute_url(asset('js/app.js')) }}"></script>
-        {% endblock %}
+
     </body>
 </html>

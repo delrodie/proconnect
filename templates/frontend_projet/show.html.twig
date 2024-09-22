@@ -88,7 +88,7 @@
                     </div>
                     <div class="col-lg-4" data-aos="fade-left">
                         <div class="d-grid gap-2">
-                            <a href="{{ absolute_url(path('app_frontend_projet_postuler', {'reference': projet.reference})) }}" class="btn btn-lg btn-main btn-no-rounded py-7">Postuler à ce projet</a>
+                            <a href="{{ absolute_url(path('app_frontend_projet_postuler', {'reference': projet.reference})) }}" class="btn btn-lg btn-main btn-no-rounded py-7" data-turbo="false">Postuler à ce projet</a>
                         </div>
                         <div class="projects-client">
                             <h6 class="fz-26 fw-500 mt-5">{{ projet.reference|projet_demandeur}} </h6>
@@ -104,7 +104,7 @@
 
                                     {% for similaire in similaires|slice(0,3) %}
                                         <div class="col projects-items__content mt-3">
-                                            <a href="{{ absolute_url(path('app_frontend_projet_show', {'reference': similaire.reference})) }}">
+                                            <a href="{{ absolute_url(path('app_frontend_projet_show', {'reference': similaire.reference})) }}" data-turbo="false">
                                                 <div class="card h-100">
                                                     <div class="card-body">
 
