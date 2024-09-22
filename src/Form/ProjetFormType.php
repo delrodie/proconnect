@@ -70,20 +70,6 @@ class ProjetFormType extends AbstractType
                 'label' => "Descriptifs photos (optionnel)",
                 'mapped' => false,
                 'multiple' => true,
-//                'constraints' => [
-//                    new File([
-//                        'maxSize' => "20000k",
-//                        'mimeTypes' =>[
-//                            'image/png',
-//                            'image/jpeg',
-//                            'image/jpg',
-//                            'image/gif',
-//                            'image/webp',
-//                        ],
-//                        //'mimeTypesMessage' => "Votre fichier doit être de type image",
-//                        //'maxSizeMessage' => "La taille de votre image doit être inférieure à 2Mo",
-//                    ])
-//                ],
                 'required' => false
             ])
 //            ->add('statut')

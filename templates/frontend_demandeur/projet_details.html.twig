@@ -94,8 +94,8 @@
                                 </div>
                             </div>
 
-                            <div class="profile-content_projet-prestataires mt-5">
-                                <h4 class="nombre">{{ candidatures|length > 1 ? candidatures|length ~ "prestataires" : candidatures|length ~ " prestataire" }}</h4>
+                            <div class="profile-content_projet-prestataires mt-5" id="candidature">
+                                <h4 class="nombre">{{ candidatures|length > 1 ? candidatures|length ~ " prestataires" : candidatures|length ~ " prestataire" }}</h4>
                                 {% for candidature in candidatures %}
                                     <div class="card mt-3">
                                         <div class="row g-0">

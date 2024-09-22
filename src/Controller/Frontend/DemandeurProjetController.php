@@ -51,7 +51,7 @@ class DemandeurProjetController extends AbstractController
             $projet->setReference($this->utilities->referenceProjet());
             $projet->setCreatedAt($this->utilities->fuseauGMT());
             $projet->setUser($this->getUser());
-            $projet->setStatut('APPEL');
+            $projet->setStatut(Utilities::PROJET_APPEL);
             $projet->setMedia(null);
 
             $medias = $form->get('media')->getData();

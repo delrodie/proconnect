@@ -55,8 +55,10 @@ class EmbaucherType extends AbstractType
                 'label' => "Description du projet"
             ])
             ->add('media', FileType::class,[
-                'attr' => ['class' => 'form-control'],
-                'label' => 'Téléchargez le media associé',
+                'attr'=>['class'=>"form-control"],
+                'label' => "Descriptifs photos (optionnel)",
+                'mapped' => false,
+                'multiple' => true,
                 'required' => false
             ])
 //            ->add('statut')

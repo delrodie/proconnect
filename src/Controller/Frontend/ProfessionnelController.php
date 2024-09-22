@@ -6,6 +6,7 @@ namespace App\Controller\Frontend;
 
 use App\Entity\Postuler;
 use App\Entity\Projet;
+use App\Entity\ProjetImage;
 use App\Form\EmbaucherType;
 use App\Form\ReponsePrestataireType;
 use App\Service\AllRepositories;
@@ -80,14 +81,22 @@ class ProfessionnelController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()){
             // Gestion des medias
-            $this->gestionMedia->media($form, $projet, 'projet');
+//            $this->gestionMedia->media($form, $projet, 'projet');
             $projet->setReference($this->utilities->referenceProjet());
             $projet->setCreatedAt($this->utilities->fuseauGMT());
             $projet->setUser($this->getUser());
             $projet->setStatut(Utilities::PROJET_DEMANDE);
+            $projet->setMedia(null);
 
-            $this->entityManager->persist($projet);
-            $this->entityManager->flush();
+            $medias = $form->get('media')->getData();
+            foreach ($medias as $mediaFile){
+                $projetImage = new ProjetImage();
+                $media = $this->gestionMedia->upload($mediaFile, 'projet');
+                $projetImage->setMedia($media);
+                $projetImage->setProjet($projet);
+
+                $this->entityManager->persist($projetImage);
+            }
 
             // Envoie de la demande au candidat
             $postuler = new Postuler();
@@ -98,7 +107,10 @@ class ProfessionnelController extends AbstractController
             $postuler->setEmbaucheAt($this->utilities->fuseauGMT());
 
             $this->entityManager->persist($postuler);
+
+            $this->entityManager->persist($projet);
             $this->entityManager->flush();
+//            $this->entityManager->flush();
 
             notyf()->success(Messages::PROJET_DEMANDE_EMBAUCHE, [], "SUCCES!");
 

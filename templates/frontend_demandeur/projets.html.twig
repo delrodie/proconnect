@@ -106,9 +106,9 @@
                                         <div class="col-lg-3">
                                             <div class="card h-100 candidature">
                                                 <div class="card-body text-center">
-                                                    <a href="#">
+                                                    <a href="{{ path('app_frontend_demandeur_projet_details', {'demandeur': demandeur.code, 'reference': projet.reference}) }}#candidature">
                                                         <span>{{ projet.postulers|length }}</span> <br>
-                                                        Candidature(s)
+                                                        {{ projet.postulers|length > 1 ? 'Candidatures' : 'Candidature' }}
                                                     </a>
                                                 </div>
                                             </div>
