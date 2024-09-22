@@ -27,6 +27,7 @@
 /assets/vendor/bootstrap
 /assets/vendor/installed.php
 #/assets/vendor/scrollcue
+#/assets/vendor/venobox
 ###< symfony/asset-mapper ###
 
 .idea

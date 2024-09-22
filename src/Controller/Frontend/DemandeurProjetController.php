@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\Controller\Frontend;
 
 use App\Entity\Projet;
+use App\Entity\ProjetImage;
 use App\Form\ProjetFormType;
 use App\Service\AllRepositories;
+use App\Service\GestionMedia;
 use App\Service\Messages;
 use App\Service\Utilities;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,7 +23,8 @@ class DemandeurProjetController extends AbstractController
     public function __construct(
         private AllRepositories $allRepositories,
         private EntityManagerInterface $entityManager,
-        private Utilities $utilities
+        private Utilities $utilities,
+        private GestionMedia $gestionMedia
     )
     {
     }
@@ -49,6 +52,17 @@ class DemandeurProjetController extends AbstractController
             $projet->setCreatedAt($this->utilities->fuseauGMT());
             $projet->setUser($this->getUser());
             $projet->setStatut('APPEL');
+            $projet->setMedia(null);
+
+            $medias = $form->get('media')->getData();
+            foreach ($medias as $mediaFile){
+                $projetImage = new ProjetImage();
+                $media = $this->gestionMedia->upload($mediaFile, 'projet');
+                $projetImage->setMedia($media);
+                $projetImage->setProjet($projet);
+
+                $this->entityManager->persist($projetImage);
+            }
 
             $this->entityManager->persist($projet);
             $this->entityManager->flush();

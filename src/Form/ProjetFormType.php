@@ -65,11 +65,11 @@ class ProjetFormType extends AbstractType
                 'attr' => ['class' => 'form-control', 'rows' => 10],
                 'label' => 'Description du projet'
             ])
-//            ->add('media', FileType::class,[
-//                'attr'=>['class'=>"form-control"],
-//                'label' => "Descriptif photo (optionnel)",
-//                'mapped' => false,
-//                'multiple' => true,
+            ->add('media', FileType::class,[
+                'attr'=>['class'=>"form-control"],
+                'label' => "Descriptifs photos (optionnel)",
+                'mapped' => false,
+                'multiple' => true,
 //                'constraints' => [
 //                    new File([
 //                        'maxSize' => "20000k",
@@ -84,8 +84,8 @@ class ProjetFormType extends AbstractType
 //                        //'maxSizeMessage' => "La taille de votre image doit être inférieure à 2Mo",
 //                    ])
 //                ],
-//                'required' => false
-//            ])
+                'required' => false
+            ])
 //            ->add('statut')
 //            ->add('createdAt', null, [
 //                'widget' => 'single_text',

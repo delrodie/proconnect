@@ -52,6 +52,19 @@
                                         {% endif %}
 
                                     </div>
+                                    {% if projet.projetImages %}
+                                        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-2 d-flex align-items-center mt-3 projet-image">
+                                            {% for image in projet.projetImages %}
+                                                <div class="col">
+                                                    <a href="{{ absolute_url(asset('upload/projets/'~ image.media)) }}" class="venobox-photo" data-gall="gallery01">
+                                                        <figure>
+                                                            <img src="{{ absolute_url(asset('upload/projets/'~ image.media)) }}" alt="{{ projet.title }}" class="img-fluid">
+                                                        </figure>
+                                                    </a>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
                                 </div>
                                 <div class="card-footer text-end">
                                     <div class="row">

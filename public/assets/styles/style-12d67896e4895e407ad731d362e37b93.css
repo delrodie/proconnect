@@ -12,9 +12,8 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css");
 @import url("https://unpkg.com/aos@next/dist/aos.css");
-@import url("../vendor/atropos/atropos.min.css");
-@import url("../vendor/scrollcue/scrollCue.css");
-@import url("../vendor/venobox/venobox.min.css");
+@import url("../vendor/atropos/atropos.min-09fca6356e30514afce0a3f9f7984883.css");
+@import url("../vendor/scrollcue/scrollCue-d14318606ce1bba1413b2ed425aa039c.css");
 /************************************
         01. Reset 	 
         02. Declarations 	 
@@ -5613,14 +5612,11 @@ form ul li {
       color: var(--color-blue-very-light); }
 
 .projet-image figure {
-  border: solid 1px #ecebeb;
-  overflow: hidden; }
+  border: solid 1px #ccc; }
 .projet-image img {
   width: 100%;
-  height: 150px;
+  height: 250px;
   object-fit: cover; }
-  .projet-image img:hover {
-    transform: scale(1.1); }
 
 /************************************/
 /**** 	   07. Footer   		 ****/
@@ -5656,4 +5652,4 @@ footer {
     footer .copyright a:hover {
       color: var(--color-main); }
 
-/*# sourceMappingURL=style.css.map */
+/*# sourceMappingURL=style.css-280d97f756ea28253f5f555c4c9b40e4.map */

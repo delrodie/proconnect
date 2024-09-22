@@ -46,8 +46,8 @@ btnGoTop.addEventListener('click', () => {
 
 new VenoBox({
   selector: ".venobox-photo",
-  numeration: true,
-  infinigall: true,
-  share: true,
-  spinner: "rotating-plane",
+  // numeration: true,
+  // infinigall: true,
+  // share: true,
+  // spinner: "rotating-plane",
 });

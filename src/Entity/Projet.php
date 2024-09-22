@@ -67,9 +67,16 @@ class Projet
     #[ORM\ManyToOne]
     private ?Localite $localite = null;
 
+    /**
+     * @var Collection<int, ProjetImage>
+     */
+    #[ORM\OneToMany(targetEntity: ProjetImage::class, mappedBy: 'projet')]
+    private Collection $projetImages;
+
     public function __construct()
     {
         $this->postulers = new ArrayCollection();
+        $this->projetImages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -283,6 +290,36 @@ class Projet
     public function setLocalite(?Localite $localite): static
     {
         $this->localite = $localite;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, ProjetImage>
+     */
+    public function getProjetImages(): Collection
+    {
+        return $this->projetImages;
+    }
+
+    public function addProjetImage(ProjetImage $projetImage): static
+    {
+        if (!$this->projetImages->contains($projetImage)) {
+            $this->projetImages->add($projetImage);
+            $projetImage->setProjet($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjetImage(ProjetImage $projetImage): static
+    {
+        if ($this->projetImages->removeElement($projetImage)) {
+            // set the owning side to null (unless already changed)
+            if ($projetImage->getProjet() === $this) {
+                $projetImage->setProjet(null);
+            }
+        }
 
         return $this;
     }
