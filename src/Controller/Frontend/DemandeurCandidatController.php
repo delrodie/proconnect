@@ -50,7 +50,8 @@ class DemandeurCandidatController extends AbstractController
             notyf()->success("Félicitations vous venez d'embaucher ce prestataire sur votre projet. Il vous contactéra sous peu");
 
             return $this->redirectToRoute('app_frontend_demandeur_projet_details',[
-                'reference' => $postuler->getProjet()->getReference()
+                'reference' => $postuler->getProjet()->getReference(),
+                'demandeur' => $demandeur
             ], Response::HTTP_SEE_OTHER);
         }
 

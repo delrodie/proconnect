@@ -148,9 +148,9 @@ class AllRepositories
         return $this->foreachProjets($this->projetRepository->findAllByStatut($statut, $date, $budget));
     }
 
-    public function findProjetByCategorie($category)
+    public function findProjetSimilaireByCategorie($category)
     {
-        return $this->foreachProjets($this->projetRepository->findBy(['categorie' => $category], ['dateLimite' => 'DESC']));
+        return $this->foreachProjets($this->projetRepository->findSimilaireByCategorie($category->getId()));
     }
 
     public function findCanditatureByProjet($reference)

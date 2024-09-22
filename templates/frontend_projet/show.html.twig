@@ -102,7 +102,7 @@
 
                                 <div class="row row-cols-1 projects-items">
 
-                                    {% for similaire in similaires %}
+                                    {% for similaire in similaires|slice(0,3) %}
                                         <div class="col projects-items__content mt-3">
                                             <a href="{{ absolute_url(path('app_frontend_projet_show', {'reference': similaire.reference})) }}">
                                                 <div class="card h-100">

@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Postuler;
+use App\Service\Utilities;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -46,11 +47,11 @@ class PostulerRepository extends ServiceEntityRepository
             ->addSelect('r')
             ->leftJoin('p.user', 'u')
             ->leftJoin('p.projet', 'r')
-            ->where('p.statut <> :statut')
+            ->where('p.statut = :statut')
             ->andWhere('r.reference = :projet')
-            ->setParameter('statut', 'APPEL')
+            ->setParameter('statut', Utilities::POSTULER_EMBAUCHE)
             ->setParameter('projet', $projet)
-            ->getQuery()->getSingleResult()
+            ->getQuery()->getOneOrNullResult()
             ;
     }
 

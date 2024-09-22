@@ -50,7 +50,30 @@ class ProjetRepository extends ServiceEntityRepository
             ->leftJoin('p.categorie', 'c')
             ->where('p.reference = :reference')
             ->setParameter('reference', $reference)
-            ->getQuery()->getSingleResult();
+            ->getQuery()->getOneOrNullResult();
+    }
+
+    public function findSimilaireByCategorie($categorie)
+    {
+        return $this->querySelect()
+            ->where('c.id = :categorie')
+            ->andWhere('p.dateLimite >= :date')
+            ->setParameter('categorie', $categorie)
+            ->setParameter('date', date('Y-m-d H:i:s'))
+            ->orderBy('p.dateLimite', "ASC")
+            ->getQuery()->getResult();
+    }
+
+    public function querySelect()
+    {
+        return $this->createQueryBuilder('p')
+            ->addSelect('l')
+            ->addSelect('u')
+            ->addSelect('c')
+            ->leftJoin('p.localite', 'l')
+            ->leftJoin('p.user', 'u')
+            ->leftJoin('p.categorie', 'c')
+            ;
     }
 
     //    /**
