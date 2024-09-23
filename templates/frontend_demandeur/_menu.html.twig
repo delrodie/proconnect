@@ -30,7 +30,7 @@
             {% endif %}
 
             <li class="nav-item">
-                <a href="{{ absolute_url(path('app_frontend_demandeur_message_list',{"demandeur": demandeur.code})) }}" class="nav-link {{ menu_active('app_frontend_demandeur_message_list') }}"><i class="bi bi-envelope"></i> Messages</a>
+                <a href="{{ absolute_url(path('app_frontend_demandeur_message_list',{"demandeur": demandeur.code})) }}" class="nav-link {{ menu_active('app_frontend_demandeur_message_list') }} {{ menu_active('app_frontend_demandeur_message_echange') }}"><i class="bi bi-envelope"></i> Messages</a>
             </li>
 
             <li class="nav-item">

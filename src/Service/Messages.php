@@ -5,12 +5,14 @@ namespace App\Service;
 class Messages
 {
     // PRESTATAIRE 10
-    CONST PRESTATAIRE_NOT_EXIST = "Le prestataire selectionné n'a pas été trouvé. Veuillez entrer le bon matricule";
+    CONST PRESTATAIRE_NOT_EXIST = "Le prestataire sélectionné n'a pas été trouvé. Veuillez entrer le bon matricule";
     CONST PRESTATAIRE_NOT_IT = "Cette demande de prestation ne vous a pas été adressée.";
+    CONST PRESTATAIRE_NOT_YOU = "Vous n'êtes pas le prestataire concerné par cette discussion.";
 
     // DEMANDEUR 20
     CONST DEMANDEUR_PROFILE_CANNOT_HIRE = "Vous devez avoir un profile demandeur de prestation pour pouvoir embaucher ce prestataire";
     CONST DEMANDEUR_NOT_YOU = "Vous n'êtes pas le demandeur concerné par cette discussion.";
+    CONST DEMANDEUR_NOT_EXIST = "Le demandeur sélectionné n'a pas été trouvé. Veuillez entrer le bon code";
 
     /**
      * Les messages relatifs au projet

@@ -1,0 +1,10 @@
+<turbo-stream action="append" target="chat-body">
+    <template>
+        <div class="message {{ conversation.emetteur|demandeur_sentCard }} mb-3">
+            <div class="message-content p-3 {{ conversation.emetteur|demandeur_sentBg }} rounded">
+                {{ conversation.content|raw }}
+            </div>
+            <div class="message-time text-muted small fz-14">{{ conversation.createdAt|temps_ecoule }}</div>
+        </div>
+    </template>
+</turbo-stream>

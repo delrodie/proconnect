@@ -64,8 +64,7 @@ class MessageRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-
-    public function findByPrestataire($prestataire)
+    public function findLastMessageByPrestataire($prestataire)
     {
         return $this->createQueryBuilder('m')
             ->addSelect('d')
@@ -73,10 +72,19 @@ class MessageRepository extends ServiceEntityRepository
             ->leftJoin('m.demandeur', 'd')
             ->leftJoin('m.prestataire', 'p')
             ->where('p.matricule = :prestataire')
+            ->andWhere('m.id IN (
+                SELECT MAX(m2.id) 
+                FROM App\Entity\Message m2
+                WHERE m2.prestataire = m.prestataire
+                GROUP BY m2.demandeur
+            )')
             ->setParameter('prestataire', $prestataire)
             ->orderBy('m.id', 'DESC')
-            ->getQuery()->getResult();
+            ->getQuery()
+            ->getResult();
     }
+
+
 
     //    /**
     //     * @return Message[] Returns an array of Message objects

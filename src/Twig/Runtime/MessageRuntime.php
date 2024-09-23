@@ -2,6 +2,7 @@
 
 namespace App\Twig\Runtime;
 
+use App\Service\Messages;
 use Twig\Extension\RuntimeExtensionInterface;
 
 class MessageRuntime implements RuntimeExtensionInterface
@@ -31,5 +32,41 @@ class MessageRuntime implements RuntimeExtensionInterface
         } else {
             return 'à l\'instant';
         }
+    }
+
+    public function prestataireSent_cardCss($value): string
+    {
+        return match ($value){
+            Messages::EMETTEUR_PRESTATAIRE => 'message-sent',
+            Messages::EMETTEUR_DEMANDEUR => 'message-received',
+            default => 'message'
+        };
+    }
+
+    public function prestataireSent_bgCss($value): string
+    {
+        return match ($value){
+            Messages::EMETTEUR_PRESTATAIRE => 'bg-main text-white',
+            Messages::EMETTEUR_DEMANDEUR => 'bg-light',
+            default => 'message'
+        };
+    }
+
+    public function demandeurSent_cardCss($value): string
+    {
+        return match ($value){
+            Messages::EMETTEUR_PRESTATAIRE => 'message-received',
+            Messages::EMETTEUR_DEMANDEUR => 'message-sent',
+            default => 'message'
+        };
+    }
+
+    public function demandeurSent_bgCss($value): string
+    {
+        return match ($value){
+            Messages::EMETTEUR_PRESTATAIRE => 'bg-light',
+            Messages::EMETTEUR_DEMANDEUR => 'bg-main text-white',
+            default => 'message'
+        };
     }
 }

@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Presentation de {{ prestataire.prenoms|title }} {{ prestataire.nom|upper }}{% endblock %}
+{% block body %}
+    <main>
+        <section class="profile" id="profile">
+            <div class="container">
+                <div class="row">
+                    {% include 'frontend_prestataire/_menu.html.twig' %}
+                    <div class="col-12 col-lg-9 profile-content">
+                        <h2 class="titre">Mes conversations</h2>
+
+                        <div class="mt-5 profile-content_messages">
+                            <div class="row">
+                                <!-- Liste des conversations -->
+                                <div class="col-12 conversations-list">
+                                    <div class="list-group" style="height: 600px; overflow-y: auto;">
+                                        {% for message in messages %}
+                                            <a href="{{ absolute_url(path('app_frontend_prestataire_message_echange', {'code': message.demandeur.code, 'prestataire': prestataire.matricule})) }}" class="list-group-item list-group-item-action">
+                                                <div class="d-flex w-100 align-items-center">
+                                                    {% if message.demandeur.media %}
+                                                        <img src="{{ absolute_url(asset('upload/demandeur/' ~ message.demandeur.media)) }}" alt="{{ message.demandeur.nom }} {{ message.demandeur.prenom }}" class="img-fluid">
+                                                    {% else %}
+                                                        <img src="{{ absolute_url(asset('img/all/3d-worker.png')) }}" alt="{{ message.demandeur.media }}" class="img-fluid">
+                                                    {% endif %}
+                                                    <h6 class="mb-0 fz-16">{{ message.demandeur.prenom|title }} {{ message.demandeur.nom|upper }}</h6>
+
+                                                </div>
+                                                <small class="text-muted fz-16">{{ message.createdAt|temps_ecoule }}</small>
+                                                <p class="mb-1">{{ message.content|raw }}</p>
+                                            </a>
+                                        {% endfor %}
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
+{% block breadcrumb %}
+    <section class="header py-30" id="breadcrumb"> </section>
+{% endblock %}
+
+{% block stylesheets %}
+    <script src="{{ absolute_url(asset('js/jquery-3.7.1.min.js')) }}"></script>
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    {{ parent() }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="{{ absolute_url(asset('js/upload-init.js')) }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.select-2').select2();
+        });
+    </script>
+{% endblock %}

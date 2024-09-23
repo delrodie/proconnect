@@ -351,4 +351,9 @@ class AllRepositories
     {
         return $this->messageRepository->findLastMessageByDemandeur($demandeur);
     }
+
+    public function getLastMessageByPrestataire($prestataire)
+    {
+        return $this->messageRepository->findLastMessageByPrestataire($prestataire);
+    }
 }

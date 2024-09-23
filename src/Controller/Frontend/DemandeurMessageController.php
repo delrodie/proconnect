@@ -79,6 +79,10 @@ class DemandeurMessageController extends AbstractController
                 'matricule' => $matricule
             ]);
 
+//            return $this->render('frontend_demandeur/_message_stream.html.twig',[
+//                'conversation' => $message,
+//            ], new Response('', 200, array('Content-Type' => 'text/vnd.turbo-stream.html')));
+
         }
 
         return $this->render('frontend_demandeur/message_echange.html.twig',[
