@@ -9,6 +9,7 @@ use App\Repository\DemandeurRepository;
 use App\Repository\DomaineRepository;
 use App\Repository\LocaliteRepository;
 use App\Repository\MaintenanceRepository;
+use App\Repository\MessageRepository;
 use App\Repository\ParallaxRepository;
 use App\Repository\PartenaireRepository;
 use App\Repository\PostulerRepository;
@@ -31,7 +32,8 @@ class AllRepositories
         private SlideRepository $slideRepository,
         private PartenaireRepository $partenaireRepository,
         private CallToActionRepository $callToActionRepository,
-        private ParallaxRepository $parallaxRepository
+        private ParallaxRepository $parallaxRepository,
+        private MessageRepository $messageRepository
     )
     {
     }
@@ -338,5 +340,15 @@ class AllRepositories
     public function getDemandePrestationByProjet($projet)
     {
         return $this->postulerRepository->findOneBy(['projet' => $projet]);
+    }
+
+    public function getConversation($demandeur, $prestataire)
+    {
+        return $this->messageRepository->getConversation($demandeur, $prestataire);
+    }
+
+    public function getLastMessageByDemandeur($demandeur)
+    {
+        return $this->messageRepository->findLastMessageByDemandeur($demandeur);
     }
 }

@@ -32,7 +32,7 @@
 
                             {% for projet in projets %}
                                 <div class="col projects-items__content">
-                                    <a href="{{ absolute_url(path('app_frontend_projet_show',{"reference": projet.reference})) }}">
+                                    <a href="{{ absolute_url(path('app_frontend_projet_show',{"reference": projet.reference})) }}" data-turbo="false">
                                         <div class="card h-100">
                                             <div class="card-body">
 

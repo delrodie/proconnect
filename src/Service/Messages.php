@@ -10,6 +10,7 @@ class Messages
 
     // DEMANDEUR 20
     CONST DEMANDEUR_PROFILE_CANNOT_HIRE = "Vous devez avoir un profile demandeur de prestation pour pouvoir embaucher ce prestataire";
+    CONST DEMANDEUR_NOT_YOU = "Vous n'êtes pas le demandeur concerné par cette discussion.";
 
     /**
      * Les messages relatifs au projet
@@ -24,4 +25,7 @@ class Messages
     CONST CANDIDATURE_REPONSE_DEMANDE = "Votre reponse a été envoyée avec succès!";
     // LOCALITE 50
     // COMPETENCE 60
+
+    CONST EMETTEUR_DEMANDEUR = "DEMANDEUR";
+    CONST EMETTEUR_PRESTATAIRE = "PRESTATAIRE";
 }

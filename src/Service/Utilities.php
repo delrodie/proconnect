@@ -162,6 +162,11 @@ class Utilities
         return $reference;
     }
 
+    public function referenceMessage(): int
+    {
+        return time();
+    }
+
     public function entityExiste(string $string, string $entity): AbstractUnicodeString|false
     {
         $slug = $this->slug($string);

@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes conversations{% endblock %}
+
+{% block body %}
+    <main>
+        <section class="profile" id="profile">
+            <div class="container">
+                <div class="row">
+                    {% include 'frontend_demandeur/_menu.html.twig' %}
+                    <div class="col-12 col-lg-9 profile-content">
+                        <h2 class="titre">Mes conversations</h2>
+
+                        <div class="mt-5 profile-content_messages">
+                            <div class="row">
+                                <!-- Liste des conversations -->
+                                <div class="col-12 conversations-list">
+                                    <div class="list-group" style="height: 600px; overflow-y: auto;">
+                                        {% for message in messages %}
+                                            <a href="{{ path('app_frontend_demandeur_message_echange', {'demandeur': demandeur.code, 'matricule': message.prestataire.matricule}) }}" class="list-group-item list-group-item-action">
+                                                <div class="d-flex w-100 align-items-center">
+                                                    {% if message.prestataire.media %}
+                                                        <img src="{{ absolute_url(asset('upload/prestataire/' ~ message.prestataire.media)) }}" alt="{{ message.prestataire.nom }} {{ message.prestataire.prenoms }}" class="img-fluid">
+                                                    {% else %}
+                                                        <img src="{{ absolute_url(asset('img/all/3d-worker.png')) }}" alt="{{ message.prestataire.media }}" class="img-fluid">
+                                                    {% endif %}
+                                                    <h6 class="mb-0 fz-16">{{ message.prestataire.prenoms|title }} {{ message.prestataire.nom|upper }}</h6>
+
+                                                </div>
+                                                <small class="text-muted fz-16">{{ message.createdAt|temps_ecoule }}</small>
+                                                <p class="mb-1">{{ message.content|raw }}</p>
+                                            </a>
+                                        {% endfor %}
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
+{% block breadcrumb %}
+    <section class="header py-30" id="breadcrumb"></section>
+{% endblock %}

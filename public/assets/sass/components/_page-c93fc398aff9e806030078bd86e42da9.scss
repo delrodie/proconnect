@@ -931,52 +931,7 @@
 
                 &-item{
                     img{
-                        width: 30px;
-                        height: 30px;
-                        object-fit: cover;
-                        border-radius: 50px;
-                    }
-
-                    h6{
-                        @include summary(1);
-                        float: left;
-                        margin-left: 10px;
-                    }
-
-                  small{
-                      float: right;
-                  }
-                    &.active{
-                        background: rgba($color-main, .1);
-                        color: black;
-                        border: 0;
-                    }
-                }
-            }
-
-            .chat-window{
-                .card{
-                    border-radius: 0;
-                    border: solid 1px rgba($color-main, 0.15);
-
-                    &-header{
-                        img{
-                            width: 30px;
-                            height: 30px;
-                            object-fit: cover;
-                            border-radius: 50px;
-                        }
-                    }
-
-                    .message{
-                        &-content{
-                            line-height: 24px;
-                            font-size: 16px;
-                        }
-
-                        &-time{
-                            font-size: 11px;
-                        }
+                        width: 50px;
                     }
                 }
             }
