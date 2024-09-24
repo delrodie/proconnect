@@ -11,7 +11,7 @@
                     <div class="col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3 connexion-box__inner px-20 py-20">
                         <h1 class="h1 fw-800 text-center logo">ProConnect</h1>
                         <h6 class="h6 label text-center label">Connexion</h6>
-                        <form method="post" class="mt-30">
+                        <form method="post" class="mt-30" data-turbo="false">
                             {% if error %}
                                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                             {% endif %}

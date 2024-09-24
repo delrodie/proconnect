@@ -71,9 +71,12 @@
                                                                     <span class="create-at fz-16"> {{ candidature.createdAt|date('d/m/Y H:i:s') }}</span>
                                                                 </small>
                                                             </div>
-                                                            <div class="col-2">
-                                                                <a href="#" class="btn btn-sm btn-main">Voir offre</a>
-                                                            </div>
+                                                            {% if is_granted('ROLE_DEMANDEUR') %}
+                                                                <div class="col-2">
+                                                                    <a href="{{ path('app_frontend_demandeur_candidat_offre', {'demandeur': projet.reference|projet_demandeur_code, 'offre': candidature.reference}) }}" class="btn btn-sm btn-main" data-turbo="false">Voir offre</a>
+                                                                </div>
+                                                            {% endif %}
+
                                                         </div>
                                                     </div>
                                                     <p class="card-text fz-16">{{ candidature.description|slice(0,500) }}</p>

@@ -6,6 +6,7 @@ namespace App\Controller\Frontend;
 
 use App\Entity\Postuler;
 use App\Service\AllRepositories;
+use App\Service\RedirectPath;
 use App\Service\Utilities;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,7 +24,8 @@ class DemandeurCandidatController extends AbstractController
         private RequestStack $requestStack,
         private AllRepositories $allRepositories,
         private EntityManagerInterface $entityManager,
-        private Utilities $utilities
+        private Utilities $utilities,
+        private RedirectPath $redirectPath
     )
     {
     }
@@ -37,6 +39,10 @@ class DemandeurCandidatController extends AbstractController
     #[Route('/{offre}', name: 'app_frontend_demandeur_candidat_offre', methods: ['GET','POST'])]
     public function offre(Request $request, $offre, $demandeur): Response
     {
+        // Verifier si le concerné est le demandeur
+        $verif = $this->redirectPath->redirectNotDemandeur($demandeur);
+        if ($verif)  return $this->redirect($verif);
+
         $postuler = $this->allRepositories->getOnePostuler($offre); //dd($request->get('_token'));
 
         if ($this->isCsrfTokenValid('embauche'.$postuler->getReference(), $request->get('_token'))){
@@ -72,5 +78,10 @@ class DemandeurCandidatController extends AbstractController
             'demander' => $this->allRepositories->getOneDemandeur($demandeur),
             'prestataire' => $this->allRepositories->getOnePrestataire(null, $postuler->getUser())
         ]);
+    }
+
+    private function verify($demandeur)
+    {
+
     }
 }

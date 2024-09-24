@@ -16,6 +16,7 @@ class ProjetDemandeurExtension extends AbstractExtension
             // parameter: ['is_safe' => ['html']]
             // Reference: https://twig.symfony.com/doc/3.x/advanced.html#automatic-escaping
             new TwigFilter('projet_demandeur', [ProjetDemandeurRuntime::class, 'projetDemandeur']),
+            new TwigFilter('projet_demandeur_code', [ProjetDemandeurRuntime::class, 'projetDemandeurCode']),
         ];
     }
 
@@ -23,6 +24,7 @@ class ProjetDemandeurExtension extends AbstractExtension
     {
         return [
             new TwigFunction('projet_demandeur', [ProjetDemandeurRuntime::class, 'projetDemandeur']),
+            new TwigFunction('projet_demandeur_code', [ProjetDemandeurRuntime::class, 'projetDemandeurCode']),
         ];
     }
 }
