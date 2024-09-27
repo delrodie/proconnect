@@ -73,6 +73,9 @@ class Projet
     #[ORM\OneToMany(targetEntity: ProjetImage::class, mappedBy: 'projet')]
     private Collection $projetImages;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $montant = null;
+
     public function __construct()
     {
         $this->postulers = new ArrayCollection();
@@ -320,6 +323,18 @@ class Projet
                 $projetImage->setProjet(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getMontant(): ?int
+    {
+        return $this->montant;
+    }
+
+    public function setMontant(?int $montant): static
+    {
+        $this->montant = $montant;
 
         return $this;
     }

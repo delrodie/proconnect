@@ -15,11 +15,21 @@
                                 <a href="{{ absolute_url(path('app_frontend_demandeur_message_echange', {'demandeur': demandeur.code, 'matricule': prestataire.matricule})) }}" class="btn btn-outline-main btn-sm me-2">
                                     <i class="bi bi-chat-dots"></i> Messages
                                 </a>
-                                <form action="" onsubmit="return confirm('Voulez-vous vraiment embaucher ce prestataire?');">
-                                    <input type="hidden" name="_offre" value="{{ offre.reference }}">
-                                    <input type="hidden" name="_token" value="{{ csrf_token('embauche'~ offre.reference) }}">
-                                    <button type="submit" class="btn btn-main btn-sm"><i class="bi bi-briefcase"></i> Embaucher ce prestataire</button>
-                                </form>
+                                <button type="button" class="btn btn-main btn-sm" data-bs-toggle="modal" data-bs-target="#confirmationModal">
+                                    <i class="bi bi-briefcase"></i> Embaucher ce prestataire
+                                </button>
+{#                                <form action="" onsubmit="return confirmFinalAmount();">#}
+{#                                    <input type="hidden" name="_offre" value="{{ offre.reference }}">#}
+{#                                    <input type="hidden" name="_token" value="{{ csrf_token('embauche'~ offre.reference) }}">#}
+
+{#                                    <!-- Nouveau champ pour le montant final -->#}
+{#                                    <div class="mb-3">#}
+{#                                        <label for="finalAmount">Montant final convenu (FCFA) :</label>#}
+{#                                        <input type="number" class="form-control" id="finalAmount" name="finalAmount" required>#}
+{#                                    </div>#}
+
+{#                                    <button type="submit" class="btn btn-main btn-sm"><i class="bi bi-briefcase"></i> Embaucher ce prestataire</button>#}
+{#                                </form>#}
                             </div>
                         {% endif %}
 
@@ -159,8 +169,57 @@
             </div>
         </section>
     </main>
+
+    <!-- Modal -->
+    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmationModalLabel">Confirmation de l'embauche</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="hireForm" method="POST" action="">
+                        <input type="hidden" name="_offre" value="{{ offre.reference }}">
+                        <input type="hidden" name="_token" value="{{ csrf_token('embauche'~ offre.reference) }}">
+
+                        <!-- Champ pour le montant final -->
+                        <div class="mb-3">
+                            <label for="finalAmount">Montant final convenu (FCFA) :</label>
+                            <input type="number" class="form-control" id="finalAmount" name="_montant_final" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-main" onclick="submitHireForm()">Confirmer et embaucher</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 {% endblock %}
 
 {% block breadcrumb %}
     <section class="header py-30" id="breadcrumb"> </section>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        function submitHireForm() {
+            const finalAmount = document.getElementById('finalAmount').value;
+
+            if (finalAmount === '' || isNaN(finalAmount) || finalAmount <= 0) {
+                alert('Veuillez saisir un montant final valide.');
+                return false;
+            }
+
+            if (confirm('Voulez-vous vraiment embaucher ce prestataire avec un montant final de ' + finalAmount + ' FCFA?')) {
+                document.getElementById('hireForm').submit();
+            }
+        }
+
+    </script>
 {% endblock %}

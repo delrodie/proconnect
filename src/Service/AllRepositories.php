@@ -356,4 +356,9 @@ class AllRepositories
     {
         return $this->messageRepository->findLastMessageByPrestataire($prestataire);
     }
+
+    public function getAllPrestataireByLocalite($localite)
+    {
+        return $this->prestataireRepository->findByLocalite($localite);
+    }
 }

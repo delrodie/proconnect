@@ -49,7 +49,8 @@ class ProjetController extends AbstractController
         return $this->render('frontend_projet/show.html.twig',[
             'projet' => $projet,
             'candidatures' => $this->allRepositories->findCanditatureByProjet($reference),
-            'similaires' => $this->allRepositories->findProjetSimilaireByCategorie($projet->getCategorie())
+            'similaires' => $this->allRepositories->findProjetSimilaireByCategorie($projet->getCategorie()),
+            'prestataires' => $this->allRepositories->getAllPrestataireByLocalite($projet->getLocalite()),
         ]);
     }
 

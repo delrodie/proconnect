@@ -41,6 +41,15 @@ class PrestataireRepository extends ServiceEntityRepository
             ;
     }
 
+    public function findByLocalite($localite)
+    {
+        return $this->querySelect()
+            ->where('l.id = :localite')
+            ->setParameter('localite', $localite)
+            ->getQuery()->getResult()
+            ;
+    }
+
     public function querySelect()
     {
         return $this->createQueryBuilder('p')

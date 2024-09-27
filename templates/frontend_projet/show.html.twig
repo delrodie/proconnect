@@ -90,9 +90,12 @@
                         </div>
                     </div>
                     <div class="col-lg-4" data-aos="fade-left">
-                        <div class="d-grid gap-2">
-                            <a href="{{ absolute_url(path('app_frontend_projet_postuler', {'reference': projet.reference})) }}" class="btn btn-lg btn-main btn-no-rounded py-7" data-turbo="false">Postuler à ce projet</a>
-                        </div>
+                        {% if not is_granted('ROLE_DEMANDEUR') %}
+                            <div class="d-grid gap-2">
+                                <a href="{{ absolute_url(path('app_frontend_projet_postuler', {'reference': projet.reference})) }}" class="btn btn-lg btn-main btn-no-rounded py-7" data-turbo="false">Postuler à cette offre</a>
+                            </div>
+                        {% endif %}
+
                         <div class="projects-client">
                             <h6 class="fz-26 fw-500 mt-5">{{ projet.reference|projet_demandeur}} </h6>
 
@@ -100,43 +103,91 @@
                                 <i class="bi bi-geo-alt"></i> {{ projet.localite.title}}, {{ projet.lieu }}
                             </div>
 
-                            {% if similaires > 0 %}
-                                <h6 class="h6 mt-5">{{ similaires|length > 1 ? 'Projets similaires' : 'Projet similaire' }}</h6>
+                            {% if is_granted('ROLE_DEMANDEUR') %}
 
-                                <div class="row row-cols-1 projects-items">
+                                {% if prestataires > 0 %}
+                                    <h6 class="h6 mt-5">{{ prestataires|length > 1 ? 'Prestataires de la localité' : 'Prestataire de la localité' }}</h6>
 
-                                    {% for similaire in similaires|slice(0,3) %}
-                                        <div class="col projects-items__content mt-3">
-                                            <a href="{{ absolute_url(path('app_frontend_projet_show', {'reference': similaire.reference})) }}" data-turbo="false">
-                                                <div class="card h-100">
-                                                    <div class="card-body">
+                                    <div class="row row-cols-1 projects-items">
 
-                                                        <div class="projects-items__content-author">
-                                                            <div class="projects-items__content-infos pl-3">
-                                                                <span class="badge bg-main">{{ similaire.categorie }}</span>
-                                                                <h6 class="h6">{{ similaire.title }}</h6>
-                                                                <div class="reference fz-16">
-                                                                    Par <span class="author fw-500">{{ similaire.demandeur.nom }}</span> le {{ similaire.created_at|date('d/m/Y')}} à {{ similaire.created_at|date('H:i:s') }}
+                                        {% for prestataire in prestataires|slice(0,3) %}
+                                            <div class="col projects-items__content mt-3">
+                                                <a href="{{ absolute_url(path('app_frontend_professionnel_show', {'matricule': prestataire.matricule})) }}" data-turbo="false">
+                                                    <div class="card h-100">
+                                                        <div class="card-body">
+                                                            <div class="float-start">
+                                                                <img src="{{ absolute_url(asset('upload/prestataire/'~ prestataire.media)) }}"
+                                                                     alt="{{ prestataire.nom }} {{ prestataire.prenoms }}"
+                                                                     class="img-fluid avatar" style="width: 60px; height: 60px; object-fit: cover;">
+                                                            </div>
+
+                                                            <div class="projects-items__content-author">
+                                                                <div class="projects-items__content-infos pl-3">
+                                                                    <span class="badge bg-main">{{ prestataire.profession }}</span>
+                                                                    <h6 class=" fz-18">{{ prestataire.nom|upper }} {{ prestataire.prenoms|title }}</h6>
+{#                                                                    <br>#}
                                                                 </div>
                                                             </div>
-                                                        </div>
 
-                                                        <div class="projects-items__content-details mt-2">
-                                                            <div class="location"> <i class="bi bi-geo-alt"></i> {{ similaire.localite}}, {{ similaire.lieu }} </div>
-                                                        </div>
-                                                        <div class="projects-items__content-countdown py-5">
-                                                            <span class="fz-22 fw-500 px-2">{{ jour_restant(similaire.reference)}}</span>
-                                                            {{ similaire.reference|jour_restant > 1 ? 'jours restants pour postuler.' : 'jour restant pour postuler.' }}
+                                                            <div class="projects-items__content-details mt-2">
+                                                                <div class="reference fz-16" style="color: var(--color-light-gray)">
+                                                                    <i class="bi bi-calendar2-event"></i>
+                                                                    {{ prestataire.createdAt|date('d/m/Y')}} à {{ prestataire.createdAt|date('H:i:s') }}
+                                                                </div>
+                                                                <div class="location"> <i class="bi bi-geo-alt"></i> {{ prestataire.localite.title }} </div>
+                                                            </div>
+                                                            <div class="projects-items__content-countdown py-5">
+                                                                <span class="fz-22 fw-500 px-2">0</span> Projet réalisé
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    {% endfor %}
+                                                </a>
+                                            </div>
+                                        {% endfor %}
 
-                                </div>
+                                    </div>
+                                {% endif %}
+
+                            {% else %}
+
+                                {% if similaires > 0 %}
+                                    <h6 class="h6 mt-5">{{ similaires|length > 1 ? 'Projets similaires' : 'Projet similaire' }}</h6>
+
+                                    <div class="row row-cols-1 projects-items">
+
+                                        {% for similaire in similaires|slice(0,3) %}
+                                            <div class="col projects-items__content mt-3">
+                                                <a href="{{ absolute_url(path('app_frontend_projet_show', {'reference': similaire.reference})) }}" data-turbo="false">
+                                                    <div class="card h-100">
+                                                        <div class="card-body">
+
+                                                            <div class="projects-items__content-author">
+                                                                <div class="projects-items__content-infos pl-3">
+                                                                    <span class="badge bg-main">{{ similaire.categorie }}</span>
+                                                                    <h6 class="h6">{{ similaire.title }}</h6>
+                                                                    <div class="reference fz-16">
+                                                                        Par <span class="author fw-500">{{ similaire.demandeur.nom }}</span> le {{ similaire.created_at|date('d/m/Y')}} à {{ similaire.created_at|date('H:i:s') }}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="projects-items__content-details mt-2">
+                                                                <div class="location"> <i class="bi bi-geo-alt"></i> {{ similaire.localite}}, {{ similaire.lieu }} </div>
+                                                            </div>
+                                                            <div class="projects-items__content-countdown py-5">
+                                                                <span class="fz-22 fw-500 px-2">{{ jour_restant(similaire.reference)}}</span>
+                                                                {{ similaire.reference|jour_restant > 1 ? 'jours restants pour postuler.' : 'jour restant pour postuler.' }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        {% endfor %}
+
+                                    </div>
+                                {% endif %}
+
                             {% endif %}
-
 
                         </div>
                     </div>
