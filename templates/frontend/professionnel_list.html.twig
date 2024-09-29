@@ -48,17 +48,18 @@
                                                         <span class="badge bg-main">{{ competence.title }}</span>
                                                     {% endfor %}
                                                 </div>
-{#                                                <div class="rating text-end fz-14">#}
-{#                                                    <i class="bi bi-star-fill"></i>#}
-{#                                                    <i class="bi bi-star-fill"></i>#}
-{#                                                    <i class="bi bi-star-fill"></i>#}
-{#                                                    <i class="bi bi-star-half"></i>#}
-{#                                                    <i class="bi bi-star"></i>#}
-{#                                                    3.5 avis#}
-{#                                                </div>#}
+                                                <div class="rating text-center fz-14" data-rating="{{ prestataire.user.id|prestataire_rating }}">
+                                                    {% set rating = prestataire.user.id|prestataire_rating %}
+                                                    <i class="bi {{ rating >= 1 ? 'bi-star-fill' : 'bi-star' }}"></i>
+                                                    <i class="bi {{ rating >= 2 ? 'bi-star-fill' : 'bi-star' }}"></i>
+                                                    <i class="bi {{ rating >= 3 ? 'bi-star-fill' : 'bi-star' }}"></i>
+                                                    <i class="bi {{ rating >= 4 ? 'bi-star-fill' : 'bi-star' }}"></i>
+                                                    <i class="bi {{ rating >= 5 ? 'bi-star-fill' : 'bi-star' }}"></i>
+                                                    {{ prestataire.user.id|prestataire_rating|number_format(1,',','') }} avis
+                                                </div>
                                             </div>
                                             <div class="providers-items__conntent-completed text-center fz-26 fw-500 py-10">
-                                                <span class="fw-800">0</span> projet réalisé
+                                                <span class="fw-800">{{ prestataire_projet_realise(prestataire.user.id)|length > 0 ? prestataire_projet_realise(prestataire.user.id)|length : 'Aucun'}}</span> {{ prestataire_projet_realise(prestataire.user.id)|length > 1 ? "projets réalisés" : prestataire_projet_realise(prestataire.user.id)|length == 1 ? "projet réalisé" : 'projet' }}
                                             </div>
                                         </div>
                                         <div class="card-footer">

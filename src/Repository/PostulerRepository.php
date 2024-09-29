@@ -94,6 +94,19 @@ class PostulerRepository extends ServiceEntityRepository
             ->getQuery()->getResult()
             ;
     }
+    public function findRatingByPrestataire($user)
+    {
+        return $this->createQueryBuilder('p')
+            ->addSelect('u')
+            ->addSelect('r')
+            ->leftJoin('p.user', 'u')
+            ->leftJoin('p.projet', 'r')
+            ->where('p.note IS NOT NULL')
+            ->andWhere('u.id = :user')
+            ->setParameter('user', $user)
+            ->getQuery()->getResult()
+            ;
+    }
 
 
     //    /**

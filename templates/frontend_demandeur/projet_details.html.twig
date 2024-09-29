@@ -126,15 +126,16 @@
                                                                     </a>
                                                                 </h6>
                                                                 <small class="text-body-secondary fz-14">
-                                                                    <span class="rating">
-                                                                        <i class="bi bi-star-fill"></i>
-                                                                        <i class="bi bi-star-fill"></i>
-                                                                        <i class="bi bi-star-fill"></i>
-                                                                        <i class="bi bi-star-half"></i>
-                                                                        <i class="bi bi-star"></i>
-                                                                        4.5 avis
+                                                                    <span class="rating" data-rating="{{ candidature.user_id|prestataire_rating }}">
+                                                                        {% set rating = candidature.user_id|prestataire_rating %}
+                                                                        <i class="bi {{ rating >= 1 ? 'bi-star-fill' : 'bi-star' }}"></i>
+                                                                        <i class="bi {{ rating >= 2 ? 'bi-star-fill' : 'bi-star' }}"></i>
+                                                                        <i class="bi {{ rating >= 3 ? 'bi-star-fill' : 'bi-star' }}"></i>
+                                                                        <i class="bi {{ rating >= 4 ? 'bi-star-fill' : 'bi-star' }}"></i>
+                                                                        <i class="bi {{ rating >= 5 ? 'bi-star-fill' : 'bi-star' }}"></i>
+                                                                        {{ candidature.user_id|prestataire_rating|number_format(1,',','') }} avis
                                                                     </span>
-                                                                    <span class="create-at fz-16">{{ candidature.createdAt|date('d/m/Y H:i:s') }}</span>
+                                                                    <span class="create-at fz-14">{{ candidature.createdAt|date('d/m/Y H:i:s') }}</span>
                                                                 </small>
                                                             </div>
                                                             {% if projet.statut == 'APPEL' %}

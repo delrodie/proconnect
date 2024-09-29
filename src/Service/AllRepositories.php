@@ -276,6 +276,7 @@ class AllRepositories
                 'projet_statut' => $candidature->getProjet()->getStatut(),
                 'projet_createdAt' => $candidature->getProjet()->getCreatedAt(),
                 'user' => $candidature->getUser()->getUsername(),
+                'user_id' => $candidature->getUser()->getId(),
                 'prestataire_matricule' => $prestataire->getMatricule(),
                 'prestataire_nom' => $prestataire->getNom(),
                 'prestataire_prenoms' => $prestataire->getPrenoms(),
@@ -389,5 +390,10 @@ class AllRepositories
     public function getProjetCloturerByDemandeur($user)
     {
         return $this->projetRepository->findAllClotureByDemandeur($user);
+    }
+
+    public function getPrestataireRating($user)
+    {
+        return $this->postulerRepository->findRatingByPrestataire($user);
     }
 }
