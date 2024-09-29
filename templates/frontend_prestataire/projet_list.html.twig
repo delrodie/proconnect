@@ -45,7 +45,7 @@
                                                 {% if soumission.projet.statut == 'DEMANDE' %}
                                                     <a href="{{ path('app_frontend_professionnel_reponse', {'matricule': prestataire.matricule, 'reference_projet': soumission.projet.reference}) }}">Repondre</a> &nbsp; | &nbsp;
                                                 {% endif %}
-                                                <a href="{{ absolute_url(path('app_frontend_projet_show', {'reference': soumission.projet.reference})) }}" class="">Détails</a>
+                                                <a href="{{ absolute_url(path('app_frontend_projet_show', {'reference': soumission.projet.reference})) }}" class="" data-turbo="false">Détails</a>
                                             </td>
                                         </tr>
                                     {% endfor %}

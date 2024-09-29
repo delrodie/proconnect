@@ -91,9 +91,11 @@
                     </div>
                     <div class="col-lg-4" data-aos="fade-left">
                         {% if not is_granted('ROLE_DEMANDEUR') %}
-                            <div class="d-grid gap-2">
-                                <a href="{{ absolute_url(path('app_frontend_projet_postuler', {'reference': projet.reference})) }}" class="btn btn-lg btn-main btn-no-rounded py-7" data-turbo="false">Postuler à cette offre</a>
-                            </div>
+                            {% if projet.statut == 'APPEL' %}
+                                <div class="d-grid gap-2">
+                                    <a href="{{ absolute_url(path('app_frontend_projet_postuler', {'reference': projet.reference})) }}" class="btn btn-lg btn-main btn-no-rounded py-7" data-turbo="false">Postuler à cette offre</a>
+                                </div>
+                            {% endif %}
                         {% endif %}
 
                         <div class="projects-client">

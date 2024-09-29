@@ -35,7 +35,7 @@
                                                 {% if valide.projet.statut == 'APPEL' %}
                                                     <a href="{{ path('app_frontend_prestataire_projet_modif', {'prestataire': prestataire.matricule, 'reference': valide.reference}) }}">Modifier</a> &nbsp; | &nbsp;
                                                 {% endif %}
-                                                <a href="{{ absolute_url(path('app_frontend_projet_show', {'reference': valide.projet.reference})) }}" class="">Détails</a>
+                                                <a href="{{ absolute_url(path('app_frontend_projet_show', {'reference': valide.projet.reference})) }}" class="" data-turbo="false">Détails</a>
                                             </td>
                                         </tr>
                                     {% endfor %}
