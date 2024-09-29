@@ -20,6 +20,7 @@ class Messages
     CONST PROJET_DEMANDE_EMBAUCHE = "Votre demande d'embauche a été envoyée avec succès!";
     CONST PROJET_DEMANDE_NON_DISPONIBLE = "La demande de prestation n'est plus disponible. Si vous pensez que c'est une erreur veuillez contacter le demandeur ou les administrateurs de la plateforme";
     CONST PROJET_DEMANDE_SUPPRIME = "La suppression de votre demande de prestation a été effectuée avec succès!";
+    CONST PROJET_DEMANDE_CLOTURER = "Votre projet a été clôturé avec succès!";
 
     /**
      * Les messages relatifs a la candidature

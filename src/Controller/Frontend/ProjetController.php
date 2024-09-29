@@ -29,11 +29,23 @@ class ProjetController extends AbstractController
     #[Route('/', name: 'app_frontend_projet_list', methods: ['GET'])]
     public function index(Request $request): Response
     {
+        // Verification si l'utilisateur est connecté
+        if ($this->isGranted('ROLE_PRESTATAIRE')){
+            $prestataire = $this->allRepositories->getOnePrestataire(null, $this->getUser());
+            if ($prestataire){ //dd($prestataire->getLocalite());
+                $projets = $this->allRepositories->findAllProjetByStatutAndLocalityPriority($prestataire->getLocalite(), "APPEL");
+            }
+//            dd($projets);
+        }else{
+            $projets = $this->allRepositories->findAllProjetByStatut("APPEL");
+        }
+
         $filter = $request->get('filter');
         $projets = match ($filter){
             'BUDGET' => $this->allRepositories->findAllProjetByStatut("APPEL", null, $filter),
             'DATE' => $this->allRepositories->findAllProjetByStatut("APPEL", $filter),
-            default => $this->allRepositories->findAllProjetByStatut("APPEL"),
+            default => $projets,
+//            default => ,
         };
         return $this->render('frontend_projet/list.html.twig',[
             'projets' =>$projets
@@ -49,13 +61,13 @@ class ProjetController extends AbstractController
         return $this->render('frontend_projet/show.html.twig',[
             'projet' => $projet,
             'candidatures' => $this->allRepositories->findCanditatureByProjet($reference),
-            'similaires' => $this->allRepositories->findProjetSimilaireByCategorie($projet->getCategorie()),
+            'similaires' => $this->allRepositories->getOthersProjetByPrestataire($projet),
             'prestataires' => $this->allRepositories->getAllPrestataireByLocalite($projet->getLocalite()),
         ]);
     }
 
     #[Route('/{reference}/postuler', name: 'app_frontend_projet_postuler',methods: ['GET','POST'])]
-    #[isGranted('ROLE_USER', message: 'Vous n\'êtes pas autorisé à accéder au formulaire de soumission d\'offre. Cette section est réservée exclusivement aux prestataires.')]
+    #[isGranted('ROLE_PRESTATAIRE', message: 'Vous n\'êtes pas autorisé à accéder au formulaire de soumission d\'offre. Cette section est réservée exclusivement aux prestataires.')]
     public function postuler(Request $request, $reference): Response
     {
         $projet = $this->allRepositories->getOneProjet($reference);
@@ -93,10 +105,19 @@ class ProjetController extends AbstractController
 
             return $this->redirectToRoute('app_frontend_projet_list');
         }
+
         return $this->render('frontend_projet/postuler.html.twig',[
             'projet' =>$projet,
             'postuler' => $postuler,
-            'form' => $form
+            'form' => $form,
+            'autres_projets' => $this->allRepositories->getOthersProjetByPrestataire($projet)
         ]);
+    }
+
+    #[Route('/finaliser/', name: 'app_frontend_projet_finaliser',methods: ['POST'])]
+    #[isGranted('ROLE_DEMANDEUR', message: "")]
+    public function finaliser(Request $request)
+    {
+
     }
 }

@@ -21,13 +21,13 @@
 {% endblock %}
 
 {% block stylesheets %}
-    <script src="{{ absolute_url(asset('js/jquery-3.7.1.min.js')) }}"></script>
     {{ parent() }}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 {% endblock %}
 
 {% block javascripts %}
+    <script src="{{ absolute_url(asset('js/jquery-3.7.1.min.js')) }}"></script>
     {{ parent() }}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -35,6 +35,31 @@
     <script>
         $(document).ready(function() {
             $('.select-2').select2();
+        });
+    </script>
+    <script>
+        // Initialiser Dropify et Select2 avec Turbo
+        function initializeComponents() {
+            // Initialisation de Dropify
+            $('.dropify').dropify();
+
+            // Initialisation de Select2
+            $('.select-2').select2();
+        }
+
+        // Écouter l'événement Turbo pour initialiser les bibliothèques après le chargement de Turbo
+        document.addEventListener('turbo:load', function() {
+            initializeComponents();
+        });
+
+        // Si vous utilisez des frames Turbo, écoutez aussi cet événement
+        document.addEventListener('turbo:frame-render', function() {
+            initializeComponents();
+        });
+
+        // Pour le premier chargement de la page
+        $(document).ready(function() {
+            initializeComponents();
         });
     </script>
 {% endblock %}

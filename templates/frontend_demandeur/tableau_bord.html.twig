@@ -29,9 +29,9 @@
                                     <div class="card h-100">
                                         <div class="card-body">
                                             <h5 class="card-title"><i class="bi bi-suitcase-lg"></i> Projets
-                                                réalisés</h5>
+                                                Clôturés</h5>
                                             <div class="card-text">
-                                                    <span class="nombre">0</span>
+                                                    <span class="nombre">{{ projet_clotures|length }}</span>
                                                 <a href="#" class="details">Voir détails</a>
                                             </div>
                                         </div>
@@ -39,10 +39,14 @@
                                 </div>
                                 <div class="col">
                                     <div class="card h-100">
+                                        {% set nombre_candidat = 0 %}
+                                        {% for projet in projets %}
+                                            {% set nombre_candidat = nombre_candidat + projet.postulers|length %}
+                                        {% endfor %}
                                         <div class="card-body">
                                             <h5 class="card-title"><i class="bi bi-people"></i> Candidats</h5>
                                             <div class="card-text">
-                                                <span class="nombre">0</span>
+                                                <span class="nombre">{{ nombre_candidat }}</span>
                                                 <a href="#" class="details">Voir détails</a>
                                             </div>
                                         </div>
@@ -51,9 +55,9 @@
                                 <div class="col">
                                     <div class="card h-100">
                                         <div class="card-body">
-                                            <h5 class="card-title"><i class="bi bi-cash-coin"></i> Depenses</h5>
+                                            <h5 class="card-title"><i class="bi bi-cash-coin"></i> Dépenses</h5>
                                             <div class="card-text text-center">
-                                                <span class="finance">0 FCFA</span>
+                                                <span class="finance">{{ depense|number_format(0,'','.')}} FCFA</span>
                                             </div>
                                         </div>
                                     </div>
@@ -63,11 +67,12 @@
                             <div class="profile-content_dashboard-projets">
                                 <h6 class="title">
                                     Liste des projets
-                                    <a href="#" class="all">...Voir tous les projets</a>
+{#                                    <a href="#" class="all">...Voir tous les projets</a>#}
                                 </h6>
-                                <table class="table table-striped table-hover table-sm table-responsive-sm mt-3">
+                                <table class="table table-striped table-hover table-sm table-responsive-sm mt-3" id="liste">
                                     <thead>
                                     <tr>
+                                        <th>Référence</th>
                                         <th>Intitulés</th>
                                         <th>Budget</th>
                                         <th>Propositions</th>
@@ -76,31 +81,24 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <!--
-                                    <tr>
-                                        <td>Recherche d'un menuisier pour table centrale</td>
-                                        <td class="text-end">75.000 FCFA</td>
-                                        <td class="text-center">25</td>
-                                        <td class="text-center"><span
-                                                    class="badge text-bg-primary">Terminés</span></td>
-                                        <td class="text-center">
-                                            <a href="#" class="">Détails</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Intitulé projet 2</td>
-                                        <td class="text-end">350.000 FCFA</td>
-                                        <td class="text-center">72</td>
-                                        <td class="text-center"><span
-                                                    class="badge text-bg-secondary">Encours</span></td>
-                                        <td class="text-center">
-                                            <a href="#" class="">Détails</a>
-                                        </td>
-                                    </tr>
-                                    -->
-                                    <tr>
-                                        <td colspan="5" class="text-center">Aucun projet réalisé</td>
-                                    </tr>
+                                    {% for projet in projets %}
+                                        <tr>
+                                            <td>{{ projet.reference }}</td>
+                                            <td>{{ projet.title }}</td>
+                                            <td class="text-end">{{ projet.montant ? projet.montant|number_format(0,'','.') ~ ' FCFA' : '-' }}</td>
+                                            <td class="text-center">{{ projet.postulers|length }}</td>
+                                            <td class="text-center"><span
+                                                        class="badge {{ projet.statut|stick_css_class }}">{{ projet.statut|statut_label }}</span></td>
+                                            <td class="text-center">
+                                                <a href="{{ absolute_url(path('app_frontend_demandeur_projet_details', {'demandeur': demandeur.code, 'reference': projet.reference})) }}" class="">Détails</a>
+                                            </td>
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="6" class="text-center">Aucun projet réalisé</td>
+                                        </tr>
+                                    {% endfor %}
+
                                     </tbody>
                                 </table>
                             </div>
@@ -116,4 +114,35 @@
 
 {% block breadcrumb %}
     <section class="header py-30" id="breadcrumb"> </section>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {#    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">#}
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.5/css/dataTables.bootstrap5.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.1.2/css/buttons.dataTables.css">
+{% endblock %}
+{% block javascripts %}
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    {{ parent() }}
+    <script src="https://cdn.datatables.net/2.1.5/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.1.5/js/dataTables.bootstrap5.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.1.2/js/dataTables.buttons.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.1.2/js/buttons.dataTables.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.1.2/js/buttons.html5.min.js"></script>
+    <script>
+        new DataTable('#liste', {
+            layout: {
+                topStart: {
+                    buttons: ['copyHtml5', 'excelHtml5', 'csvHtml5', 'pdfHtml5']
+                }
+            },
+            language: {
+                url: '//cdn.datatables.net/plug-ins/2.1.5/i18n/fr-FR.json',
+            },
+        });
+    </script>
 {% endblock %}

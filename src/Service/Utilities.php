@@ -17,6 +17,7 @@ class Utilities
 {
     use TargetPathTrait;
     const PROJET_REALISE = 'TERMINE';
+    const PROJET_CLOTURE = 'CLOTURE';
     const PROJET_ENCOURS = 'ENCOURS';
     const PROJET_APPEL = 'APPEL';
     const PROJET_DEMANDE = "DEMANDE";

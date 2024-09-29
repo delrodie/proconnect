@@ -28,11 +28,11 @@
                 <li class="nav-item">
                     <a href="{{ absolute_url(path('app_frontend_prestataire_projet_list',{'prestataire': prestataire.matricule})) }}" class="nav-link {{ menu_active('app_frontend_prestataire_projet_list') }}"><i class="bi bi-people"></i> Mes candidatures</a>
                 </li>
-            {% endif %}
 
-            <li class="nav-item">
-                <a href="{{ absolute_url(path('app_frontend_prestataire_message_list',{"prestataire": prestataire.matricule})) }}" class="nav-link {{ menu_active('app_frontend_prestataire_message_list') }} {{ menu_active('app_frontend_prestataire_message_echange') }}"><i class="bi bi-envelope"></i> Messages</a>
-            </li>
+                <li class="nav-item">
+                    <a href="{{ absolute_url(path('app_frontend_prestataire_message_list',{"prestataire": prestataire.matricule})) }}" class="nav-link {{ menu_active('app_frontend_prestataire_message_list') }} {{ menu_active('app_frontend_prestataire_message_echange') }}"><i class="bi bi-envelope"></i> Messages</a>
+                </li>
+            {% endif %}
 
             <li class="nav-item dropdown">
                 <a href="#parametre" class="nav-link {{ menu_active('#parametre') }}" role="button" data-bs-toggle="collapse"

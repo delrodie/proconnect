@@ -50,6 +50,12 @@ class Postuler
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $reponse = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $note = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $commentaire = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -195,6 +201,30 @@ class Postuler
     public function setReponse(?string $reponse): static
     {
         $this->reponse = $reponse;
+
+        return $this;
+    }
+
+    public function getNote(): ?int
+    {
+        return $this->note;
+    }
+
+    public function setNote(?int $note): static
+    {
+        $this->note = $note;
+
+        return $this;
+    }
+
+    public function getCommentaire(): ?string
+    {
+        return $this->commentaire;
+    }
+
+    public function setCommentaire(?string $commentaire): static
+    {
+        $this->commentaire = $commentaire;
 
         return $this;
     }

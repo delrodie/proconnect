@@ -10,103 +10,48 @@
                         {{ include('frontend_projet/_form.html.twig',{button_label: 'Envoyez votre offre'}) }}
 
                     </div>
-                    <div class="col-lg-4" data-aos="fade-left">
-                        <div class="projects-client">
+                    {% if autres_projets %}
+                        <div class="col-lg-4" data-aos="fade-left">
+                            <div class="projects-client">
 
-                            <h6 class="h6 mt-5">Autres projets</h6>
+                                <h6 class="h6 mt-5">{{ autres_projets|length > 1 ? 'Autres projets' : 'Autre projet' }}</h6>
 
-                            <div class="row row-cols-1 projects-items">
+                                <div class="row row-cols-1 projects-items">
 
-                                <div class="col projects-items__content mt-3">
-                                    <a href="#">
-                                        <div class="card h-100">
-                                            <div class="card-body">
+                                    {% for projet in autres_projets %}
+                                        <div class="col projects-items__content mt-3">
+                                            <a href="{{ path('app_frontend_projet_show', {'reference': projet.reference}) }}">
+                                                <div class="card h-100">
+                                                    <div class="card-body">
 
-                                                <div class="projects-items__content-author">
-                                                    <div class="projects-items__content-avatar bg-main-gradient">
-                                                        <img src="./assets/img/all/3d-render-african-american-worker-woman-with-helmet.png" alt="" class="img-fluid">
-                                                    </div>
-                                                    <div class="projects-items__content-infos pl-3">
-                                                        <span class="badge bg-main">Catégorie</span>
-                                                        <h6 class="h6">Menuisier</h6>
-                                                        <div class="reference fz-16">
-                                                            Par <span class="author fw-500">Delrodie</span> le2024/07/31 à 13:04:00
+                                                        <div class="projects-items__content-author">
+                                                            <div class="projects-items__content-infos pl-3">
+                                                                <span class="badge bg-main">{{ projet.categorie.title }}</span>
+                                                                <h6 class="fz-20">{{ projet.title }}</h6>
+                                                                <div class="reference fz-14">
+                                                                    <span class="bi bi-calendar-event"></span> {{ projet.createdAt|date('d/m/Y H:i:s') }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="projects-items__content-details mt-2">
+                                                            <div class="location fz-16"> <i class="bi bi-geo-alt"></i> {{ projet.localite.title}}, {{ projet.lieu}} </div>
+                                                        </div>
+                                                        <div class="projects-items__content-countdown py-5">
+                                                            <span class="fz-20 fw-500 px-2">{{ projet.reference|jour_restant }}</span>
+                                                            {{ projet.reference|jour_restant > 1 ? 'jours restants pour postuler' : 'jour restant pour postuler' }}.
                                                         </div>
                                                     </div>
                                                 </div>
-
-                                                <div class="projects-items__content-details mt-2">
-                                                    <div class="location"> <i class="bi bi-geo-alt"></i> Abidjan Riviera III </div>
-                                                </div>
-                                                <div class="projects-items__content-countdown py-5">
-                                                    <span class="fz-22 fw-500 px-2">2</span> jours restants pour postuler.
-                                                </div>
-                                            </div>
+                                            </a>
                                         </div>
-                                    </a>
+                                    {% endfor %}
+
                                 </div>
-
-                                <div class="col projects-items__content mt-3">
-                                    <a href="#">
-                                        <div class="card h-100">
-                                            <div class="card-body">
-
-                                                <div class="projects-items__content-author">
-                                                    <div class="projects-items__content-avatar bg-main-gradient">
-                                                        <img src="./assets/img/all/3d-render-african-american-worker-woman-with-helmet.png" alt="" class="img-fluid">
-                                                    </div>
-                                                    <div class="projects-items__content-infos pl-3">
-                                                        <span class="badge bg-main">Catégorie</span>
-                                                        <h6 class="h6">Menuisier</h6>
-                                                        <div class="reference fz-16">
-                                                            Par <span class="author fw-500">Delrodie</span> le2024/07/31 à 13:04:00
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="projects-items__content-details mt-2">
-                                                    <div class="location"> <i class="bi bi-geo-alt"></i> Abidjan Riviera III </div>
-                                                </div>
-                                                <div class="projects-items__content-countdown py-5">
-                                                    <span class="fz-22 fw-500 px-2">2</span> jours restants pour postuler.
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <div class="col projects-items__content mt-3">
-                                    <a href="#">
-                                        <div class="card h-100">
-                                            <div class="card-body">
-
-                                                <div class="projects-items__content-author">
-                                                    <div class="projects-items__content-avatar bg-main-gradient">
-                                                        <img src="./assets/img/all/3d-render-african-american-worker-woman-with-helmet.png" alt="" class="img-fluid">
-                                                    </div>
-                                                    <div class="projects-items__content-infos pl-3">
-                                                        <span class="badge bg-main">Catégorie</span>
-                                                        <h6 class="h6">Menuisier</h6>
-                                                        <div class="reference fz-16">
-                                                            Par <span class="author fw-500">Delrodie</span> le2024/07/31 à 13:04:00
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="projects-items__content-details mt-2">
-                                                    <div class="location"> <i class="bi bi-geo-alt"></i> Abidjan Riviera III </div>
-                                                </div>
-                                                <div class="projects-items__content-countdown py-5">
-                                                    <span class="fz-22 fw-500 px-2">2</span> jours restants pour postuler.
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-
                             </div>
                         </div>
-                    </div>
+                    {% endif %}
+
                 </div>
             </div>
         </section>

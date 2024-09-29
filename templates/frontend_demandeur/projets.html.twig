@@ -15,30 +15,30 @@
                         </div>
                         <div class="mt-5 profile-content_projet">
                             {% for projet in projets %}
-                                {% if projet.statut == 'TERMINE' %}
+                                {% if projet.statut == 'CLOTURE' %}
                                     <div class="row mt-3">
                                         <div class="col-lg-9 mt-1">
                                             <div class="card h-100">
                                                 <div class="card-body">
-                                                    <span class="badge bg-main">Domaine</span>
+                                                    <span class="badge bg-main">{{ projet.categorie.title }}</span>
                                                     <div class="row">
                                                         <div class="col-md-9">
-                                                            <h5 class="card-title">Recherche d'un menuisier</h5>
+                                                            <h5 class="card-title">{{ projet.title }}</h5>
                                                             <div class="row">
                                                                 <div class="col-md-6 col-lg-4">
-                                                                    <i class="bi bi-geo-alt"></i> Abidjan Riviera 3
+                                                                    <i class="bi bi-geo-alt"></i> {{ projet.localite.title}}
                                                                 </div>
                                                                 <div class="col-md-3 col-lg-4">
-                                                                    <i class="bi bi-stopwatch"></i> 22/07/2024
+                                                                    <i class="bi bi-stopwatch"></i> {{ projet.createdAt|date('d/m/Y') }}
                                                                 </div>
                                                                 <div class="col-md-3 col-lg-4">
-                                                                    <i class="bi bi-cash-coin"></i> 250.000 FCFA
+                                                                    <i class="bi bi-cash-coin"></i> {{ projet.montant|number_format(0,'','.')}} FCFA
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-3 d-grid gap-2">
-                                                            <a href="{{ absolute_url(path('app_frontend_demandeur_projet_details', {'demandeur': demandeur.code, 'reference': 'reference-du-projet'})) }}" class="btn btn-main btn-sm">Voir les details</a>
-                                                            <a href="#" class="btn btn-success btn-sm">Terminé</a>
+                                                            <a href="{{ absolute_url(path('app_frontend_demandeur_projet_details', {'demandeur': demandeur.code, 'reference': projet.reference})) }}" class="btn btn-main btn-sm">Voir les details</a>
+                                                            <a href="#" class="btn btn-success btn-sm">Clôturé</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -51,7 +51,7 @@
                                                     <figure>
                                                         <img src="{{ absolute_url(asset('img/all/3d-worker.png')) }}" alt="" class="card-img rounded-circle">
                                                     </figure>
-                                                    <a href="#" class="card-title">Nom prestatire</a>
+                                                    <a href="#" class="card-title">{{ prestataire_selectionne(projet.reference) }}</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -92,7 +92,7 @@
                                                                 <a href="#" class="btn btn-sm disabled">{{ projet.statut|statut_label }}</a>
                                                             {% endif %}
 
-                                                            <a href="{{ absolute_url(path('app_frontend_demandeur_projet_details', {'demandeur': demandeur.code, 'reference': projet.reference})) }}" class="btn btn-main btn-sm">Détails</a>
+                                                            <a href="{{ absolute_url(path('app_frontend_demandeur_projet_details', {'demandeur': demandeur.code, 'reference': projet.reference})) }}" class="btn btn-main btn-sm" data-turbo="false">Détails</a>
 
                                                             {% if projet.statut == 'APPEL' %}
                                                                 <a href="{{ absolute_url(path('app_frontend_demandeur_projet_modif',{"demandeur": demandeur.code, 'reference': projet.reference})) }}" class="btn btn-outline-secondary btn-sm">Modifier</a>

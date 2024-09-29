@@ -24,7 +24,7 @@
         "type": "css"
     },
     "@hotwired\/stimulus": {
-        "path": "\/assets\/vendor\/@hotwired\/stimulus\/stimulus.index-b5b1d00e42695b8959b4a1e94e3bc92a.js",
+        "path": "\/assets\/vendor\/@hotwired\/stimulus\/stimulus.index-3af249f30f98329621a4e7e236b48b53.js",
         "type": "js"
     },
     "@symfony\/stimulus-bundle": {

@@ -14,6 +14,7 @@ class StatutLabelRuntime implements RuntimeExtensionInterface
     public function statutLabel($value): string
     {
         return match($value){
+            'CLOTURE' =>  'Projet clôturé',
             'TERMINE' =>  'Projet réalisé',
             'ENCOURS' => 'En réalisation',
             'DEMANDE' => 'Demande de prestation',

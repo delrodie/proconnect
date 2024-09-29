@@ -16,8 +16,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/demandeur-{demandeur}')]
+#[isGranted('ROLE_DEMANDEUR', message: "Cette session n'est autorisée qu'aux demandeurs de prestations")]
 class DemandeurProjetController extends AbstractController
 {
     public function __construct(
@@ -117,6 +119,7 @@ class DemandeurProjetController extends AbstractController
         ]);
     }
 
+
     #[Route('/{reference}', name: 'app_frontend_demandeur_projet_supprimer', methods: ['POST'])]
     public function supprimer(Request $request, $reference): Response
     {
@@ -136,6 +139,29 @@ class DemandeurProjetController extends AbstractController
             'demandeur' => $this->demandeur()->getCode(),
             'projet' => $projet
         ]);
+    }
+
+    #[Route('/{reference}/cloture/projet', name: 'app_frontend_demandeur_projet_cloturer', methods: ['GET', 'POST'])]
+    public function cloturer(Request $request, $reference): Response
+    {
+        $projet = $this->allRepositories->getOneProjet($reference);
+        $postuler = $this->allRepositories->getPostulerValideByProjet($projet->getReference());
+
+        if ($this->isCsrfTokenValid('cloturer'.$projet->getReference(), $request->getPayload()->getString('_token'))){
+            $note = (int) $request->get('_cloture_rating');
+            $commentaire = $request->get('_cloture_commentaire');
+
+            $projet->setStatut(Utilities::PROJET_CLOTURE);
+            $postuler->setNote($note);
+            $postuler->setCommentaire($commentaire);
+
+            $this->entityManager->flush();
+
+            notyf()->success(Messages::PROJET_DEMANDE_CLOTURER, [], 'SUCCES');
+
+        }
+
+        return $this->redirectToRoute('app_frontend_demandeur_tbord');
     }
 
     protected function demandeur()

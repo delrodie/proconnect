@@ -151,7 +151,7 @@
                             {% else %}
 
                                 {% if similaires > 0 %}
-                                    <h6 class="h6 mt-5">{{ similaires|length > 1 ? 'Projets similaires' : 'Projet similaire' }}</h6>
+                                    <h6 class="h6 mt-5">{{ similaires|length > 1 ? 'Autres projets' : 'Autre projet' }}</h6>
 
                                     <div class="row row-cols-1 projects-items">
 
@@ -163,19 +163,19 @@
 
                                                             <div class="projects-items__content-author">
                                                                 <div class="projects-items__content-infos pl-3">
-                                                                    <span class="badge bg-main">{{ similaire.categorie }}</span>
-                                                                    <h6 class="h6">{{ similaire.title }}</h6>
-                                                                    <div class="reference fz-16">
-                                                                        Par <span class="author fw-500">{{ similaire.demandeur.nom }}</span> le {{ similaire.created_at|date('d/m/Y')}} à {{ similaire.created_at|date('H:i:s') }}
+                                                                    <span class="badge bg-main fz-14">{{ similaire.categorie.title }}</span>
+                                                                    <h6 class="fz-20">{{ similaire.title }}</h6>
+                                                                    <div class="reference fz-14">
+                                                                        <span class="bi bi-calendar-event"></span> {{ similaire.createdAt|date('d/m/Y')}} à {{ similaire.createdAt|date('H:i:s') }}
                                                                     </div>
                                                                 </div>
                                                             </div>
 
                                                             <div class="projects-items__content-details mt-2">
-                                                                <div class="location"> <i class="bi bi-geo-alt"></i> {{ similaire.localite}}, {{ similaire.lieu }} </div>
+                                                                <div class="location fz-16"> <i class="bi bi-geo-alt"></i> {{ similaire.localite.title}}, {{ similaire.lieu }} </div>
                                                             </div>
                                                             <div class="projects-items__content-countdown py-5">
-                                                                <span class="fz-22 fw-500 px-2">{{ jour_restant(similaire.reference)}}</span>
+                                                                <span class="fz-20 fw-500 px-2">{{ jour_restant(similaire.reference)}}</span>
                                                                 {{ similaire.reference|jour_restant > 1 ? 'jours restants pour postuler.' : 'jour restant pour postuler.' }}
                                                             </div>
                                                         </div>

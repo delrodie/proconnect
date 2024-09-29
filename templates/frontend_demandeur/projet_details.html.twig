@@ -46,9 +46,10 @@
                                                     {{ prestataire_selectionne(projet.reference)|title }}
                                                 </a>
                                             </div>
-                                            <div class="col-12">
-                                                Budget final: 0 FCFA
+                                            <div class="col-6">
+                                                Budget final: <span class="fw-700">{{ projet.montant|number_format(0,'','.') }} FCFA</span>
                                             </div>
+
                                         {% endif %}
 
                                     </div>
@@ -75,10 +76,21 @@
                                                 <div class="col-6 col-md-2 d-grid gap-2 text-end">
                                                     <a href="{{ absolute_url(path('app_frontend_demandeur_projet_modif', {'demandeur': demandeur.code, 'reference': projet.reference})) }}" class="btn btn-main btn-sm float-end">Modifier</a>
                                                 </div>
-                                            {% else %}
+                                            {% elseif projet.statut == 'ENCOURS' %}
+                                                <div class="col-6 col-md-2 offset-md-8 d-grid gap-2">
+                                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmationModal">
+                                                        Clôturer
+                                                    </button>
+                                                </div>
+
+                                                <div class="col-6 col-md-2 d-grid gap-2 text-end">
+                                                    <a href="{{ absolute_url(path('app_frontend_demandeur_projet_modif', {'demandeur': demandeur.code, 'reference': projet.reference})) }}" class="btn btn-main btn-sm float-end">Modifier</a>
+                                                </div>
+                                            {% elseif projet.statut == 'APPEL' %}
                                                 <div class="col-6 col-md-2 offset-md-10 d-grid gap-2 text-end">
                                                     <a href="{{ absolute_url(path('app_frontend_demandeur_projet_modif', {'demandeur': demandeur.code, 'reference': projet.reference})) }}" class="btn btn-main btn-sm float-end">Modifier</a>
                                                 </div>
+
                                             {% endif %}
                                         {% else %}
                                             <div class="col-6 col-md-2 offset-md-8 d-grid gap-2">{{ include('frontend_demandeur/_form_delete_projet.html.twig') }}</div>
@@ -101,7 +113,7 @@
                                         <div class="row g-0">
                                             <div class="col-md-2">
                                                 <img src="{{ absolute_url(asset('/upload/prestataire/' ~ candidature.prestataire_media)) }}"
-                                                     alt="{{ candidature.prestataire_nom }} {{ candidature.prestataire_prenoms }}" class="img-fluid">
+                                                     alt="{{ candidature.prestataire_nom }} {{ candidature.prestataire_prenoms }}" class="img-fluid" style="max-height: 100px; max-width: 200px; object-fit: cover">
                                             </div>
                                             <div class="col-md-10">
                                                 <div class="card-body">
@@ -148,8 +160,107 @@
             </div>
         </section>
     </main>
+
+
+    <!-- Modal -->
+    <!-- Modal -->
+    <div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold" id="confirmationModalLabel">Confirmation de la clôture</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="hireForm" method="POST" action="{{ absolute_url(path('app_frontend_demandeur_projet_cloturer', {'demandeur': demandeur.code, 'reference': projet.reference}) )}}">
+                        <input type="hidden" name="_offre" value="{{ projet.reference }}">
+                        <input type="hidden" name="_token" value="{{ csrf_token('cloturer'~ projet.reference) }}">
+
+                        <div class="mb-3 text-justify">
+                            <label for="">
+                                Vous êtes sur le point de clôturer votre projet référencé  <span style="font-weight:bold;">{{ projet.reference }}</span>.
+                                Nous vous invitons à évaluer les performances du prestataire <span style="font-weight:bold; color: var(--color-main)">{{ prestataire_selectionne(projet.reference)|title }}</span>.
+                                Votre évaluation et vos remarques sont essentielles pour améliorer la qualité des services proposés sur notre plateforme.
+                            </label>
+                        </div>
+
+                        <!-- Système de notation par étoiles -->
+                        <div class="mb-3 text-center">
+                            <label for="rating">Note du prestataire</label>
+                            <div id="rating" class="star-rating fz-30">
+                                <i class="bi bi-star" data-rating="1"></i>
+                                <i class="bi bi-star" data-rating="2"></i>
+                                <i class="bi bi-star" data-rating="3"></i>
+                                <i class="bi bi-star" data-rating="4"></i>
+                                <i class="bi bi-star" data-rating="5"></i>
+                            </div>
+                            <input type="hidden" name="_cloture_rating" id="rating-input" value="0">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="clotureComment">Commentaire</label>
+                            <textarea name="_cloture_commentaire" id="clotureComment" rows="5"
+                                      class="form-control"></textarea>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-main" onclick="submitHireForm()">Confirmer la clôture</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}
 
 {% block breadcrumb %}
     <section class="header py-30" id="breadcrumb"> </section>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .star-rating i {
+            font-size: 3rem;
+            cursor: pointer;
+            color: var(--color-main);
+        }
+
+    </style>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const stars = document.querySelectorAll('#rating i');
+            const ratingInput = document.getElementById('rating-input');
+
+            stars.forEach(star => {
+                star.addEventListener('click', function () {
+                    const rating = this.getAttribute('data-rating');
+                    ratingInput.value = rating;
+                    highlightStars(rating);
+                });
+            });
+
+            function highlightStars(rating) {
+                stars.forEach(star => {
+                    if (star.getAttribute('data-rating') <= rating) {
+                        star.classList.add('bi-star-fill');
+                        star.classList.remove('bi-star');
+                    } else {
+                        star.classList.add('bi-star');
+                        star.classList.remove('bi-star-fill');
+                    }
+                });
+            }
+        });
+
+        function submitHireForm() {
+            document.getElementById('hireForm').submit();
+        }
+    </script>
 {% endblock %}

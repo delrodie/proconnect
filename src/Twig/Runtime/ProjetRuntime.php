@@ -17,8 +17,10 @@ class ProjetRuntime implements RuntimeExtensionInterface
     public function getPrestataire($value): string
     {
         $prestataire = $this->allRepositories->getPrestataireByOffre($value);
+        $identite = '';
+        if ($prestataire) $identite = $prestataire->getPrenoms().' '.$prestataire->getNom();
 
-        return $prestataire->getPrenoms().' '.$prestataire->getNom();
+        return $identite;
     }
 
     public function getCandidature($referenceProjet)

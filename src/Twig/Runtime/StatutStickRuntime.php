@@ -14,6 +14,7 @@ class StatutStickRuntime implements RuntimeExtensionInterface
     public function stickCssClass($value): string
     {
         return match ($value){
+            'CLOTURE' => 'text-bg-success',
             'TERMINE' => 'text-bg-success',
             'ENCOURS' => 'text-bg-warning',
             'DEMANDE' => 'text-bg-danger',

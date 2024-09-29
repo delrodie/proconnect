@@ -16,24 +16,25 @@ use App\Repository\PostulerRepository;
 use App\Repository\PrestataireRepository;
 use App\Repository\ProjetRepository;
 use App\Repository\SlideRepository;
+use Symfony\Bundle\SecurityBundle\Security;
 
 class AllRepositories
 {
     public function __construct(
-        private MaintenanceRepository $maintenanceRepository,
-        private DemandeurRepository   $demandeurRepository,
-        private DomaineRepository     $domaineRepository,
-        private CategorieRepository   $categorieRepository,
-        private ProjetRepository      $projetRepository,
-        private CompetenceRepository  $competenceRepository,
-        private PrestataireRepository $prestataireRepository,
-        private PostulerRepository    $postulerRepository,
-        private LocaliteRepository $localiteRepository,
-        private SlideRepository $slideRepository,
-        private PartenaireRepository $partenaireRepository,
+        private MaintenanceRepository  $maintenanceRepository,
+        private DemandeurRepository    $demandeurRepository,
+        private DomaineRepository      $domaineRepository,
+        private CategorieRepository    $categorieRepository,
+        private ProjetRepository       $projetRepository,
+        private CompetenceRepository   $competenceRepository,
+        private PrestataireRepository  $prestataireRepository,
+        private PostulerRepository     $postulerRepository,
+        private LocaliteRepository     $localiteRepository,
+        private SlideRepository        $slideRepository,
+        private PartenaireRepository   $partenaireRepository,
         private CallToActionRepository $callToActionRepository,
-        private ParallaxRepository $parallaxRepository,
-        private MessageRepository $messageRepository
+        private ParallaxRepository     $parallaxRepository,
+        private MessageRepository      $messageRepository, private readonly Security $security
     )
     {
     }
@@ -148,6 +149,11 @@ class AllRepositories
     public function findAllProjetByStatut(string $statut = null, $date=null, $budget=null): array
     {
         return $this->foreachProjets($this->projetRepository->findAllByStatut($statut, $date, $budget));
+    }
+
+    public function findAllProjetByStatutAndLocalityPriority($localite, string $statut = null, $date = null, $budget = null)
+    {
+        return $this->foreachProjets($this->projetRepository->findByLocalite($localite, $statut, $date, $budget));
     }
 
     public function findProjetSimilaireByCategorie($category)
@@ -291,6 +297,11 @@ class AllRepositories
         return $prestataire;
     }
 
+    public function getPostulerValideByProjet($projet)
+    {
+        return $this->postulerRepository->findByProjetAndStatutDifferentOfAppel($projet);
+    }
+
     public function getCandidatureValideByProjet($projet)
     {
         return $this->postulerRepository->findByProjetAndStatutDifferentOfAppel($projet);
@@ -360,5 +371,23 @@ class AllRepositories
     public function getAllPrestataireByLocalite($localite)
     {
         return $this->prestataireRepository->findByLocalite($localite);
+    }
+
+    public function getOthersProjetByPrestataire($projet)
+    {
+
+        $prestataire = $this->getOnePrestataire(null, $this->security->getUser()); //dd($projet);
+
+        return $this->projetRepository->findByLocaliteAndCategorie($prestataire->getLocalite(), $projet->getCategorie(), 'APPEL');
+    }
+
+    public function getDepenseTotal($user)
+    {
+        return $this->projetRepository->findDepenseTotalByDemandeur($user);
+    }
+
+    public function getProjetCloturerByDemandeur($user)
+    {
+        return $this->projetRepository->findAllClotureByDemandeur($user);
     }
 }
