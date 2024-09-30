@@ -3,6 +3,8 @@
 namespace App\Controller\Backend;
 
 use App\Entity\Categorie;
+use App\Entity\Competence;
+use App\Entity\Domaine;
 use App\Form\CategorieType;
 use App\Repository\CategorieRepository;
 use App\Service\AllRepositories;
@@ -40,7 +42,11 @@ class BackendCategorieController extends AbstractController
             }
             $categorie->setSlug($slug);
 
+            // Mise a jour de la table de compétence
+            $this->newCompetence($categorie->getTitle(), $slug);
+
             $this->entityManager->persist($categorie);
+
             $this->entityManager->flush();
 
             sweetalert()->success("La catégorie '{$categorie->getTitle()}' a été ajoutée avec succès!");
@@ -91,7 +97,18 @@ class BackendCategorieController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $categorie->setSlug($this->utilities->slug($categorie->getTitle()));
+            $slug = $this->utilities->slug($categorie->getTitle());
+
+            // Recherche du domaine
+            $competence = $this->allRepositories->getOneCompetence($categorie->getSlug());
+            if (!$competence){
+                $this->newCompetence($categorie->getTitle(), $slug);
+            }else{
+                $competence->setTitle($categorie->getTitle());
+                $competence->setSlug($slug);
+            }
+
+            $categorie->setSlug($slug);
             $entityManager->flush();
 
             sweetalert()->success("La catégorie '{$categorie->getTitle()}' a été modifiée avec succès!");
@@ -118,5 +135,15 @@ class BackendCategorieController extends AbstractController
         }
 
         return $this->redirectToRoute('app_backend_categorie_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    public function newCompetence(string $title, string $slug): void
+    {
+        $competence = new Competence();
+        $competence->setTitle($title);
+        $competence->setSlug($slug);
+        $this->entityManager->persist($competence);
+
+        return;
     }
 }
