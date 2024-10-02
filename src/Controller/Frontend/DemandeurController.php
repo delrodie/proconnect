@@ -71,6 +71,7 @@ class DemandeurController extends AbstractController
                 .$this->getUser()->getUserIdentifier()
             ));
             $demandeur->setUser($this->getUser());
+            $demandeur->setCreatedAt(new \DateTime());
 
 //            dd($this->getUser());
 
