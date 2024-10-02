@@ -410,4 +410,9 @@ class AllRepositories
     {
         return $this->categorieRepository->findAll();
     }
+
+    public function getAllCompetence()
+    {
+        return $this->competenceRepository->findAll();
+    }
 }
