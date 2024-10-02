@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\MessageRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: MessageRepository::class)]
 class Message
@@ -15,27 +16,35 @@ class Message
     private ?int $id = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(['message.show'])]
     private ?string $content = null;
 
     #[ORM\ManyToOne(inversedBy: 'messages')]
+    #[Groups(['message.show'])]
     private ?Demandeur $demandeur = null;
 
     #[ORM\ManyToOne(inversedBy: 'messages')]
+    #[Groups(['message.show'])]
     private ?Prestataire $prestataire = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[Groups(['message.show'])]
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['message.show'])]
     private ?bool $vue = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[Groups(['message.show'])]
     private ?\DateTimeInterface $vueAt = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['message.show'])]
     private ?string $reference = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['message.show'])]
     private ?string $emetteur = null;
 
     public function getId(): ?int

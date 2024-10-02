@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: PrestataireRepository::class)]
 class Prestataire
@@ -17,18 +18,22 @@ class Prestataire
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['message.show'])]
     private ?string $matricule = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['message.show'])]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['message.show'])]
     private ?string $prenoms = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $sexe = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['message.show'])]
     private ?string $profession = null;
 
     #[ORM\Column(length: 255, nullable: true)]

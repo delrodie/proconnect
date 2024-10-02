@@ -335,7 +335,7 @@ class AllRepositories
 
     public function getAllPartenaire()
     {
-        return $this->partenaireRepository->findAll();
+        return  $this->partenaireRepository->findAll();
     }
 
     public function getAllPrestataire()
@@ -414,5 +414,15 @@ class AllRepositories
     public function getAllCompetence()
     {
         return $this->competenceRepository->findAll();
+    }
+
+    public function getOnePartenaire(int $id)
+    {
+        return $this->partenaireRepository->findOneBy(['id' => $id]);
+    }
+
+    public function getAllDemandeur()
+    {
+        return $this->demandeurRepository->findAllDemandeur();
     }
 }

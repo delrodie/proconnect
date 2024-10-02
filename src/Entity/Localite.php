@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\LocaliteRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: LocaliteRepository::class)]
 class Localite
@@ -14,6 +15,7 @@ class Localite
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['demandeur.list'])]
     private ?string $title = null;
 
     #[ORM\Column(length: 255, nullable: true)]

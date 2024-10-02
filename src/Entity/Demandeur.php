@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: DemandeurRepository::class)]
 class Demandeur
@@ -14,48 +15,62 @@ class Demandeur
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['demandeur.list'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['demandeur.list', 'message.show'])]
     private ?string $code = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['demandeur.list', 'message.show'])]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['demandeur.list', 'message.show'])]
     private ?string $prenom = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['demandeur.list'])]
     private ?string $email = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['demandeur.list'])]
     private ?string $telephone = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['demandeur.list', 'message.show'])]
     private ?string $profession = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['demandeur.list'])]
     private ?string $adresse = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['demandeur.list', 'message.show'])]
     private ?string $media = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['demandeur.list'])]
     private ?string $slug = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[Groups(['demandeur.list'])]
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[Groups(['message.show'])]
     private ?User $user = null;
 
     #[ORM\ManyToOne]
+    #[Groups(['demandeur.list'])]
     private ?Localite $localite = null;
 
     /**
      * @var Collection<int, Message>
      */
     #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'demandeur')]
+    #[Groups(['message.show'])]
     private Collection $messages;
 
     public function __construct()

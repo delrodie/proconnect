@@ -1,0 +1,57 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Controller\Api;
+
+use App\Entity\Demandeur;
+use App\Service\AllRepositories;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Attribute\Route;
+
+#[Route('/api/demandeur')]
+class ApiDemandeurController extends AbstractController
+{
+    public function __construct(private readonly AllRepositories $allRepositories)
+    {
+    }
+
+    #[Route('/')]
+    public function list(): JsonResponse
+    {
+        return $this->json(
+            $this->allRepositories->getAllDemandeur(),200, [], [
+                'groups' => ['demandeur.list']
+            ]
+        );
+    }
+
+    #[Route('/{code}', methods: ['GET'])]
+    public function show($code): JsonResponse
+    {
+        $demandeur = $this->allRepositories->getOneDemandeur($code);
+        if (!$demandeur){
+            throw new NotFoundHttpException("Le demandeur recherché n'a pas été trouvé");
+        }
+
+        return $this->json($demandeur, 200, [], [
+            'groups' => ['demandeur.list', 'demandeur.show']
+        ]);
+    }
+
+    #[Route('/{code}/messages', methods: ['GET'])]
+    public function message($code): JsonResponse
+    {
+        $demandeur = $this->allRepositories->getOneDemandeur($code);
+        if (!$demandeur){
+            throw new NotFoundHttpException("Le demandeur recherché n'a pas été trouvé");
+        }
+
+        return $this->json($demandeur, 200, [],[
+            'groups' => ['message.show']
+        ]);
+    }
+}

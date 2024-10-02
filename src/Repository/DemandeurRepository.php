@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Demandeur;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -14,6 +15,22 @@ class DemandeurRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Demandeur::class);
+    }
+
+    public function findAllDemandeur()
+    {
+        return $this->querySelect()->getQuery()->getResult();
+    }
+
+    public function querySelect(): QueryBuilder
+    {
+        return $this->createQueryBuilder('d')
+            ->addSelect('u, l, m, pa')
+            ->leftJoin('d.user', 'u')
+            ->leftJoin('d.localite', 'l')
+            ->leftJoin('d.messages', 'm')
+            ->leftJoin('m.prestataire', 'pa')
+            ;
     }
 
     //    /**
