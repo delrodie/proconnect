@@ -18,7 +18,7 @@ class Domaine
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['domaine.list'])]
+    #[Groups(['domaine.list', 'categorie.show'])]
     private ?string $title = null;
 
     #[ORM\Column(length: 255, nullable: true)]

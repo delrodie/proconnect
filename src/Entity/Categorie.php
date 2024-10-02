@@ -12,17 +12,19 @@ class Categorie
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-//    #[Groups(['domaine.show'])]
+    #[Groups(['categorie.list'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['domaine.show'])]
+    #[Groups(['domaine.show', 'categorie.list'])]
     private ?string $Title = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['categorie.list'])]
     private ?string $slug = null;
 
     #[ORM\ManyToOne(inversedBy: 'categories')]
+    #[Groups(['categorie.show'])]
     private ?Domaine $domaine = null;
 
     public function getId(): ?int

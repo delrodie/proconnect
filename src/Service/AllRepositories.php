@@ -405,4 +405,9 @@ class AllRepositories
     {
         return $this->prestataireRepository->findByCompetence($competence);
     }
+
+    public function getAllCategorie()
+    {
+        return $this->categorieRepository->findAll();
+    }
 }
