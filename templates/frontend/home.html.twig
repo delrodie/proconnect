@@ -57,7 +57,7 @@
                     <div class="container my-50" data-aos="fade-up">
                         <div class="row categories-head">
                             <div class="col-md-6 col-xl-7 categories-head__title">
-                                <h4 class="h4 ls-minus-1">Parcourir les prestataires par catégorie</h4>
+                                <h4 class="h4 ls-minus-1">Parcourir les prestataires par secteur</h4>
                             </div>
                             <div class="col-md-6 col-xl-5 categories-head__all-link">
                                 <a href="#" class="h6">Toutes les categories</a>
@@ -76,10 +76,16 @@
                                                 <h6 class="card-title h6">{{ domaine.title }}</h6>
                                             </div>
                                             <div class="card-label fz-20">
-                                                8 prestataires
+                                                {% set nombre_prestataire = domaine.slug|prestataire_nombre %}
+                                                {{ nombre_prestataire > 1 ? nombre_prestataire ~ ' prestataires' : nombre_prestataire ~ ' prestataire' }}
                                             </div>
-                                            <div class="card-text">
-                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam repellendus aut, voluptatum, vel deleniti aliquam illum laboriosam a nobis maiores placeat fugiat maxime atque iusto officia et ullam officiis illo?
+                                            <div class="card-text mt-3">
+                                                {% for categorie in domaine.categories %}
+                                                    {{ categorie.title }} {{ loop.last ? '' : ',' }} &nbsp;
+                                                {% else %}
+                                                    <div class="my-2" style="font-style: italic">Aucune catégorie</div>
+                                                {% endfor %}
+{#                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam repellendus aut, voluptatum, vel deleniti aliquam illum laboriosam a nobis maiores placeat fugiat maxime atque iusto officia et ullam officiis illo?#}
                                             </div>
                                         </div>
                                     </a>

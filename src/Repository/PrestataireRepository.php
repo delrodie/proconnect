@@ -50,6 +50,15 @@ class PrestataireRepository extends ServiceEntityRepository
             ;
     }
 
+    public function findByCompetence($competence)
+    {
+        return $this->querySelect()
+            ->where('c.id = :competence')
+            ->setParameter('competence', $competence)
+            ->getQuery()->getResult()
+            ;
+    }
+
     public function querySelect()
     {
         return $this->createQueryBuilder('p')

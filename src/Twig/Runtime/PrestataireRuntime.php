@@ -36,4 +36,18 @@ class PrestataireRuntime implements RuntimeExtensionInterface
     {
         return $this->allRepositories->getPrestataireRating($value);
     }
+
+    public function prestataireNombreByDomaine($value): int
+    {
+        $nombre = 0;
+        foreach (($this->allRepositories->getOneDomaine($value))->getCategories() as $category) {
+            $competence = $this->allRepositories->getOneCompetence($category->getSlug());
+            if ($competence){
+                $nombre += count($this->allRepositories->getPrestataireByCompetence($competence));
+            }
+
+        }
+
+        return $nombre;
+    }
 }

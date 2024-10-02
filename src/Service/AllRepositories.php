@@ -316,8 +316,12 @@ class AllRepositories
     /**
      * Liste de tous les domaines
      */
-    public function getAllDomaine()
+    public function getAllDomaine(string $order = null)
     {
+        if ($order){
+            return $this->domaineRepository->findBy([],['title' => $order]);
+        }
+
         return $this->domaineRepository->findAll();
     }
 
@@ -395,5 +399,10 @@ class AllRepositories
     public function getPrestataireRating($user)
     {
         return $this->postulerRepository->findRatingByPrestataire($user);
+    }
+
+    public function getPrestataireByCompetence($competence)
+    {
+        return $this->prestataireRepository->findByCompetence($competence);
     }
 }

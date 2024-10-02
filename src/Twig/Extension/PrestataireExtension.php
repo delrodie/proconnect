@@ -17,6 +17,7 @@ class PrestataireExtension extends AbstractExtension
             // Reference: https://twig.symfony.com/doc/3.x/advanced.html#automatic-escaping
             new TwigFilter('prestataire_rating', [PrestataireRuntime::class, 'prestataireRating']),
             new TwigFilter('prestataire_projet_realise', [PrestataireRuntime::class, 'projetRealise']),
+            new TwigFilter('prestataire_nombre', [PrestataireRuntime::class, 'prestataireNombreByDomaine']),
         ];
     }
 
@@ -25,6 +26,7 @@ class PrestataireExtension extends AbstractExtension
         return [
             new TwigFunction('prestataire_rating', [PrestataireRuntime::class, 'prestataireRating']),
             new TwigFunction('prestataire_projet_realise', [PrestataireRuntime::class, 'projetRealise']),
+            new TwigFunction('prestataire_nombre', [PrestataireRuntime::class, 'prestataireNombreByDomaine']),
         ];
     }
 }
