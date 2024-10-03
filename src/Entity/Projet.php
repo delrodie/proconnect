@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: ProjetRepository::class)]
 class Projet
@@ -14,48 +15,62 @@ class Projet
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups('projet.list', 'projet.show')]
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups('projet.list', 'projet.show')]
     private ?string $reference = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups('projet.list', 'projet.show')]
     private ?string $title = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups('projet.list', 'projet.show')]
     private ?string $lieu = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[Groups('projet.list', 'projet.show')]
     private ?\DateTimeInterface $datePrestation = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[Groups('projet.list', 'projet.show')]
     private ?\DateTimeInterface $dateLimite = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups('projet.list', 'projet.show')]
     private ?string $preference = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups('projet.list', 'projet.show')]
     private ?int $budgetMin = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups('projet.list', 'projet.show')]
     private ?int $budgetMax = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups('projet.list', 'projet.show')]
     private ?string $description = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups('projet.list', 'projet.show')]
     private ?string $media = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups('projet.list', 'projet.show')]
     private ?string $statut = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[Groups('projet.list', 'projet.show')]
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\ManyToOne]
     private ?User $user = null;
 
     #[ORM\ManyToOne]
+    #[Groups('projet.list', 'projet.show')]
     private ?Categorie $categorie = null;
 
     /**
@@ -65,15 +80,18 @@ class Projet
     private Collection $postulers;
 
     #[ORM\ManyToOne]
+    #[Groups('projet.list', 'projet.show')]
     private ?Localite $localite = null;
 
     /**
      * @var Collection<int, ProjetImage>
      */
     #[ORM\OneToMany(targetEntity: ProjetImage::class, mappedBy: 'projet')]
+    #[Groups('projet.list', 'projet.show')]
     private Collection $projetImages;
 
     #[ORM\Column(nullable: true)]
+    #[Groups('projet.list', 'projet.show')]
     private ?int $montant = null;
 
     public function __construct()

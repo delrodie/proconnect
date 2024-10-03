@@ -6,6 +6,7 @@ use App\Repository\DemandeurRepository;
 use App\Repository\MessageRepository;
 use App\Repository\PartenaireRepository;
 use App\Repository\PrestataireRepository;
+use App\Repository\ProjetRepository;
 use App\Service\GestionMedia;
 use App\Twig\Runtime\DeplacementRuntime;
 use App\Twig\Runtime\ExperienceRuntime;
@@ -28,8 +29,8 @@ class ApiRepositories
         private readonly MessageRepository     $messageRepository,
         private readonly PrestataireRepository $prestataireRepository,
         private readonly ExperienceRuntime     $experienceRuntime,
-        private readonly DeplacementRuntime $deplacementRuntime,
-        private readonly ModeTravailRuntime $modeTravailRuntime
+        private readonly DeplacementRuntime    $deplacementRuntime,
+        private readonly ModeTravailRuntime    $modeTravailRuntime, private readonly ProjetRepository $projetRepository
     )
     {
     }
@@ -199,6 +200,15 @@ class ApiRepositories
             'slug' => $prestataire->getSlug(),
             'mode_travail' => $this->modeTravailRuntime->modeTravail($prestataire->getModeTravail())
         ];
+    }
+
+    /**
+     * PROJET
+     */
+
+    public function getListProjet()
+    {
+        return $this->projetRepository->findAllProjets();
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ProjetImageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: ProjetImageRepository::class)]
 class ProjetImage
@@ -14,6 +15,7 @@ class ProjetImage
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups('projet.list', 'projet.show')]
     private ?string $media = null;
 
     #[ORM\ManyToOne(inversedBy: 'projetImages')]

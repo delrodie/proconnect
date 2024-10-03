@@ -149,6 +149,11 @@ class ProjetRepository extends ServiceEntityRepository
             ;
     }
 
+    public function findAllProjets()
+    {
+        return $this->querySelect()->getQuery()->getResult();
+    }
+
     //    /**
     //     * @return Projet[] Returns an array of Projet objects
     //     */
