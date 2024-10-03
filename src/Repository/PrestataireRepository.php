@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Prestataire;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -59,12 +60,12 @@ class PrestataireRepository extends ServiceEntityRepository
             ;
     }
 
-    public function querySelect()
+    public function querySelect(): QueryBuilder
     {
         return $this->createQueryBuilder('p')
-            ->addSelect('u')
-            ->addSelect('l')
-            ->addSelect('c')
+            ->addSelect('u, l, c')
+//            ->addSelect('l')
+//            ->addSelect('c')
             ->leftJoin('p.user', 'u')
             ->leftJoin('p.localite', 'l')
             ->leftJoin('p.competence', 'c');

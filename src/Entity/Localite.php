@@ -15,7 +15,7 @@ class Localite
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['demandeur.list'])]
+    #[Groups(['demandeur.list', 'prestataire.list'])]
     private ?string $title = null;
 
     #[ORM\Column(length: 255, nullable: true)]

@@ -15,34 +15,38 @@ class Prestataire
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['message.show', 'prestataire.list'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['message.show'])]
+    #[Groups(['message.show', 'prestataire.list'])]
     private ?string $matricule = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['message.show'])]
+    #[Groups(['message.show', 'prestataire.list'])]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['message.show'])]
+    #[Groups(['message.show', 'prestataire.list'])]
     private ?string $prenoms = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['message.show', 'prestataire.list'])]
     private ?string $sexe = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['message.show'])]
+    #[Groups(['message.show', 'prestataire.list'])]
     private ?string $profession = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['message.show', 'prestataire.list'])]
     private ?string $adresse = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $geolocalisation = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['message.show', 'prestataire.list'])]
     private ?string $niveau = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -70,6 +74,7 @@ class Prestataire
     private ?string $modeTravail = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['prestataire.list', 'prestataire.show'])]
     private ?string $media = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -79,21 +84,25 @@ class Prestataire
      * @var Collection<int, Competence>
      */
     #[ORM\ManyToMany(targetEntity: Competence::class)]
+    #[Groups(['message.show', 'prestataire.show'])]
     private Collection $competence;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $deplacement = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['message.show', 'prestataire.list'])]
     private ?string $email = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['message.show', 'prestataire.list'])]
     private ?string $telephone = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
     private ?User $user = null;
 
     #[ORM\ManyToOne]
+    #[Groups(['message.show', 'prestataire.list'])]
     private ?Localite $localite = null;
 
     #[ORM\Column(length: 255, nullable: true)]

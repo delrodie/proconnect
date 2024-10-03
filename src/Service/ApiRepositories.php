@@ -5,7 +5,11 @@ namespace App\Service;
 use App\Repository\DemandeurRepository;
 use App\Repository\MessageRepository;
 use App\Repository\PartenaireRepository;
+use App\Repository\PrestataireRepository;
 use App\Service\GestionMedia;
+use App\Twig\Runtime\DeplacementRuntime;
+use App\Twig\Runtime\ExperienceRuntime;
+use App\Twig\Runtime\ModeTravailRuntime;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class ApiRepositories
@@ -14,10 +18,18 @@ class ApiRepositories
     const DEMANDEUR_DIRECTORY = 'demandeur';
     const PRESTATAIRE_DIRECTORY = 'prestataire';
     const PROJET_DIRECTORY = 'projets';
+    const PRESTATAIRE_DOCUMENT_DIRECTORY = 'prestataire/document';
+    const PRESTATAIRE_LICENCE_DIRECTORY = 'prestataire/licence';
 
     public function __construct(
-        private readonly PartenaireRepository $partenaireRepository,
-        private UrlGeneratorInterface         $urlGenerator, private readonly DemandeurRepository $demandeurRepository, private readonly MessageRepository $messageRepository,
+        private readonly PartenaireRepository  $partenaireRepository,
+        private UrlGeneratorInterface          $urlGenerator,
+        private readonly DemandeurRepository   $demandeurRepository,
+        private readonly MessageRepository     $messageRepository,
+        private readonly PrestataireRepository $prestataireRepository,
+        private readonly ExperienceRuntime     $experienceRuntime,
+        private readonly DeplacementRuntime $deplacementRuntime,
+        private readonly ModeTravailRuntime $modeTravailRuntime
     )
     {
     }
@@ -135,6 +147,60 @@ class ApiRepositories
         return $result;
     }
 
+    public function getListPrestataire(): array
+    {
+        $prestataires = $this->prestataireRepository->findAllPrestataire();
+        $result=[]; $i=0;
+
+        foreach ($prestataires as $prestataire) {
+            $result[$i++] = $this->prestataireArray($prestataire);
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param object $prestataire
+     * @return array
+     */
+    public function showPrestataire(object $prestataire): array
+    {
+        return $this->prestataireArray($prestataire);
+    }
+
+    private function prestataireArray($prestataire): array
+    {
+        $competence=[];
+        return [
+            'id' => $prestataire->getId(),
+            'matricule' => $prestataire->getMatricule(),
+            'nom' => $prestataire->getNom(),
+            'prenom' => $prestataire->getPrenoms(),
+            'sexe' => $prestataire->getSexe(),
+            'profession' => $prestataire->getProfession(),
+            'email' => $prestataire->getEmail(),
+            'telephone' => $prestataire->getTelephone(),
+            'media' => $this->generateMediaUrl($prestataire->getMedia(), self::PRESTATAIRE_DIRECTORY),
+            'localite' => $prestataire->getLocalite()->getTitle(),
+            'geolocalisation' => $prestataire->getGeolocalisation(),
+            'niveau' => $prestataire->getNiveau(),
+            'experience' => $this->experienceRuntime->getExperience($prestataire->getExperience()),
+            'langue' => $prestataire->getLangue(),
+            'tarif_horaire' => $prestataire->getTarifHoraire(),
+            'stock' => $prestataire->getStock(),
+            'paiement' => $prestataire->getPaiement(),
+            'garantie' => $prestataire->getGarantie(),
+            'deplacement' => $this->deplacementRuntime->modeDeplacement($prestataire->getDeplacement()),
+            'competence' => $prestataire->getCompetence(),
+            'casier_judiciaire' => $this->generateMediaUrl($prestataire->getCasier(), self::PRESTATAIRE_DOCUMENT_DIRECTORY),
+            'licence' => $this->generateMediaUrl($prestataire->getLicence(), self::PRESTATAIRE_LICENCE_DIRECTORY),
+            'created_at' => $prestataire->getCreatedAt() ? $prestataire->getCreatedAt()->format('Y-m-d H:i:s') : null,
+            'biographie' => $prestataire->getBiographie(),
+            'slug' => $prestataire->getSlug(),
+            'mode_travail' => $this->modeTravailRuntime->modeTravail($prestataire->getModeTravail())
+        ];
+    }
+
     /**
      * Generation du lien deu logo du partenaire
      *
@@ -147,4 +213,5 @@ class ApiRepositories
 
         return "{$url}upload/{$file}/{$mediaFileName}";
     }
+
 }

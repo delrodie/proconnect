@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CompetenceRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: CompetenceRepository::class)]
 class Competence
@@ -11,9 +12,11 @@ class Competence
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['prestataire.show'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+//    #[Groups(['prestataire.show', 'message.show'])]
     private ?string $title = null;
 
     #[ORM\Column(length: 255, nullable: true)]

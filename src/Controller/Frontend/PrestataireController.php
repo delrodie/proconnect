@@ -70,6 +70,8 @@ class PrestataireController extends AbstractController
             // Matricule, user
             $prestataire->setMatricule($this->utilities->matriculePrestataire());
             $prestataire->setUser($this->getUser());
+            $prestataire->setCreatedAt(new \DateTime());
+            $prestataire->setSlug($this->utilities->slug($prestataire->getPrenoms().'-'.$prestataire->getNom().'-'.$prestataire->getMatricule()));
 
             $this->entityManager->persist($prestataire);
             $this->entityManager->flush();
