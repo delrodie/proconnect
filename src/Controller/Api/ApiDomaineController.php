@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 
-#[Route('/api/domaine')]
+#[Route('/api-domaine')]
 class ApiDomaineController extends AbstractController
 {
     public function __construct(private readonly AllRepositories $allRepositories)

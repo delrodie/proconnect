@@ -14,7 +14,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 
-#[Route('/api/partenaire')]
+#[Route('/api-partenaire')]
 class ApiPartenaireController extends AbstractController
 {
     public function __construct(private readonly AllRepositories $allRepositories, private readonly ApiRepositories $apiRepositories)

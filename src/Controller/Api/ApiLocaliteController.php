@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 
-#[Route('/api/localite')]
+#[Route('/api-localite')]
 class ApiLocaliteController extends AbstractController
 {
     public function __construct(private readonly AllRepositories $allRepositories)

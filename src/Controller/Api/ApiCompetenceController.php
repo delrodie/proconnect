@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 
-#[Route('/api/competence')]
+#[Route('/api-competence')]
 class ApiCompetenceController extends AbstractController
 {
     public function __construct(private readonly AllRepositories $allRepositories)

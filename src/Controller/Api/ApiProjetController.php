@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/api/projet')]
+#[Route('/api-projet')]
 class ApiProjetController extends AbstractController
 {
     public function __construct(private readonly ApiRepositories $apiRepositories)

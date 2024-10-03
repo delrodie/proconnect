@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/api/prestataire')]
+#[Route('/api-prestataire')]
 class ApiPrestataireController extends AbstractController
 {
     public function __construct(private readonly ApiRepositories $apiRepositories, private readonly AllRepositories $allRepositories)
