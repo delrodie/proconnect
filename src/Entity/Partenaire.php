@@ -2,22 +2,33 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\PartenaireRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: PartenaireRepository::class)]
+#[ApiResource(
+    normalizationContext: ['groups' => ['partenaire.list']],
+)]
 class Partenaire
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['partenaire.list'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['partenaire.list'])]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['partenaire.list'])]
     private ?string $media = null;
+
+    #[Groups(['partenaire.list'])]
+    private ?string $mediaUrl = null;
 
     public function getId(): ?int
     {
@@ -46,5 +57,15 @@ class Partenaire
         $this->media = $media;
 
         return $this;
+    }
+
+    public function getMediaUrl(): ?string
+    {
+        return $this->mediaUrl;
+    }
+
+    public function setMediaUrl(?string $mediaUrl): void
+    {
+        $this->mediaUrl = $mediaUrl;
     }
 }

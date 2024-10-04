@@ -46,3 +46,9 @@ services:
     App\Service\GestionLicence:
         arguments:
             $licenceDirectory: '%kernel.project_dir%/public/upload/prestataire/licence'
+
+
+#    App\EventSubscriber\MediaUrlSubscriber:
+#        public: true
+#        tags:
+#            - {name: 'kernel.event_subscriber'}
