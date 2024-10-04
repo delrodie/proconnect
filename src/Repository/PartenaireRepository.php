@@ -17,7 +17,7 @@ class PartenaireRepository extends ServiceEntityRepository
     }
 
     //    /**
-    //     * @return Partenaire[] Returns an array of Partenaire objects
+    //     * @return PartenaireStateProvider[] Returns an array of PartenaireStateProvider objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -31,7 +31,7 @@ class PartenaireRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Partenaire
+    //    public function findOneBySomeField($value): ?PartenaireStateProvider
     //    {
     //        return $this->createQueryBuilder('p')
     //            ->andWhere('p.exampleField = :val')

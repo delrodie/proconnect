@@ -56,6 +56,11 @@ class ApiRepositories
         return $result;
     }
 
+    public function getShowPartenaire($id)
+    {
+        return $this->partenaireRepository->findOneBy(['id' => $id]);
+    }
+
     /******
      * LES DEMANDEURS
      */
@@ -217,7 +222,7 @@ class ApiRepositories
      * @param string|null $mediaFileName
      * @return string
      */
-    private function generateMediaUrl(?string $mediaFileName, ?string $file): string
+    public function generateMediaUrl(?string $mediaFileName, ?string $file): string
     {
         $url = $this->urlGenerator->generate('app_home_index',[],UrlGeneratorInterface::ABSOLUTE_URL);
 

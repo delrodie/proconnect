@@ -3,13 +3,16 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use App\DTO\PartenaireOutput;
 use App\Repository\PartenaireRepository;
+use App\State\PartenaireStateProvider;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: PartenaireRepository::class)]
 #[ApiResource(
     normalizationContext: ['groups' => ['partenaire.list']],
+    provider: PartenaireStateProvider::class
 )]
 class Partenaire
 {
