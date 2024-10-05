@@ -51,6 +51,10 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.request }
 
+    App\State\DomaineStateProcessor:
+        bind:
+            $processor: '@api_platform.doctrine.orm.state.persist_processor'
+
 
 #    App\EventSubscriber\MediaUrlSubscriber:
 #        public: true

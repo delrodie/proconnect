@@ -8,6 +8,7 @@ use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use App\Repository\DomaineRepository;
+use App\State\DomaineStateProcessor;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -15,9 +16,12 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource(
     operations: [
-        new Post(denormalizationContext: ['groups' => ['domaine.write']]),
+        new Post(
+            denormalizationContext: ['groups' => ['domaine.write']],
+            processor: DomaineStateProcessor::class
+        ),
         new GetCollection(normalizationContext: ['groups' => ['domaine.list']]),
-        new Patch(denormalizationContext: ['groups' => ['domaine.write']])
+//        new Patch(denormalizationContext: ['groups' => ['domaine.write']])
     ],
     formats: ['json' => ['application/json'], 'ld+json' => ['application/ld+json']],
 )]
@@ -35,7 +39,7 @@ class Domaine
     private ?string $title = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['domaine.list', 'domaine.write'])]
+    #[Groups(['domaine.list'])]
     private ?string $slug = null;
 
     /**
