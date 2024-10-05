@@ -3,12 +3,14 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
 use App\Repository\DomaineRepository;
 use App\State\DomaineStateProcessor;
+use App\State\DomaineStateProvider;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -21,9 +23,13 @@ use Symfony\Component\Serializer\Annotation\Groups;
             processor: DomaineStateProcessor::class
         ),
         new GetCollection(normalizationContext: ['groups' => ['domaine.list']]),
-//        new Patch(denormalizationContext: ['groups' => ['domaine.write']])
+        new Get(
+            normalizationContext: ['groups' => ['domaine.show']],
+            provider: DomaineStateProvider::class
+        )
     ],
     formats: ['json' => ['application/json'], 'ld+json' => ['application/ld+json']],
+    paginationEnabled: false
 )]
 #[ORM\Entity(repositoryClass: DomaineRepository::class)]
 class Domaine
@@ -35,11 +41,11 @@ class Domaine
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['domaine.list', 'categorie.show', 'domaine.write'])]
+    #[Groups(['domaine.list', 'domaine.show', 'domaine.write', 'categorie.list'])]
     private ?string $title = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['domaine.list'])]
+    #[Groups(['domaine.list', 'domaine.show'])]
     private ?string $slug = null;
 
     /**

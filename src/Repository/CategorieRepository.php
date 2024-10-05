@@ -16,6 +16,17 @@ class CategorieRepository extends ServiceEntityRepository
         parent::__construct($registry, Categorie::class);
     }
 
+    public function findByDomaine($domaine)
+    {
+        return $this->createQueryBuilder('c')
+            ->addSelect('d')
+            ->leftJoin('c.domaine', 'd')
+            ->where('d.id = :domaine')
+            ->setParameter('domaine', $domaine)
+            ->getQuery()->getResult()
+            ;
+    }
+
     //    /**
     //     * @return Categorie[] Returns an array of Categorie objects
     //     */

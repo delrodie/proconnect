@@ -2,7 +2,10 @@
 
 namespace App\Service;
 
+use App\Entity\Domaine;
+use App\Repository\CategorieRepository;
 use App\Repository\DemandeurRepository;
+use App\Repository\DomaineRepository;
 use App\Repository\MessageRepository;
 use App\Repository\PartenaireRepository;
 use App\Repository\PrestataireRepository;
@@ -30,7 +33,7 @@ class ApiRepositories
         private readonly PrestataireRepository $prestataireRepository,
         private readonly ExperienceRuntime     $experienceRuntime,
         private readonly DeplacementRuntime    $deplacementRuntime,
-        private readonly ModeTravailRuntime    $modeTravailRuntime, private readonly ProjetRepository $projetRepository
+        private readonly ModeTravailRuntime    $modeTravailRuntime, private readonly ProjetRepository $projetRepository, private readonly DomaineRepository $domaineRepository, private readonly CategorieRepository $categorieRepository
     )
     {
     }
@@ -229,4 +232,16 @@ class ApiRepositories
         return "{$url}upload/{$file}/{$mediaFileName}";
     }
 
+    public function showDomaine($domaineId)
+    {
+        $categories = $this->categorieRepository->findByDomaine($domaineId);
+        $domaine =  $this->domaineRepository->findOneBy(['id' => $domaineId]);
+
+        return [
+            'id' => $domaine->getId(),
+            'title' => $domaine->getTitle(),
+            'slug' => $domaine->getSlug(),
+            'categories' => $categories
+        ];
+    }
 }

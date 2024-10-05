@@ -2,10 +2,19 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
 use App\Repository\CategorieRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
 
+#[ApiResource(
+    operations: [
+        new GetCollection(normalizationContext: ['groups' => ['categorie.list']])
+    ],
+    formats: ['json' => ['application/json'], 'ld+json' => ['application/ld+json']],
+    paginationEnabled: false
+)]
 #[ORM\Entity(repositoryClass: CategorieRepository::class)]
 class Categorie
 {
@@ -24,7 +33,7 @@ class Categorie
     private ?string $slug = null;
 
     #[ORM\ManyToOne(inversedBy: 'categories')]
-    #[Groups(['categorie.show'])]
+    #[Groups(['categorie.list'])]
     private ?Domaine $domaine = null;
 
     public function getId(): ?int

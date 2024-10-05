@@ -2,10 +2,19 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
 use App\Repository\LocaliteRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
 
+#[ApiResource(
+    operations: [
+        new GetCollection()
+    ],
+    formats: ['json' => ['application/json'], 'ld+json' => ['application/ld+json']],
+    paginationEnabled: false
+)]
 #[ORM\Entity(repositoryClass: LocaliteRepository::class)]
 class Localite
 {
