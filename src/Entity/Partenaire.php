@@ -12,7 +12,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: PartenaireRepository::class)]
 #[ApiResource(
     normalizationContext: ['groups' => ['partenaire.list']],
-    provider: PartenaireStateProvider::class
+    denormalizationContext: ['groups' => ['partenaire.write']],
+    provider: PartenaireStateProvider::class,
 )]
 class Partenaire
 {

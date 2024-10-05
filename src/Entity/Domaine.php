@@ -3,6 +3,10 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use App\Repository\DomaineRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -10,7 +14,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ApiResource(
-    normalizationContext: ['groups' => ['domaine.list']]
+    operations: [
+        new Post(denormalizationContext: ['groups' => ['domaine.write']]),
+        new GetCollection(normalizationContext: ['groups' => ['domaine.list']]),
+        new Patch(denormalizationContext: ['groups' => ['domaine.write']])
+    ],
+    formats: ['json' => ['application/json'], 'ld+json' => ['application/ld+json']],
 )]
 #[ORM\Entity(repositoryClass: DomaineRepository::class)]
 class Domaine
@@ -22,18 +31,17 @@ class Domaine
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['domaine.list', 'categorie.show'])]
+    #[Groups(['domaine.list', 'categorie.show', 'domaine.write'])]
     private ?string $title = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['domaine.list'])]
+    #[Groups(['domaine.list', 'domaine.write'])]
     private ?string $slug = null;
 
     /**
      * @var Collection<int, Categorie>
      */
     #[ORM\OneToMany(targetEntity: Categorie::class, mappedBy: 'domaine')]
-    #[Groups(['domaine.show'])]
     private Collection $categories;
 
     public function __construct()

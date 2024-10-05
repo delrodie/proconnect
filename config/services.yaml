@@ -47,6 +47,10 @@ services:
         arguments:
             $licenceDirectory: '%kernel.project_dir%/public/upload/prestataire/licence'
 
+    App\EventListener\ApiRequestListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.request }
+
 
 #    App\EventSubscriber\MediaUrlSubscriber:
 #        public: true

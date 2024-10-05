@@ -180,10 +180,6 @@ class Utilities
             default => ""
         };
 
-//        if ($entity === 'domaine') {
-//            $verif = $this->allRepositories->getOneDomaine($slug);
-//        }
-
         if ($verif) return false;
 
         return $slug;

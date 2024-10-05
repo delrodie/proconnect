@@ -15,12 +15,15 @@ security:
             entity:
                 class: App\Entity\User
                 property: username
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
+            pattern: ^/(?!api)
             lazy: true
+            stateless: false
             provider: app_user_provider
             custom_authenticator: App\Security\LoginAuthenticator
             logout:
@@ -35,6 +38,16 @@ security:
                 # by default, the feature is enabled by checking a checkbox in the
                 # login form, uncomment the following line to always enable it.
                 #always_remember_me: true
+        api:
+            pattern: ^/api
+            stateless: true
+#            provider: app_user_provider
+#            custom_authenticator: App\Security\LoginAuthenticator
+#            jwt: ~
+
+#    listeners:
+#        session:
+#            - { handler: security.authentication.session_strategy, stateless: ['/api/'] }
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -45,6 +58,7 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
+#         - { path: ^/api, roles: IS_AUTHENTICATED_ANONYMOUSLY }
          - { path: ^/admin, roles: ROLE_ADMIN }
          - { path: ^/dashboard/, roles: ROLE_ADMIN }
          - { path: ^/demandeur/, roles: ROLE_DEMANDEUR }
