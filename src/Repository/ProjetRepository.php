@@ -154,6 +154,15 @@ class ProjetRepository extends ServiceEntityRepository
         return $this->querySelect()->getQuery()->getResult();
     }
 
+    public function findByDemandeur($demandeur)
+    {
+        return $this->querySelect()
+            ->where('u.username = :demandeur')
+            ->setParameter('demandeur', $demandeur)
+            ->getQuery()->getResult()
+            ;
+    }
+
     //    /**
     //     * @return Projet[] Returns an array of Projet objects
     //     */

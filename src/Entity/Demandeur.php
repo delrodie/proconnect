@@ -2,13 +2,48 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
+use ApiPlatform\Metadata\Put;
 use App\Repository\DemandeurRepository;
+use App\State\DemandeurStateProcessor;
+use App\State\DemandeurStateProvider;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
 
+#[ApiResource(
+    operations: [
+        new GetCollection(
+            formats: ['json' => ['application/json'], 'ld+json' => ['application/ld+json']],
+            normalizationContext: ['groups' => ['demandeur.list'],
+        ],
+            provider: DemandeurStateProvider::class),
+        new Get(
+            formats: ['json' => ['application/json'], 'ld+json' => ['application/ld+json']],
+            normalizationContext: ['groups' => 'demandeur.show'],
+            provider: DemandeurStateProvider::class,
+        ),
+        new Patch(
+            formats: ['json' => ['application/json'], 'ld+json' => ['application/ld+json']],
+            denormalizationContext: ['groups' => 'demandeur.write'],
+            processor: DemandeurStateProcessor::class,
+        ),
+        new Post(
+            inputFormats: ['multipart' => ['multipart/form-data']],
+            outputFormats: ['json' => ['application/json']],
+            denormalizationContext: ['groups' => 'demandeur.write'],
+            processor: DemandeurStateProcessor::class
+        ),
+    ],
+//    formats: ['json' => ['application/json'], 'ld+json' => ['application/ld+json']],
+    paginationEnabled: false,
+)]
 #[ORM\Entity(repositoryClass: DemandeurRepository::class)]
 class Demandeur
 {
@@ -19,35 +54,35 @@ class Demandeur
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['demandeur.list', 'message.show'])]
+    #[Groups(['demandeur.list'])]
     private ?string $code = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['demandeur.list', 'message.show'])]
+    #[Groups(['demandeur.list', 'demandeur.write'])]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['demandeur.list', 'message.show'])]
+    #[Groups(['demandeur.list', 'demandeur.write'])]
     private ?string $prenom = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['demandeur.list'])]
+    #[Groups(['demandeur.list', 'demandeur.write'])]
     private ?string $email = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['demandeur.list'])]
+    #[Groups(['demandeur.list', 'demandeur.write'])]
     private ?string $telephone = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['demandeur.list', 'message.show'])]
+    #[Groups(['demandeur.list', 'demandeur.write'])]
     private ?string $profession = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['demandeur.list'])]
+    #[Groups(['demandeur.list', 'demandeur.write'])]
     private ?string $adresse = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['demandeur.list', 'message.show'])]
+    #[Groups(['demandeur.list', 'demandeur.write'])]
     private ?string $media = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -59,7 +94,7 @@ class Demandeur
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[Groups(['message.show'])]
+//    #[Groups(['message.show'])]
     private ?User $user = null;
 
     #[ORM\ManyToOne]
@@ -70,7 +105,7 @@ class Demandeur
      * @var Collection<int, Message>
      */
     #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'demandeur')]
-    #[Groups(['message.show'])]
+//    #[Groups(['message.show'])]
     private Collection $messages;
 
     public function __construct()

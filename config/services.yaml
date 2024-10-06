@@ -55,6 +55,10 @@ services:
         bind:
             $processor: '@api_platform.doctrine.orm.state.persist_processor'
 
+    App\State\DemandeurStateProcessor:
+        bind:
+            $processor: '@api_platform.doctrine.orm.state.persist_processor'
+
 
 #    App\EventSubscriber\MediaUrlSubscriber:
 #        public: true

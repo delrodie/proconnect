@@ -49,7 +49,7 @@ class AllRepositories
         return false;
     }
 
-    public function getOneDemandeur(string $code = null, object $user = null)
+    public function getOneDemandeur(string $code = null, object $user = null, string $slug = null)
     {
         if ($code){
             return $this->demandeurRepository->findOneBy(['code' => $code]);
@@ -57,6 +57,10 @@ class AllRepositories
 
         if ($user){
             return $this->demandeurRepository->findOneBy(['user' => $user]);
+        }
+
+        if ($slug){
+            return  $this->demandeurRepository->findOneBy(['slug' => $slug]);
         }
 
         return $this->demandeurRepository->findOneBy([], ['id' => 'DESC']);

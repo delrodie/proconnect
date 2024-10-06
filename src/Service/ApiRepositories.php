@@ -85,6 +85,14 @@ class ApiRepositories
         return $result;
     }
 
+    public function getShowDemandeur($id)
+    {
+        $demandeur = $this->demandeurRepository->findOneBy(['id' => $id]);
+//        $projets = $this->projetRepository->findByDemandeur($demandeur->getUser()->getUsername());
+
+        return $this->demandeurArray($demandeur);
+    }
+
     /**
      * Le profile du demandeur
      *

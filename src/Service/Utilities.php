@@ -177,6 +177,7 @@ class Utilities
             'categorie' => $this->allRepositories->getOneCategorie($slug),
             'competence' => $this->allRepositories->getOneCompetence($slug),
             'localite' => $this->allRepositories->getOneLocalite($slug),
+            'demandeur' => $this->allRepositories->getOneDemandeur(null, null, $slug),
             default => ""
         };
 
