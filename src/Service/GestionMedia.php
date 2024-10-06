@@ -63,7 +63,7 @@ class GestionMedia
         $slugify = new AsciiSlugger();
 
         $originalFileName = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-        $safeFilename = $slugify->slug($originalFileName);
+        $safeFilename = $slugify->slug(strtolower($originalFileName));
         $newFilename = $safeFilename.'-'.Time().'.'.$file->guessExtension();
 
         // Deplacement du fichier dans le repertoire dedié

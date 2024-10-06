@@ -5,6 +5,7 @@ namespace App\Entity;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Link;
 use ApiPlatform\Metadata\Patch;
 use ApiPlatform\Metadata\Post;
 use ApiPlatform\Metadata\Put;
@@ -24,13 +25,15 @@ use Symfony\Component\Serializer\Attribute\Groups;
             normalizationContext: ['groups' => ['demandeur.list'],
         ],
             provider: DemandeurStateProvider::class),
-        new Get(
-            formats: ['json' => ['application/json'], 'ld+json' => ['application/ld+json']],
-            normalizationContext: ['groups' => 'demandeur.show'],
-            provider: DemandeurStateProvider::class,
-        ),
+            new Get(
+                formats: ['json' => ['application/json'], 'ld+json' => ['application/ld+json']],
+                normalizationContext: ['groups' => 'demandeur.show'],
+                provider: DemandeurStateProvider::class,
+            ),
         new Patch(
             formats: ['json' => ['application/json'], 'ld+json' => ['application/ld+json']],
+//            inputFormats: ['multipart' => ['multipart/form-data']],
+//            outputFormats: ['json' => ['application/json']],
             denormalizationContext: ['groups' => 'demandeur.write'],
             processor: DemandeurStateProcessor::class,
         ),
@@ -42,6 +45,24 @@ use Symfony\Component\Serializer\Attribute\Groups;
         ),
     ],
 //    formats: ['json' => ['application/json'], 'ld+json' => ['application/ld+json']],
+    paginationEnabled: false,
+)]
+#[ApiResource(
+    uriTemplate: '/localites/{localiteId}/demandeurs/{id}',
+    operations: [
+        new Get()
+    ],
+    uriVariables: [
+        'localiteId' => new Link(toProperty: 'localite', fromClass: Localite::class),
+        'id' => new Link(fromClass: Demandeur::class)
+    ]
+)]
+#[ApiResource(
+    uriTemplate: '/localites/{localiteId}/demandeurs',
+    operations: [new GetCollection()],
+    uriVariables: [
+        'localiteId' => new Link(toProperty: 'localite', fromClass: Localite::class)
+    ],
     paginationEnabled: false,
 )]
 #[ORM\Entity(repositoryClass: DemandeurRepository::class)]
@@ -105,7 +126,7 @@ class Demandeur
      * @var Collection<int, Message>
      */
     #[ORM\OneToMany(targetEntity: Message::class, mappedBy: 'demandeur')]
-//    #[Groups(['message.show'])]
+    #[Groups(['message.show'])]
     private Collection $messages;
 
     public function __construct()
