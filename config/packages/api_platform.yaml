@@ -8,3 +8,9 @@ api_platform:
 
         attributes:
             stateless: true
+
+    swagger:
+        api_keys:
+            JWT:
+                name: Authorization
+                type: header

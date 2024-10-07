@@ -20,6 +20,33 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+#
+        login:
+            pattern: ^/api/login
+            stateless: true
+            json_login:
+                check_path: /api/login
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+
+
+        doc:
+            pattern: ^/api/docs
+            http_basic: true
+            stateless: false
+
+        api:
+            pattern: ^/api
+            stateless: true
+            provider: app_user_provider
+            json_login:
+                check_path: /api/login # The name in routes.yaml is enough for mapping
+                username_path: username
+                password_path: password
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+            jwt: ~
+
         main:
             pattern: ^/(?!api)
             lazy: true
@@ -38,12 +65,6 @@ security:
                 # by default, the feature is enabled by checking a checkbox in the
                 # login form, uncomment the following line to always enable it.
                 #always_remember_me: true
-        api:
-            pattern: ^/api
-            stateless: true
-#            provider: app_user_provider
-#            custom_authenticator: App\Security\LoginAuthenticator
-#            jwt: ~
 
 #    listeners:
 #        session:
@@ -58,7 +79,9 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-#         - { path: ^/api, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+#         - { path: ^/api/docs, roles: PUBLIC_ACCESS }
+         - { path: ^/api/login, roles: PUBLIC_ACCESS }
+         - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
          - { path: ^/admin, roles: ROLE_ADMIN }
          - { path: ^/dashboard/, roles: ROLE_ADMIN }
          - { path: ^/demandeur/, roles: ROLE_DEMANDEUR }
