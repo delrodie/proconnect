@@ -2,7 +2,14 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Delete;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
 use App\Repository\UserRepository;
+use App\State\UserPasswordHasherStateProcessor;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -10,6 +17,17 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Attribute\Groups;
 
+#[ApiResource(
+    operations: [
+        new GetCollection(),
+        new Post(validationContext: ['groups' => 'user.write'], processor: UserPasswordHasherStateProcessor::class),
+        new Get(),
+        new Patch(processor: UserPasswordHasherStateProcessor::class),
+        new Delete()
+    ],
+    normalizationContext: ['groups' => ['user.list', 'user.show']],
+    denormalizationContext: ['groups' => ['user.write', 'user.update']]
+)]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_USERNAME', fields: ['username'])]
 #[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
@@ -18,11 +36,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['message.show'])]
+    #[Groups(['message.show', 'user.list', 'user.show'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 180)]
-    #[Groups(['message.show'])]
+    #[Groups(['message.show', 'user.list', 'user.show', 'user.write'])]
     private ?string $username = null;
 
     /**
@@ -35,18 +53,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Groups(['user.write', 'user.update'])]
     private ?string $password = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['user.list', 'user.show'])]
     private ?int $connexion = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    #[Groups(['user.list', 'user.show'])]
     private ?\DateTimeInterface $lastConnectedAt = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['user.list', 'user.show'])]
     private ?string $clientIp = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['user.list', 'user.show', 'user.write'])]
     private ?string $statut = null;
 
     public function getId(): ?int
