@@ -23,7 +23,7 @@ use Symfony\Component\Serializer\Attribute\Groups;
         new Post(validationContext: ['groups' => 'user.write'], processor: UserPasswordHasherStateProcessor::class),
         new Get(),
         new Patch(processor: UserPasswordHasherStateProcessor::class),
-        new Delete()
+//        new Delete()
     ],
     normalizationContext: ['groups' => ['user.list', 'user.show']],
     denormalizationContext: ['groups' => ['user.write', 'user.update']]
