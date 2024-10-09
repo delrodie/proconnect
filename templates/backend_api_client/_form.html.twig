@@ -1,0 +1,40 @@
+<div class="modal-dialog">
+    <div class="modal-content">
+        {{ form_start(form) }}
+        <div class="modal-header modal-colored-header bg-primary text-white" >
+            <h4 class="modal-title text-white" id="primary-header-modalLabel" > Formulaire</h4>
+            <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+            ></button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-12 mt-3">{{ form_row(form.entite) }}</div>
+                <div class="col-12 mt-3">{{ form_row(form.domaine) }}</div>
+                <div class="col-12 mt-3">
+                    {{ form_widget(form.active) }}
+                    <label for="api_client_active" class="form-check-label">{{ api_client.active ? 'Désactiver la clé' : 'Activer la clé' }}</label>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <a href="{{ path('app_backend_api_client_index') }}" class="btn btn-light">
+                Annuler
+            </a>
+            <button type="submit" class="btn btn-light-primary text-primary font-medium" id="saveButton" >
+                {{ button_label|default('Enregistrer') }}
+            </button>
+
+            {{ form_end(form) }}
+            {% if suppression == true %}
+                {{ include('backend_api_client/_delete_form.html.twig') }}
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+

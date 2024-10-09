@@ -267,6 +267,8 @@
                             <span class="hide-menu">Prestataires</span>
                         </a>
                     </li>
+
+
                     <!-- Paramètres -->
                     <li class="nav-small-cap">
                         <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
@@ -291,12 +293,30 @@
                         </ul>
                     </li>
                     <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ absolute_url(path('app_home_index')) }}api/docs" aria-expanded="false" target="_blank">
-                              <span>
-                                <i class="ti-image"></i>
+                        <a class="sidebar-link has-arrow" href="#" aria-expanded="false">
+                              <span class="d-flex">
+                                <i class="bi bi-globe"></i>
                               </span>
                             <span class="hide-menu">API</span>
                         </a>
+                        <ul aria-expanded="false" class="collapse first-level">
+                            <li class="sidebar-item">
+                                <a href="{{ absolute_url(path('app_backend_api_client_index')) }}" class="sidebar-link">
+                                    <div class="round-16 d-flex align-items-center justify-content-center">
+                                        <i class="ti-angle-right"></i>
+                                    </div>
+                                    <span class="hide-menu">Clés</span>
+                                </a>
+                            </li>
+                            <li class="sidebar-item">
+                                <a href="{{ absolute_url(path('app_home_index')) }}api/docs" class="sidebar-link" target="_blank">
+                                    <div class="round-16 d-flex align-items-center justify-content-center">
+                                        <i class="ti-angle-right"></i>
+                                    </div>
+                                    <span class="hide-menu">Documentation</span>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="sidebar-item">
                         <a class="sidebar-link" href="{{ absolute_url(path('app_backend_maintenance_toggle')) }}" aria-expanded="false">

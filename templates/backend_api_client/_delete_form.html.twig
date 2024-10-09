@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('app_backend_api_client_delete', {'id': api_client.id}) }}" onsubmit="return confirm('Voulez-vous vraiment supprimer cette clé?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ api_client.id) }}">
+    <button class="btn btn-danger">Supprimer</button>
+</form>

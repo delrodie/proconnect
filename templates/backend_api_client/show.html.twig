@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ApiClient{% endblock %}
+
+{% block body %}
+    <h1>ApiClient</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ api_client.id }}</td>
+            </tr>
+            <tr>
+                <th>Entite</th>
+                <td>{{ api_client.entite }}</td>
+            </tr>
+            <tr>
+                <th>Domaine</th>
+                <td>{{ api_client.domaine }}</td>
+            </tr>
+            <tr>
+                <th>ApiKey</th>
+                <td>{{ api_client.apiKey }}</td>
+            </tr>
+            <tr>
+                <th>Active</th>
+                <td>{{ api_client.active ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_backend_api_client_index') }}">back to list</a>
+
+    <a href="{{ path('app_backend_api_client_edit', {'id': api_client.id}) }}">edit</a>
+
+    {{ include('backend_api_client/_delete_form.html.twig') }}
+{% endblock %}

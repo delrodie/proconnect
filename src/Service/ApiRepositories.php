@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\Domaine;
+use App\Repository\ApiClientRepository;
 use App\Repository\CategorieRepository;
 use App\Repository\DemandeurRepository;
 use App\Repository\DomaineRepository;
@@ -33,7 +34,11 @@ class ApiRepositories
         private readonly PrestataireRepository $prestataireRepository,
         private readonly ExperienceRuntime     $experienceRuntime,
         private readonly DeplacementRuntime    $deplacementRuntime,
-        private readonly ModeTravailRuntime    $modeTravailRuntime, private readonly ProjetRepository $projetRepository, private readonly DomaineRepository $domaineRepository, private readonly CategorieRepository $categorieRepository
+        private readonly ModeTravailRuntime    $modeTravailRuntime,
+        private readonly ProjetRepository $projetRepository,
+        private readonly DomaineRepository $domaineRepository,
+        private readonly CategorieRepository $categorieRepository,
+        private readonly ApiClientRepository $apiClientRepository
     )
     {
     }
@@ -251,5 +256,10 @@ class ApiRepositories
             'slug' => $domaine->getSlug(),
             'categories' => $categories
         ];
+    }
+
+    public function getApiKey($key)
+    {
+        return $this->apiClientRepository->findOneBy(['apiKey' => $key, 'active' => true]);
     }
 }

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New ApiClient{% endblock %}
+
+{% block body %}
+    <h1>Create new ApiClient</h1>
+
+    {{ include('backend_api_client/_form.html.twig') }}
+
+    <a href="{{ path('app_backend_api_client_index') }}">back to list</a>
+{% endblock %}

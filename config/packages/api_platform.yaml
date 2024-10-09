@@ -4,7 +4,7 @@ api_platform:
     defaults:
         stateless: true
         cache_headers:
-            vary: ['Content-Type', 'Authorization', 'Origin']
+            vary: ['Content-Type', 'Authorization', 'Origin', 'X-API-KEY']
 
         attributes:
             stateless: true
@@ -13,4 +13,7 @@ api_platform:
         api_keys:
             JWT:
                 name: Authorization
+                type: header
+            X-API-KEY: # Ajout de l'en-tête X-API-KEY
+                name: X-API-KEY
                 type: header
