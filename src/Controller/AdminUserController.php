@@ -10,13 +10,15 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/admin/user')]
 class AdminUserController extends AbstractController
 {
     public function __construct(
-        private Utilities $utilities
+        private Utilities $utilities,
+        private UserPasswordHasherInterface $userPasswordHasher
     )
     {
     }
@@ -29,8 +31,13 @@ class AdminUserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user->setPassword(
+                $this->userPasswordHasher->hashPassword($user, $form->get('password')->getData())
+            );
             $entityManager->persist($user);
             $entityManager->flush();
+
+            sweetalert()->success("L'utilisateur {$user->getUsername()} a ét ajouté avec succès!");
 
             return $this->redirectToRoute('app_admin_user_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -72,20 +79,31 @@ class AdminUserController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_admin_user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, User $user, EntityManagerInterface $entityManager, UserRepository $userRepository): Response
     {
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $plainPassword = $form->get('password')->getData();
+            if ($plainPassword){
+                $user->setPassword($this->userPasswordHasher->hashPassword(
+                    $user,
+                    $plainPassword
+                ));
+            }
             $entityManager->flush();
+
+            sweetalert()->success("L'utilisateur {$user->getUsername()} a été modifié avec succès!");
 
             return $this->redirectToRoute('app_admin_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('admin_user/edit.html.twig', [
+            'users' => $this->utilities->getUsers('delrodie'),
             'user' => $user,
             'form' => $form,
+            'suppression' => false
         ]);
     }
 

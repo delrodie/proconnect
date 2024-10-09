@@ -31,7 +31,8 @@ class UserType extends AbstractType
             ])
             ->add('password', PasswordType::class,[
                 'attr' => ['class' => 'form-control', 'placeholder' => 'Mot de passe'],
-                'label' => "Mot de passe"
+                'label' => "Mot de passe",
+                'required' => false
             ])
 //            ->add('connexion')
 //            ->add('lastConnectedAt', null, [
