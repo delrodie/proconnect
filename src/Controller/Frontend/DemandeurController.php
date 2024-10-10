@@ -68,7 +68,7 @@ class DemandeurController extends AbstractController
             $demandeur->setSlug($this->utilities->slug(
                 $demandeur->getNom().'-'
                 .$demandeur->getPrenom().'-'
-                .$this->getUser()->getUserIdentifier()
+                .$demandeur->getTelephone()
             ));
             $demandeur->setUser($this->getUser());
             $demandeur->setCreatedAt($this->utilities->fuseauGMT());

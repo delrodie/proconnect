@@ -114,7 +114,7 @@ class ApiRepositories
      * @return array
      */
     private function demandeurArray($demandeur): array
-    {
+    { //dd($demandeur);
         return [
             'id' => $demandeur->getId(),
             'code' => $demandeur->getCode(),
@@ -127,7 +127,7 @@ class ApiRepositories
             'slug' => $demandeur->getSlug(),
             'media' => $this->generateMediaUrl($demandeur->getMedia(), self::DEMANDEUR_DIRECTORY),
             'createdAt' => $demandeur->getCreatedAt() ? $demandeur->getCreatedAt()->format('Y-m-d H:i:s') : null,
-            'localite' => $demandeur->getLocalite(),
+            'localite' => $demandeur->getLocalite() ? $demandeur->getLocalite()->getTitle() : '',
         ];
     }
 

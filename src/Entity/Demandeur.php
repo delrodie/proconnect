@@ -111,15 +111,15 @@ class Demandeur
     private ?string $slug = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
-    #[Groups(['demandeur.list'])]
+    #[Groups(['demandeur.list', 'demandeur.show'])]
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-//    #[Groups(['message.show'])]
+    #[Groups(['demandeur.write'])]
     private ?User $user = null;
 
     #[ORM\ManyToOne]
-    #[Groups(['demandeur.list'])]
+    #[Groups(['demandeur.list', 'demandeur.write'])]
     private ?Localite $localite = null;
 
     /**
