@@ -100,11 +100,13 @@ class AllRepositories
         return $this->competenceRepository->findOneBy([],['id' => 'DESC']);
     }
 
-    public function getOnePrestataire(string $matricule = null, object $user = null)
+    public function getOnePrestataire(string $matricule = null, object $user = null, string $slug = null)
     {
         if ($matricule) return $this->prestataireRepository->findOneBy(['matricule' => $matricule]);
 
         if ($user) return $this->prestataireRepository->findOneBy(['user' => $user]);
+
+        if ($slug) return $this->prestataireRepository->findOneBy(['slug' => $slug]);
 
         return $this->prestataireRepository->findOneBy([], ['id' => 'DESC']);
     }

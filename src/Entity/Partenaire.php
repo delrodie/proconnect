@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
 use ApiPlatform\Metadata\GetCollection;
 use App\DTO\PartenaireOutput;
 use App\Repository\PartenaireRepository;
@@ -13,7 +14,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
 #[ORM\Entity(repositoryClass: PartenaireRepository::class)]
 #[ApiResource(
     operations: [
-        new GetCollection(normalizationContext: ['groups' => ['partenaire.list']])
+        new GetCollection(normalizationContext: ['groups' => ['partenaire.list']]),
+        new Get(normalizationContext: ['groups' => ['partenaire.list']])
     ],
     formats: ['json' => ['application/json'], 'ld+json' => ['application/ld+json']],
     denormalizationContext: ['groups' => ['partenaire.write']],

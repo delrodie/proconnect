@@ -21,11 +21,11 @@ class Competence
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['prestataire.show', 'competence.list'])]
+    #[Groups(['prestataire.show', 'competence.list', 'prestataire.show'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['prestataire.show', 'competence.list'])]
+    #[Groups(['prestataire.show', 'competence.list', 'prestataire.list', 'prestataire.list'])]
     private ?string $title = null;
 
     #[ORM\Column(length: 255, nullable: true)]

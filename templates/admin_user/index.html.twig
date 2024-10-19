@@ -63,7 +63,9 @@
                                             <td class="text-left">{{ user.userIdentifier }}</td>
                                             <td>{{ user.role }}</td>
                                             <td class="text-center">{{ user.connexion ?? '-' }}</td>
-                                            <td class="text-center">{{ user.clientIp ?? '-' }}</td>
+                                            <td class="text-center">
+                                                <a href="https://whatismyipaddress.com/ip/{{ user.clientIp ?? '-' }}" target="_blank">{{ user.clientIp ?? '-' }}</a>
+                                            </td>
                                             <td class="text-center">{{ user.lastConnectedAt ? user.lastConnectedAt|date('Y-m-d H:i:s') : '-' }}</td>
                                             <td class="text-center">
                                                 {#                                                <a href="{{ path('app_admin_user_show', {'id': user.id}) }}"><i class="ti-receipt"></i></a>#}

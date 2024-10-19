@@ -67,9 +67,11 @@ class GestionMedia
         $newFilename = $safeFilename.'-'.Time().'.'.$file->guessExtension();
 
         // Deplacement du fichier dans le repertoire dedié
-        try {
+        try { //dd($media);
             if ($media === 'demandeur') $file->move($this->mediaDemandeur, $newFilename);
-            elseif ($media === 'prestataire') $file->move($this->mediaPrestataire, $newFilename);
+            elseif ($media === 'prestataire') {
+                $file->move($this->mediaPrestataire, $newFilename);
+            }
             elseif ($media === 'slide') $file->move($this->mediaSlide, $newFilename);
             elseif ($media === 'partenaire') $file->move($this->mediaPartenaire, $newFilename);
             elseif ($media === 'action') $file->move($this->mediaAction, $newFilename);

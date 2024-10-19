@@ -14,9 +14,10 @@ class DeplacementRuntime implements RuntimeExtensionInterface
     public function modeDeplacement($value)
     {
         return match ($value){
-            'PERSONNEL' => 'Véhicule personnel',
-            'COMMUN' => 'Transport en commun',
-            'DEUX' => 'Véhicule personnel & transport en commun'
+            'PERSONNEL', 'personnel', 'Personnel' => 'Véhicule personnel',
+            'COMMUN', 'commun', 'Commun' => 'Transport en commun',
+            'DEUX' => 'Véhicule personnel & transport en commun',
+            default => 'Non spécifié',
         };
     }
 }

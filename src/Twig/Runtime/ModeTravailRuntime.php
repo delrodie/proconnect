@@ -13,9 +13,10 @@ class ModeTravailRuntime implements RuntimeExtensionInterface
 
     public function modeTravail($value)
     {
-        return match ($value){
+        return match (strtoupper($value)){
             'SEUL' => 'Travail seul',
-            'APPRENTIS' => 'Travail avec apprentis'
+            'APPRENTIS' => 'Travail avec apprentis',
+            default => 'Non spécifié'
         };
     }
 }

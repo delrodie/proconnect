@@ -2,13 +2,47 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
+use ApiPlatform\Metadata\Patch;
+use ApiPlatform\Metadata\Post;
 use App\Repository\PrestataireRepository;
+use App\State\PrestataireStateProcessor;
+use App\State\PrestataireStateProvider;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
 
+#[ApiResource(
+    operations: [
+        new GetCollection(
+            formats: ['json' => ['application/json'], 'ld+json' => ['application/ld+json']],
+            normalizationContext: ['groups' => ['prestataire.list']],
+            provider: PrestataireStateProvider::class
+        ),
+        new Post(
+            inputFormats: ['multipart' => ['multipart/form-data']],
+            outputFormats: ['json' => ['application/json']],
+            denormalizationContext: ['groups' => ['prestataire.write']],
+            processor: PrestataireStateProcessor::class
+        ),
+        new Get(
+            formats: ['json' => ['application/json'], 'ld+json' => ['application/ld+json']],
+            normalizationContext: ['groups' => ['prestataire.show']],
+            provider: PrestataireStateProvider::class
+        ),
+        new Patch(
+            formats: ['json' => ['application/json'], 'ld+json' => ['application/ld+json']],
+            denormalizationContext: ['groups' => ['prestataire.update']],
+            processor: PrestataireStateProcessor::class
+        )
+    ],
+//    normalizationContext: ['groups' => ['prestataire.list', 'prestataire.show']],
+//    denormalizationContext: ['groups' => ['prestataire.write']]
+)]
 #[ORM\Entity(repositoryClass: PrestataireRepository::class)]
 class Prestataire
 {
@@ -23,86 +57,98 @@ class Prestataire
     private ?string $matricule = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['message.show', 'prestataire.list'])]
+    #[Groups(['message.show', 'prestataire.list', 'prestataire.write', 'prestataire.update'])]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['message.show', 'prestataire.list'])]
+    #[Groups(['message.show', 'prestataire.list', 'prestataire.write', 'prestataire.update'])]
     private ?string $prenoms = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['message.show', 'prestataire.list'])]
+    #[Groups(['message.show', 'prestataire.list', 'prestataire.write', 'prestataire.update'])]
     private ?string $sexe = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['message.show', 'prestataire.list'])]
+    #[Groups(['message.show', 'prestataire.list', 'prestataire.write', 'prestataire.update'])]
     private ?string $profession = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['message.show', 'prestataire.list'])]
+    #[Groups(['message.show', 'prestataire.list', 'prestataire.write', 'prestataire.update'])]
     private ?string $adresse = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['groups' => 'prestataire.write', 'prestataire.update'])]
     private ?string $geolocalisation = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['message.show', 'prestataire.list'])]
+    #[Groups(['message.show', 'prestataire.list', 'prestataire.write', 'prestataire.update'])]
     private ?string $niveau = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['prestataire.write', 'prestataire.update'])]
     private ?string $experience = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups('prestataire.write', 'prestataire.update')]
     private ?string $langue = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['prestataire.write', 'prestataire.update'])]
     private ?int $tarifHoraire = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['prestataire.write', 'prestataire.update'])]
     private ?string $stock = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['prestataire.write', 'prestataire.update'])]
     private ?string $paiement = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['prestataire.write', 'prestataire.update'])]
     private ?string $garantie = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['prestataire.write'])]
     private ?string $casier = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['prestataire.write', 'prestataire.update'])]
     private ?string $modeTravail = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['prestataire.list', 'prestataire.show'])]
+    #[Groups(['prestataire.list', 'prestataire.show', 'prestataire.write'])]
     private ?string $media = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['prestataire.write'])]
     private ?string $licence = null;
 
     /**
      * @var Collection<int, Competence>
      */
     #[ORM\ManyToMany(targetEntity: Competence::class)]
-    #[Groups(['message.show', 'prestataire.show'])]
+    #[Groups(['message.show', 'prestataire.show', 'prestataire.write', 'prestataire.update'])]
     private Collection $competence;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['prestataire.write', 'prestataire.update'])]
     private ?string $deplacement = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['message.show', 'prestataire.list'])]
+    #[Groups(['message.show', 'prestataire.list', 'prestataire.write', 'prestataire.update'])]
     private ?string $email = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['message.show', 'prestataire.list'])]
+    #[Groups(['message.show', 'prestataire.list', 'prestataire.write', 'prestataire.update'])]
     private ?string $telephone = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[Groups(['prestataire.write'])]
     private ?User $user = null;
 
     #[ORM\ManyToOne]
-    #[Groups(['message.show', 'prestataire.list'])]
+    #[Groups(['message.show', 'prestataire.list', 'prestataire.write', 'prestataire.update'])]
     private ?Localite $localite = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -112,6 +158,7 @@ class Prestataire
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(['prestataire.write', 'prestataire.update'])]
     private ?string $biographie = null;
 
     /**

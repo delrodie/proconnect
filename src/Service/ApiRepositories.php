@@ -15,6 +15,7 @@ use App\Service\GestionMedia;
 use App\Twig\Runtime\DeplacementRuntime;
 use App\Twig\Runtime\ExperienceRuntime;
 use App\Twig\Runtime\ModeTravailRuntime;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class ApiRepositories
@@ -93,7 +94,10 @@ class ApiRepositories
     public function getShowDemandeur($id)
     {
         $demandeur = $this->demandeurRepository->findOneBy(['id' => $id]);
-//        $projets = $this->projetRepository->findByDemandeur($demandeur->getUser()->getUsername());
+
+        if (!$demandeur){
+            throw new NotFoundHttpException("Le demandeur recherché n'a pas été trouvé!");
+        }
 
         return $this->demandeurArray($demandeur);
     }
@@ -181,6 +185,16 @@ class ApiRepositories
         return $result;
     }
 
+    public function getShowPrestataire($id): array
+    {
+        $prestataire =  $this->prestataireRepository->findOneBy(['id' => $id]);
+        if (!$prestataire){
+            throw new NotFoundHttpException("Le prestataire recherché n'a pas été trouvé!");
+        }
+
+        return $this->prestataireArray($prestataire);
+    }
+
     /**
      * @param object $prestataire
      * @return array
@@ -203,7 +217,7 @@ class ApiRepositories
             'email' => $prestataire->getEmail(),
             'telephone' => $prestataire->getTelephone(),
             'media' => $this->generateMediaUrl($prestataire->getMedia(), self::PRESTATAIRE_DIRECTORY),
-            'localite' => $prestataire->getLocalite()->getTitle(),
+            'localite' => $prestataire->getLocalite(),
             'geolocalisation' => $prestataire->getGeolocalisation(),
             'niveau' => $prestataire->getNiveau(),
             'experience' => $this->experienceRuntime->getExperience($prestataire->getExperience()),
