@@ -17,16 +17,16 @@
                                 <!--Affichage des resultats 1 - 6 sur 20-->
                             </div>
 
-                            <div class="col text-end filter-select">
-                                <form action="{{ absolute_url(path('app_frontend_projet_list')) }}" id="filterForm">
-                                    <select name="filter" id="filtre" class="form-select" onchange="document.getElementById('filterForm').submit();">
-                                        <option value="">-- Filtrer --</option>
-                                        <option value="ALL">Toutes les projets</option>
-                                        <option value="DATE">Par date</option>
-                                        <option value="BUDGET">Par Budget</option>
-                                    </select>
-                                </form>
-                            </div>
+{#                            <div class="col text-end filter-select">#}
+{#                                <form action="{{ absolute_url(path('app_frontend_projet_list')) }}" id="filterForm">#}
+{#                                    <select name="filter" id="filtre" class="form-select" onchange="document.getElementById('filterForm').submit();">#}
+{#                                        <option value="">-- Filtrer --</option>#}
+{#                                        <option value="ALL">Toutes les projets</option>#}
+{#                                        <option value="DATE">Par date</option>#}
+{#                                        <option value="BUDGET">Par Budget</option>#}
+{#                                    </select>#}
+{#                                </form>#}
+{#                            </div>#}
                         </div>
                         <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 providers-items">
 
@@ -35,7 +35,8 @@
                                     <div class="card h-100">
                                         <div class="card-body">
                                             <div class="providers-items__content-profile text-center">
-                                                <img src="{{ absolute_url(asset('upload/prestataire/'~ prestataire.media)) }}"
+                                                <img src="{{ absolute_url(asset( prestataire.media ? 'upload/prestataire/'~ prestataire.media
+                                                    : 'assets/img/all/3d-render-african-american-worker-woman-with-helmet.png')) }}"
                                                      alt="{{ prestataire.nom }} {{ prestataire.prenoms }}"
                                                      class="img-fluid avatar">
                                                 <h6 class="fz-22 fw-500 name text-center">{{ prestataire.nom|upper }} {{ prestataire.prenoms|title }}</h6>

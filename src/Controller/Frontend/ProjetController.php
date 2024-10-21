@@ -29,13 +29,19 @@ class ProjetController extends AbstractController
     #[Route('/', name: 'app_frontend_projet_list', methods: ['GET'])]
     public function index(Request $request): Response
     {
+        $user = $this->getUser();
+
         // Verification si l'utilisateur est connecté
         if ($this->isGranted('ROLE_PRESTATAIRE')){
-            $prestataire = $this->allRepositories->getOnePrestataire(null, $this->getUser());
-            if ($prestataire){ //dd($prestataire->getLocalite());
-                $projets = $this->allRepositories->findAllProjetByStatutAndLocalityPriority($prestataire->getLocalite(), "APPEL");
+            $prestataire = $this->allRepositories->getOnePrestataire(null, $user);
+
+            if (!$prestataire){
+                sweetalert()->success("Veuillez renseigner votre profile pour consulter la liste des projets.");
+                return $this->redirectToRoute('app_frontend_prestataire_profile',[], Response::HTTP_SEE_OTHER);
             }
-//            dd($projets);
+
+            $projets = $this->allRepositories->findAllProjetByStatutAndLocalityPriority($prestataire->getLocalite(), "APPEL");
+            
         }else{
             $projets = $this->allRepositories->findAllProjetByStatut("APPEL");
         }
@@ -44,8 +50,7 @@ class ProjetController extends AbstractController
         $projets = match ($filter){
             'BUDGET' => $this->allRepositories->findAllProjetByStatut("APPEL", null, $filter),
             'DATE' => $this->allRepositories->findAllProjetByStatut("APPEL", $filter),
-            default => $projets,
-//            default => ,
+            default => $projets ?: [],
         };
         return $this->render('frontend_projet/list.html.twig',[
             'projets' =>$projets
@@ -58,10 +63,16 @@ class ProjetController extends AbstractController
     {
         $projet = $this->allRepositories->getProjetDetails($reference);
 
+        $similaires = [];
+        if ($this->getUser()->getStatut() === 'PRESTATAIRE'){
+            $similaires = $this->allRepositories->getOthersProjetByPrestataire($projet);
+        }
+
+
         return $this->render('frontend_projet/show.html.twig',[
             'projet' => $projet,
             'candidatures' => $this->allRepositories->findCanditatureByProjet($reference),
-            'similaires' => $this->allRepositories->getOthersProjetByPrestataire($projet),
+            'similaires' => $similaires,
             'prestataires' => $this->allRepositories->getAllPrestataireByLocalite($projet->getLocalite()),
         ]);
     }
