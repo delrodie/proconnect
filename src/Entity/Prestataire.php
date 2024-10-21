@@ -40,6 +40,7 @@ use Symfony\Component\Serializer\Attribute\Groups;
             processor: PrestataireStateProcessor::class
         )
     ],
+    paginationEnabled: false
 //    normalizationContext: ['groups' => ['prestataire.list', 'prestataire.show']],
 //    denormalizationContext: ['groups' => ['prestataire.write']]
 )]

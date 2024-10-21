@@ -36,11 +36,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['message.show', 'user.list', 'user.show'])]
+    #[Groups(['message.show', 'user.list', 'user.show', 'projet.list'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 180)]
-    #[Groups(['message.show', 'user.list', 'user.show', 'user.write'])]
+    #[Groups(['message.show', 'user.list', 'user.show', 'user.write', 'projet.list'])]
     private ?string $username = null;
 
     /**

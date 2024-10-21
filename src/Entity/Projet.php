@@ -2,13 +2,27 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\GetCollection;
 use App\Repository\ProjetRepository;
+use App\State\ProjetStateProvider;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
 
+#[ApiResource(
+    operations: [
+        new GetCollection(
+            formats: ['json' => ['application/json'], 'ld+json' => ['application/ld+json']],
+            normalizationContext: ['groups' => ['projet.list']],
+            provider: ProjetStateProvider::class
+        ),
+        new Get()
+    ]
+)]
 #[ORM\Entity(repositoryClass: ProjetRepository::class)]
 class Projet
 {
@@ -67,6 +81,7 @@ class Projet
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\ManyToOne]
+    #[Groups('projet.list', 'projet.show')]
     private ?User $user = null;
 
     #[ORM\ManyToOne]

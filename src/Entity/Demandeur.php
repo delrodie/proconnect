@@ -71,19 +71,19 @@ class Demandeur
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['demandeur.list'])]
+    #[Groups(['demandeur.list', 'projet.list'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['demandeur.list'])]
+    #[Groups(['demandeur.list', 'projet.list'])]
     private ?string $code = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['demandeur.list', 'demandeur.write'])]
+    #[Groups(['demandeur.list', 'demandeur.write', 'projet.list'])]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['demandeur.list', 'demandeur.write'])]
+    #[Groups(['demandeur.list', 'demandeur.write', 'projet.list'])]
     private ?string $prenom = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -103,7 +103,7 @@ class Demandeur
     private ?string $adresse = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Groups(['demandeur.list', 'demandeur.write'])]
+    #[Groups(['demandeur.list', 'demandeur.write', 'projet.list'])]
     private ?string $media = null;
 
     #[ORM\Column(length: 255, nullable: true)]

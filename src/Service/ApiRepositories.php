@@ -241,9 +241,57 @@ class ApiRepositories
      * PROJET
      */
 
-    public function getListProjet()
+    public function getListProjet(): array
     {
-        return $this->projetRepository->findAllProjets();
+        $projets = $this->projetRepository->findAllProjets();
+        $result=[]; $i=0;
+
+        foreach ($projets as $projet) {
+            $result[$i++] = $this->projetArray($projet);
+        }
+
+        return $result;
+    }
+
+    public function projetArray($projet): array
+    {
+        return [
+            'id' => $projet->getId(),
+            'reference' => $projet->getReference(),
+            'title' => $projet->getReference(),
+            'lieu' => $projet->getLieu(),
+            'datePrestation' => $projet->getDatePrestation(),
+            'dateLimite' => $projet->getDateLimite(),
+            'preference' => $projet->getPreference(),
+            'budgetMin' => $projet->getBudgetMin(),
+            'budgetMax' => $projet->getBudgetMax(),
+            'description' => $projet->getDescription(),
+            'statut' => $projet->getStatut(),
+            'media' => $projet->getMedia() ? $this->generateMediaUrl($projet->getMedia(), self::PROJET_DIRECTORY) : null,
+            'projetImages' => $this->projetImage($projet->getProjetImages()),
+            'createdAt' => $projet->getCreatedAt() ? $projet->getCreatedAt()->format('Y-m-d H:i:s') : null,
+//            'categorie' => $projet->getCategorie(),
+            'localite' => $projet->getLocalite(),
+            'demandeur' => $this->projetDemandeur($projet->getUser())
+        ];
+    }
+
+    public function projetImage($images): array
+    {
+        $result=[]; $i=0;
+        foreach ($images as $image) {
+            $result[$i++] = [
+                'media' => $this->generateMediaUrl($image->getMedia(), self::PROJET_DIRECTORY)
+            ];
+        }
+
+        return $result;
+    }
+
+    public function projetDemandeur($user): array
+    {
+        $demandeur = $this->demandeurRepository->findOneBy(['user' => $user]);
+        return $this->demandeurArray($demandeur);
     }
 
     /**
