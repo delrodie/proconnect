@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404</title>
+
+    <link rel="stylesheet" href="{{ absolute_url(asset('styles/style.css')) }}">
+    <link rel="stylesheet" href="{{ absolute_url(asset('styles/error.css')) }}">
+</head>
+<body class="error">
+<div class="container">
+    <div class="content">
+        <div>
+            <h1 class="error-code">404</h1> <br>
+            <h2 class="error-message">Page non trouvée</h2>
+            <div class="error-description">
+                Oups! la page recherchée n'a pas été trouvée. <br>
+                Vérifiez l'URL ou retournez à notre <a href="{{ absolute_url(path('app_home_index')) }}">page d'accueil</a> pour continuer la visite.
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
